@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BirthdayParty.Models\BirthdayParty.Models.csproj" />
+    <ProjectReference Include="..\BirthdayParty.Models\BirthdayParty.API.csproj" />
   </ItemGroup>
 
 </Project>

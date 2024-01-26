@@ -1,7 +1,6 @@
 using System.Text;
 using BirthdayParty.API;
-using BirthdayParty.DAL;
-using BirthdayParty.Models;
+using BirthdayParty.DAL.ModelScaffold;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -12,23 +11,27 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Add services to the container.
-builder.Services.AddDbContext<ApplicationDbContext>(
-    options => options.UseInMemoryDatabase("AppDb"));
+builder.Services.AddDbContext<BookingPartyContext>(
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("BirthdayDb")));
 builder.Services.AddScoped<JWTService>();
 builder.Services.AddIdentityCore<User>(options =>
 {
     //password config
-    options.Password.RequiredLength = 6;
+    options.Password.RequiredLength = 3;
+    options.Password.RequiredUniqueChars = 0;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
     //email config
-    
 })
-.AddRoles<IdentityRole>()
-.AddRoleManager<RoleManager<IdentityRole>>()
-.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddRoles<IdentityRole<int>>()
+.AddRoleManager<RoleManager<IdentityRole<int>>>()
+.AddEntityFrameworkStores<BookingPartyContext>()
 .AddSignInManager<SignInManager<User>>()
 .AddUserManager<UserManager<User>>()
 .AddDefaultTokenProviders(); //token for email confirmation
 
+//add token interface
 builder.Services.AddSwaggerGen(
     c => {
         c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme

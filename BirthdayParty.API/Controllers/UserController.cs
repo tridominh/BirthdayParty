@@ -1,4 +1,6 @@
-using BirthdayParty.Models;
+using BirthdayParty.DAL.ModelScaffold;
+using BirthdayParty.Models.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,19 +14,21 @@ namespace BirthdayParty.API.Controllers
         private readonly SignInManager<User> _signIn;
         private readonly JWTService _jwtService;
         private readonly UserManager<User> _manager;
+        private readonly RoleManager<IdentityRole<int>> _roleManager;
 
         public UserController(ILogger<WeatherForecastController> logger, 
                 SignInManager<User> signIn, UserManager<User> manager,
-                JWTService jwtService)
+                JWTService jwtService, RoleManager<IdentityRole<int>> roleManager)
         {
             _logger = logger;
             _signIn = signIn;
             _manager = manager;
             _jwtService = jwtService;
+            _roleManager = roleManager;
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult<User>> Login(string email, string password)
+        public async Task<ActionResult<JwtDTO>> Login(string email, string password)
         {
             var user = await _manager.FindByEmailAsync(email);
             if(user==null) return Unauthorized("Invalid email!!!");
@@ -49,10 +53,35 @@ namespace BirthdayParty.API.Controllers
             return Ok("Created successfully!!!");
         }
 
-        private User CreateUserToken(User user)
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<IEnumerable<User>>> GetAll()
         {
-            user.Jwt = _jwtService.CreateJwt(user);
-            return user;
+            var list = _manager.Users;
+            return Ok(list.ToList());
+        }
+
+        [HttpGet("GetAllRoles")]
+        public async Task<ActionResult<IEnumerable<IdentityRole>>> GetAllRole()
+        {
+            var list = _roleManager.Roles;
+            return Ok(list.ToList());
+        }
+
+        [HttpPost("AddRoles")]
+        [Authorize]
+        public async Task<ActionResult> GetAllRole(string roleName)
+        {
+            var result = await _roleManager.CreateAsync(new IdentityRole<int>(roleName));
+            if(!result.Succeeded) return BadRequest("Bad request!!!");
+            return Ok("Created!!!");
+        }
+
+        private JwtDTO CreateUserToken(User user)
+        {
+            var jwt = new JwtDTO{
+                Token = _jwtService.CreateJwt(user),
+            };
+            return jwt;
         }
     }
 }
