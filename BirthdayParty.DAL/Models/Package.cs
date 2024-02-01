@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BirthdayParty.DAL.ModelScaffold;
+namespace BirthdayParty.DAL;
 
 public partial class Package
 {
     public int PackageId { get; set; }
 
-    public string PackageName { get; set; } = null!;
+    public string PackageName { get; set; }
 
-    public string PackageType { get; set; } = null!;
+    public string PackageType { get; set; }
 
     public int Price { get; set; }
 

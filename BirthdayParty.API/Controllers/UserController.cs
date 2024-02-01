@@ -1,5 +1,6 @@
-using BirthdayParty.DAL.ModelScaffold;
+using BirthdayParty.DAL;
 using BirthdayParty.Models.DTOs;
+using BirthdayParty.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -84,4 +85,5 @@ namespace BirthdayParty.API.Controllers
             return jwt;
         }
     }
+
 }
