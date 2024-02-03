@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
@@ -10,14 +10,23 @@ import NotFound from "./Pages/NotFound";
 import Login from './Pages/Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import useToken from './Services/useToken';
 
 export default function App() {
+  const { token, setToken } = useToken();
+  
+  useEffect(() => {
+      if(localStorage.getItem("token")){
+      }
+  }
+  , [token])
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path='login' element={<Login />}/>
+          <Route path='login' element={<Login setToken={setToken}/>}/>
           <Route path="booking" element={<Booking />} />
           <Route path="*" element={<NotFound />} />
         </Route>

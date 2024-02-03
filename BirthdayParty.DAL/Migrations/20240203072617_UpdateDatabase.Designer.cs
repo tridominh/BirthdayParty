@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BirthdayParty.DAL.Migrations
 {
     [DbContext(typeof(BookingPartyContext))]
-    [Migration("20240201060520_Init")]
-    partial class Init
+    [Migration("20240203072617_UpdateDatabase")]
+    partial class UpdateDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,9 @@ namespace BirthdayParty.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("PackageId")
+                        .HasColumnType("int");
+
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
 
@@ -47,6 +50,8 @@ namespace BirthdayParty.DAL.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("BookingId");
+
+                    b.HasIndex("PackageId");
 
                     b.HasIndex("RoomId");
 
@@ -146,6 +151,8 @@ namespace BirthdayParty.DAL.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("PaymentId");
+
+                    b.HasIndex("BookingId");
 
                     b.ToTable("Payments");
                 });
@@ -272,6 +279,9 @@ namespace BirthdayParty.DAL.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("ProfilePicture")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -401,10 +411,16 @@ namespace BirthdayParty.DAL.Migrations
 
             modelBuilder.Entity("BirthdayParty.DAL.Booking", b =>
                 {
-                    b.HasOne("BirthdayParty.DAL.Package", "Room")
+                    b.HasOne("BirthdayParty.DAL.Package", "Package")
+                        .WithMany("Bookings")
+                        .HasForeignKey("PackageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BirthdayParty.DAL.Room", "Room")
                         .WithMany("Bookings")
                         .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("BirthdayParty.DAL.User", "User")
@@ -412,6 +428,8 @@ namespace BirthdayParty.DAL.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Package");
 
                     b.Navigation("Room");
 
@@ -429,7 +447,7 @@ namespace BirthdayParty.DAL.Migrations
                     b.HasOne("BirthdayParty.DAL.Service", "Service")
                         .WithMany("BookingServices")
                         .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Booking");
@@ -446,6 +464,17 @@ namespace BirthdayParty.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BirthdayParty.DAL.Payment", b =>
+                {
+                    b.HasOne("BirthdayParty.DAL.Booking", "Booking")
+                        .WithMany("Payments")
+                        .HasForeignKey("BookingId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Booking");
                 });
 
             modelBuilder.Entity("BirthdayParty.DAL.Service", b =>
@@ -513,6 +542,8 @@ namespace BirthdayParty.DAL.Migrations
             modelBuilder.Entity("BirthdayParty.DAL.Booking", b =>
                 {
                     b.Navigation("BookingServices");
+
+                    b.Navigation("Payments");
                 });
 
             modelBuilder.Entity("BirthdayParty.DAL.Package", b =>
@@ -520,6 +551,11 @@ namespace BirthdayParty.DAL.Migrations
                     b.Navigation("Bookings");
 
                     b.Navigation("Services");
+                });
+
+            modelBuilder.Entity("BirthdayParty.DAL.Room", b =>
+                {
+                    b.Navigation("Bookings");
                 });
 
             modelBuilder.Entity("BirthdayParty.DAL.Service", b =>

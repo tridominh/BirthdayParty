@@ -35,6 +35,16 @@ builder.Services.AddIdentityCore<User>(options =>
 .AddUserManager<UserManager<User>>()
 .AddDefaultTokenProviders(); //token for email confirmation
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "myCorsPolicy",
+                      policy  =>
+                      {
+                          policy.AllowAnyOrigin()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                      });
+});
 //add token interface
 builder.Services.AddSwaggerGen(
     c => {
@@ -93,6 +103,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("myCorsPolicy");
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
