@@ -17,7 +17,11 @@ public partial class Booking
 
     public virtual ICollection<BookingService> BookingServices { get; set; } = new List<BookingService>();
 
-    public virtual Package Room { get; set; }
+    public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
+
+    public virtual Package Package { get; set; }
 
     public virtual User User { get; set; }
+
+    public virtual Room Room { get; set; }
 }
