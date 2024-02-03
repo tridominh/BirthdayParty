@@ -12,4 +12,6 @@ public partial class Room
     public int Capacity { get; set; }
 
     public int Price { get; set; }
+
+    public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 }

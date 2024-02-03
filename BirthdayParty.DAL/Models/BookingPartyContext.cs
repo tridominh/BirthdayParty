@@ -14,6 +14,7 @@ public partial class BookingPartyContext :IdentityDbContext<User, Role, int>
     public BookingPartyContext(DbContextOptions<BookingPartyContext> options)
         : base(options)
     {
+
     }
 
     public virtual DbSet<Booking> Bookings { get; set; }
@@ -26,7 +27,7 @@ public partial class BookingPartyContext :IdentityDbContext<User, Role, int>
 
     public virtual DbSet<Payment> Payments { get; set; }
 
-   //public virtual DbSet<Role> Roles { get; set; }
+    public virtual DbSet<Role> Roles { get; set; }
 
     public virtual DbSet<Room> Rooms { get; set; }
 
@@ -41,6 +42,21 @@ public partial class BookingPartyContext :IdentityDbContext<User, Role, int>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<BookingService>()
+            .HasOne(f => f.Service)
+            .WithMany(u => u.BookingServices)
+            .HasForeignKey(f => f.ServiceId)
+            .OnDelete(DeleteBehavior.NoAction);
+        modelBuilder.Entity<Payment>()
+           .HasOne(f => f.Booking)
+           .WithMany(u => u.Payments)
+           .HasForeignKey(f => f.BookingId)
+           .OnDelete(DeleteBehavior.NoAction);
+        modelBuilder.Entity<Booking>()
+           .HasOne(f => f.Room)
+           .WithMany(u => u.Bookings)
+           .HasForeignKey(f => f.RoomId)
+           .OnDelete(DeleteBehavior.NoAction);
         OnModelCreatingPartial(modelBuilder);
     }
 

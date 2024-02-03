@@ -14,4 +14,6 @@ public partial class Payment
     public decimal DepositMoney { get; set; }
 
     public int BookingId { get; set; }
+
+    public virtual Booking Booking { get; set; }
 }
