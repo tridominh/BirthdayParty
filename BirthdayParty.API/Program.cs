@@ -1,6 +1,8 @@
 using System.Text;
+using Azure.Storage.Blobs;
 using BirthdayParty.API;
-using BirthdayParty.DAL.ModelScaffold;
+using BirthdayParty.DAL;
+using BirthdayParty.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +15,8 @@ builder.Services.AddControllers();
 // Add services to the container.
 builder.Services.AddDbContext<BookingPartyContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("BirthdayDb")));
+builder.Services.AddSingleton(x => new BlobServiceClient(builder.Configuration.GetConnectionString("AzureBlobStorage")));
+builder.Services.AddSingleton<IUploadFileService, UploadFileService>();
 builder.Services.AddScoped<JWTService>();
 builder.Services.AddIdentityCore<User>(options =>
 {
@@ -31,6 +35,16 @@ builder.Services.AddIdentityCore<User>(options =>
 .AddUserManager<UserManager<User>>()
 .AddDefaultTokenProviders(); //token for email confirmation
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "myCorsPolicy",
+                      policy  =>
+                      {
+                          policy.AllowAnyOrigin()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                      });
+});
 //add token interface
 builder.Services.AddSwaggerGen(
     c => {
@@ -89,6 +103,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("myCorsPolicy");
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

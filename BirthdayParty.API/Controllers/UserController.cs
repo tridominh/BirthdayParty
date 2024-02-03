@@ -1,5 +1,7 @@
-using BirthdayParty.DAL.ModelScaffold;
+using System.Security.Claims;
+using BirthdayParty.DAL;
 using BirthdayParty.Models.DTOs;
+using BirthdayParty.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -28,13 +30,17 @@ namespace BirthdayParty.API.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult<JwtDTO>> Login(string email, string password)
+        public async Task<ActionResult<UserDTO>> Login([FromBody]LoginDTO loginDTO)
         {
-            var user = await _manager.FindByEmailAsync(email);
+            var user = await _manager.FindByEmailAsync(loginDTO.Email);
             if(user==null) return Unauthorized("Invalid email!!!");
-            var result = await _signIn.CheckPasswordSignInAsync(user, password, false);
+            var result = await _signIn.CheckPasswordSignInAsync(user, loginDTO.Password, false);
             if(!result.Succeeded) return Unauthorized("Invalid email or password!!!");
-            return CreateUserToken(user);
+            var userInfo = new UserDTO();
+            userInfo.Email = user.Email!;
+            userInfo.Name = user.UserName!;
+            userInfo.Token = CreateUserToken(user);
+            return userInfo;
         }
 
         [HttpPost("Register")]
@@ -76,12 +82,9 @@ namespace BirthdayParty.API.Controllers
             return Ok("Created!!!");
         }
 
-        private JwtDTO CreateUserToken(User user)
+        private string CreateUserToken(User user)
         {
-            var jwt = new JwtDTO{
-                Token = _jwtService.CreateJwt(user),
-            };
-            return jwt;
+            return _jwtService.CreateJwt(user);
         }
     }
 }
