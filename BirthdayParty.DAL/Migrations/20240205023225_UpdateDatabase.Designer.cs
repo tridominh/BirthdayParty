@@ -12,11 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BirthdayParty.DAL.Migrations
 {
     [DbContext(typeof(BookingPartyContext))]
-<<<<<<<< HEAD:BirthdayParty.DAL/Migrations/20240205021507_UpdateDatabase.Designer.cs
-    [Migration("20240205021507_UpdateDatabase")]
-========
-    [Migration("20240203072617_UpdateDatabase")]
->>>>>>>> 044cf3bb31481ba1159da6a6e73fc92e41a097ad:BirthdayParty.DAL/Migrations/20240203072617_UpdateDatabase.Designer.cs
+    [Migration("20240205023225_UpdateDatabase")]
     partial class UpdateDatabase
     {
         /// <inheritdoc />
@@ -274,9 +270,6 @@ namespace BirthdayParty.DAL.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("ProfilePicture")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
