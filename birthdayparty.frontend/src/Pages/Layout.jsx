@@ -1,11 +1,14 @@
 import { Link, Outlet } from "react-router-dom";
 import { Fragment } from "react";
 import "../assets/css/layout.css";
+import OwlCarousel from "react-owl-carousel";
+import 'owl.carousel/dist/assets/owl.carousel.css';
+import 'owl.carousel/dist/assets/owl.theme.default.css';
 
 function Layout() {
   return (
     <Fragment>
-      <div className="navbar navbar-expand-lg bg-light navbar-light">
+      <div className="navbar navbar-expand-lg bg-dark navbar-light">
             <div className="container-fluid">
                 <a href="index.html" className="navbar-brand">Burger <span>King</span></a>
                 <button type="button" className="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">

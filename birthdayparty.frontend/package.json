@@ -39,6 +39,7 @@
     ]
   },
   "devDependencies": {
+    "react-owl-carousel": "^2.3.3",
     "react-router-dom": "^6.21.3"
   }
 }
