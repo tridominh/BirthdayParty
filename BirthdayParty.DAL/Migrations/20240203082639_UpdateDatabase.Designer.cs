@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BirthdayParty.DAL.Migrations
 {
     [DbContext(typeof(BookingPartyContext))]
-    [Migration("20240203072617_UpdateDatabase")]
+    [Migration("20240203082639_UpdateDatabase")]
     partial class UpdateDatabase
     {
         /// <inheritdoc />
