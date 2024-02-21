@@ -1,11 +1,15 @@
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import getEndpoint from '../Services/getEndpoint';
 
-async function loginUser(credentials) {
+function Login({ setToken }){
+    
+}
+
+export default Login;
+
+/*async function loginUser(credentials) {
     console.log(JSON.stringify(credentials))
     return fetch(`${getEndpoint()}/user/login`, {
         method: 'POST',
@@ -63,75 +67,7 @@ function Login({ setToken }) {
       </div>
     </Form>
 
-    <Form className='container mt-5 card p-2' onSubmit={handleSubmit}>
-      <h2 className='card-header'>Login Form</h2>
-      <div className='card-body'>
-      <Form.Group className="mb-3 form-floating" >
-        <Form.Control id='email' type="text" placeholder="Enter email" 
-            onChange={(e) => setEmail(e.target.value)}/>
-        <Form.Label htmlFor='email'>Email address</Form.Label>
-      </Form.Group>
-
-      <Form.Group className="mb-3 form-floating">
-        <Form.Control id='password' type="password" placeholder="Password" 
-            onChange={(e) => setPassword(e.target.value)}/>
-        <Form.Label htmlFor='password'>Password</Form.Label>
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Check me out" />
-      </Form.Group>
-      <Button variant="primary" type="submit">
-        Submit
-      </Button>
-      </div>
-    </Form>
-
-<Form className='container mt-5 card p-2' onSubmit={handleSubmit}>
-      <h2 className='card-header'>Login Form</h2>
-      <div className='card-body'>
-      <Form.Group className="mb-3 form-floating" >
-        <Form.Control id='email' type="text" placeholder="Enter email" 
-            onChange={(e) => setEmail(e.target.value)}/>
-        <Form.Label htmlFor='email'>Email address</Form.Label>
-      </Form.Group>
-
-      <Form.Group className="mb-3 form-floating">
-        <Form.Control id='password' type="password" placeholder="Password" 
-            onChange={(e) => setPassword(e.target.value)}/>
-        <Form.Label htmlFor='password'>Password</Form.Label>
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Check me out" />
-      </Form.Group>
-      <Button variant="primary" type="submit">
-        Submit
-      </Button>
-      </div>
-    </Form>
-
-<Form className='container mt-5 card p-2' onSubmit={handleSubmit}>
-      <h2 className='card-header'>Login Form</h2>
-      <div className='card-body'>
-      <Form.Group className="mb-3 form-floating" >
-        <Form.Control id='email' type="text" placeholder="Enter email" 
-            onChange={(e) => setEmail(e.target.value)}/>
-        <Form.Label htmlFor='email'>Email address</Form.Label>
-      </Form.Group>
-
-      <Form.Group className="mb-3 form-floating">
-        <Form.Control id='password' type="password" placeholder="Password" 
-            onChange={(e) => setPassword(e.target.value)}/>
-        <Form.Label htmlFor='password'>Password</Form.Label>
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Check me out" />
-      </Form.Group>
-      <Button variant="primary" type="submit">
-        Submit
-      </Button>
-      </div>
-    </Form>
-      </Fragment>
+    </Fragment>
   );
 }
 
@@ -139,4 +75,4 @@ Login.propTypes = {
   setToken: PropTypes.func.isRequired
 }
 
-export default Login;
+export default Login;*/
