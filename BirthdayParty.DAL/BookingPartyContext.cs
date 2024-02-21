@@ -20,9 +20,6 @@ public partial class BookingPartyContext :IdentityDbContext<User, Role, int>
     public virtual DbSet<Booking> Bookings { get; set; }
 
     public virtual DbSet<BookingService> BookingServices { get; set; }
-
-    public virtual DbSet<Feedback> Feedbacks { get; set; }
-
     public virtual DbSet<Package> Packages { get; set; }
 
     public virtual DbSet<Payment> Payments { get; set; }
