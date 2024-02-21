@@ -1,14 +1,12 @@
 import { Link, Outlet } from "react-router-dom";
 import { Fragment } from "react";
 import "../assets/css/layout.css";
-import OwlCarousel from "react-owl-carousel";
-import 'owl.carousel/dist/assets/owl.carousel.css';
-import 'owl.carousel/dist/assets/owl.theme.default.css';
 
 function Layout() {
   return (
     <Fragment>
-      <div className="navbar navbar-expand-lg bg-dark navbar-light">
+      
+<div className="navbar navbar-expand-lg bg-light navbar-light">
             <div className="container-fluid">
                 <a href="index.html" className="navbar-brand">Burger <span>King</span></a>
                 <button type="button" className="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -17,9 +15,9 @@ function Layout() {
 
                 <div className="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div className="navbar-nav ml-auto">
-                        <Link className="nav-item nav-link" to="/">Home</Link>
-                        <Link className="nav-item nav-link" to="/booking">Booking</Link>
-                        <Link className="nav-item nav-link" to="/login">Login</Link>                        
+                        <a href="index.html" className="nav-item nav-link active">Home</a>
+                        <a href="about.html" className="nav-item nav-link">About</a>
+                        <a href="feature.html" className="nav-item nav-link">Feature</a>
                         <a href="team.html" className="nav-item nav-link">Chef</a>
                         <a href="menu.html" className="nav-item nav-link">Menu</a>
                         <a href="booking.html" className="nav-item nav-link">Booking</a>
@@ -35,6 +33,7 @@ function Layout() {
                 </div>
             </div>
         </div>
+
 
       <Outlet/>
     </Fragment>
