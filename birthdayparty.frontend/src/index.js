@@ -8,25 +8,30 @@ import Home from "./Pages/Home";
 import Booking from "./Pages/Booking";
 import NotFound from "./Pages/NotFound";
 import Login from './Pages/Login';
-import 'bootstrap/dist/css/bootstrap.min.css';
+//import 'bootstrap/dist/css/bootstrap.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import useToken from './Services/useToken';
+import useUserName from './Services/useUserName';
 
 export default function App() {
-  const { token, setToken } = useToken();
+  const { token, setToken, removeToken } = useToken();
+  const { username, setUsername, removeUsername } = useUserName();
   
   useEffect(() => {
-      if(localStorage.getItem("token")){
-      }
+      
   }
-  , [token])
+  , [])
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/" element={<Layout token={token} 
+            username={username} removeToken={removeToken}
+            removeUsername={removeUsername}
+            />}>
           <Route index element={<Home />} />
-          <Route path='login' element={<Login setToken={setToken}/>}/>
+          <Route path='login' element={<Login setToken={setToken} 
+              setUsername={setUsername}/>}/>
           <Route path="booking" element={<Booking />} />
           <Route path="*" element={<NotFound />} />
         </Route>

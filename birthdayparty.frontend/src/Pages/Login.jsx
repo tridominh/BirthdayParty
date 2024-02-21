@@ -3,13 +3,7 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import getEndpoint from '../Services/getEndpoint';
 
-function Login({ setToken }){
-    
-}
-
-export default Login;
-
-/*async function loginUser(credentials) {
+async function loginUser(credentials) {
     console.log(JSON.stringify(credentials))
     return fetch(`${getEndpoint()}/user/login`, {
         method: 'POST',
@@ -19,10 +13,10 @@ export default Login;
         },
         body: JSON.stringify(credentials)
     })
-        .then(data => data.json())
+    .then(data => data.json())
 }
 
-function Login({ setToken }) {
+function Login({ setToken, setUsername }) {
     let navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -41,31 +35,32 @@ function Login({ setToken }) {
           password
         });
         setToken(user.token);
+        setUsername(user.name);
         navigate("/");
     }
   return (<Fragment>
-    <Form className='container mt-5 card p-2' onSubmit={handleSubmit}>
+    <form className='container mt-5 card p-2' onSubmit={handleSubmit}>
       <h2 className='card-header'>Login Form</h2>
       <div className='card-body'>
-      <Form.Group className="mb-3 form-floating" >
-        <Form.Control id='email' type="text" placeholder="Enter email" 
+      <div className="mb-3 form-floating" >
+        <input id='email' className='form-control' type="text" placeholder="Enter email" 
             onChange={(e) => setEmail(e.target.value)}/>
-        <Form.Label htmlFor='email'>Email address</Form.Label>
-      </Form.Group>
-
-      <Form.Group className="mb-3 form-floating">
-        <Form.Control id='password' type="password" placeholder="Password" 
-            onChange={(e) => setPassword(e.target.value)}/>
-        <Form.Label htmlFor='password'>Password</Form.Label>
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Check me out" />
-      </Form.Group>
-      <Button variant="primary" type="submit">
-        Submit
-      </Button>
+        <label htmlFor='email'>Email address</label>
       </div>
-    </Form>
+
+      <div className="mb-3 form-floating">
+        <input id='password' className='form-control' type="password" placeholder="Password" 
+            onChange={(e) => setPassword(e.target.value)}/>
+        <label htmlFor='password'>Password</label>
+      </div>
+      <div className="mb-3" controlId="formBasicCheckbox">
+        <input type="checkbox" content="Check me out" />
+      </div>
+      <button className="btn btn-primary" type="submit">
+        Submit
+      </button>
+      </div>
+    </form>
 
     </Fragment>
   );
@@ -75,4 +70,4 @@ Login.propTypes = {
   setToken: PropTypes.func.isRequired
 }
 
-export default Login;*/
+export default Login;
