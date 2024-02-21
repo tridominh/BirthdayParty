@@ -1,11 +1,15 @@
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import getEndpoint from '../Services/getEndpoint';
 
-async function loginUser(credentials) {
+function Login({ setToken }){
+    
+}
+
+export default Login;
+
+/*async function loginUser(credentials) {
     console.log(JSON.stringify(credentials))
     return fetch(`${getEndpoint()}/user/login`, {
         method: 'POST',
@@ -71,4 +75,4 @@ Login.propTypes = {
   setToken: PropTypes.func.isRequired
 }
 
-export default Login;
+export default Login;*/
