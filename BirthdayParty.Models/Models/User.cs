@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
-namespace BirthdayParty.DAL;
+namespace BirthdayParty.Models;
 
 public partial class User : IdentityUser<int>
 {

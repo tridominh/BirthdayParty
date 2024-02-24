@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BirthdayParty.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
