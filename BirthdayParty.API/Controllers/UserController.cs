@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using BirthdayParty.DAL;
+using BirthdayParty.Models;
 using BirthdayParty.Models.DTOs;
 using BirthdayParty.Services;
 using Microsoft.AspNetCore.Authorization;
