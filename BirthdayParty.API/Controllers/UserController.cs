@@ -16,11 +16,11 @@ namespace BirthdayParty.API.Controllers
         private readonly SignInManager<User> _signIn;
         private readonly JWTService _jwtService;
         private readonly UserManager<User> _manager;
-        private readonly RoleManager<IdentityRole<int>> _roleManager;
+        private readonly RoleManager<Role> _roleManager;
 
         public UserController(ILogger<WeatherForecastController> logger, 
                 SignInManager<User> signIn, UserManager<User> manager,
-                JWTService jwtService, RoleManager<IdentityRole<int>> roleManager)
+                JWTService jwtService, RoleManager<Role> roleManager)
         {
             _logger = logger;
             _signIn = signIn;
@@ -56,10 +56,14 @@ namespace BirthdayParty.API.Controllers
             };
             var result = await _manager.CreateAsync(user, password);
             if(!result.Succeeded) return BadRequest(result.Errors);
+            bool roleExists = await _roleManager.RoleExistsAsync("Customer");
+            if(!roleExists) await _roleManager.CreateAsync(new Role("Customer"));
+            await _manager.AddToRoleAsync(user, "Customer");
             return Ok("Created successfully!!!");
         }
 
         [HttpGet("GetAll")]
+        [Authorize(Roles = "Customer")]
         public async Task<ActionResult<IEnumerable<User>>> GetAll()
         {
             var list = _manager.Users;
@@ -67,17 +71,17 @@ namespace BirthdayParty.API.Controllers
         }
 
         [HttpGet("GetAllRoles")]
-        public async Task<ActionResult<IEnumerable<IdentityRole>>> GetAllRole()
+        public async Task<ActionResult<IEnumerable<Role>>> GetAllRole()
         {
             var list = _roleManager.Roles;
             return Ok(list.ToList());
         }
 
         [HttpPost("AddRoles")]
-        [Authorize]
+        [Authorize(Roles="Admin")]
         public async Task<ActionResult> GetAllRole(string roleName)
         {
-            var result = await _roleManager.CreateAsync(new IdentityRole<int>(roleName));
+            var result = await _roleManager.CreateAsync(new Role(roleName));
             if(!result.Succeeded) return BadRequest("Bad request!!!");
             return Ok("Created!!!");
         }
