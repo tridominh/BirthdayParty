@@ -24,7 +24,7 @@ namespace BirthdayParty.API.Controllers
                 return NotFound();
             }
 
-            return Ok(packages);        
+            return Ok(packages);
         }
     }
 }

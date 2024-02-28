@@ -15,7 +15,7 @@ namespace BirthdayParty.API.Controllers
             this.bookingService = bookingService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAllServices")]
         public async Task<ActionResult<List<Service>>> GetAllServices()
         {
             List<Service> services = bookingService.GetAllServices();
@@ -26,6 +26,51 @@ namespace BirthdayParty.API.Controllers
             }
 
             return Ok(services);
+        }
+        [HttpPost("UpdateService")]
+        public async Task<ActionResult<Service>> UpdateService(int id, Service updatedService)
+        {
+            if (id != updatedService.ServiceId)
+            {
+                return BadRequest();
+            }
+
+            var existingService = bookingService.GetServiceById(id);
+
+            if (existingService == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                var result = bookingService.UpdateService(updatedService);
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Failed to update the service.");
+            }
+        }
+
+        [HttpDelete("DeleteService")]
+        public async Task<ActionResult> DeleteService(int id)
+        {
+            var result = bookingService.DeleteService(id);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
+
+        [HttpPost("CreateService")]
+        public async Task<ActionResult<Service>> CreateService(Service service)
+        {
+            var createdService = bookingService.CreateService(service);
+            return Ok(createdService);
         }
     }
 }

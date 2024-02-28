@@ -1,6 +1,7 @@
 ﻿using BirthdayParty.Models;
 using BirthdayParty.Repository.Interfaces;
 using BirthdayParty.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace BirthdayParty.Services
 {
@@ -22,5 +23,49 @@ namespace BirthdayParty.Services
         {
             throw new NotImplementedException();
         }
+
+        public Service GetServiceById(int id)
+        {
+            return serviceRepository.GetAll().FirstOrDefault(s => s.ServiceId == id);
+        }
+
+        public Service UpdateService(Service updatedService)
+        {
+            var existingService = serviceRepository.GetAll().FirstOrDefault(s => s.ServiceId == updatedService.ServiceId);
+
+            if (existingService == null)
+            {
+                throw new ArgumentException("Service not found");
+            }
+
+            existingService.ServiceName = updatedService.ServiceName;
+
+            serviceRepository.Update(updatedService);
+
+            return existingService;
+        }
+
+        public Service DeleteService(int id)
+        {
+            var existingService = GetServiceById(id);
+
+            if (existingService == null)
+            {
+                throw new ArgumentException("Service not found");
+            }
+
+            serviceRepository.Delete(id);
+
+            return existingService;
+        }
+
+        public Service CreateService(Service service)
+        {
+            serviceRepository.Add(service);
+
+            return service;
+        }
+
+
     }
 }
