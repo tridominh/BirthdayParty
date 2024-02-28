@@ -35,8 +35,8 @@ builder.Services.AddIdentityCore<User>(options =>
     options.Password.RequireNonAlphanumeric = false;
     //email config
 })
-.AddRoles<IdentityRole<int>>()
-.AddRoleManager<RoleManager<IdentityRole<int>>>()
+.AddRoles<Role>()
+.AddRoleManager<RoleManager<Role>>()
 .AddEntityFrameworkStores<BookingPartyContext>()
 .AddSignInManager<SignInManager<User>>()
 .AddUserManager<UserManager<User>>()

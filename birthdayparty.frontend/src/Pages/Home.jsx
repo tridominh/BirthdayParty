@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import Carousell from "./Carousel";
+import "./carousel.css";
 
 function Home(){
     return (
