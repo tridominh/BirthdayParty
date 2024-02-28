@@ -43,19 +43,17 @@ function Login({ setToken, setUsername }) {
       <h2 className='card-header'>Login Form</h2>
       <div className='card-body'>
       <div className="mb-3 form-floating" >
+        <label htmlFor='email'>Email address</label>
         <input id='email' className='form-control' type="text" placeholder="Enter email" 
             onChange={(e) => setEmail(e.target.value)}/>
-        <label htmlFor='email'>Email address</label>
       </div>
 
       <div className="mb-3 form-floating">
+        <label htmlFor='password'>Password</label>
         <input id='password' className='form-control' type="password" placeholder="Password" 
             onChange={(e) => setPassword(e.target.value)}/>
-        <label htmlFor='password'>Password</label>
       </div>
-      <div className="mb-3" controlId="formBasicCheckbox">
-        <input type="checkbox" content="Check me out" />
-      </div>
+      
       <button className="btn btn-primary" type="submit">
         Submit
       </button>
