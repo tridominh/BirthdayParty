@@ -1,4 +1,6 @@
-﻿using BirthdayParty.Models;
+using BirthdayParty.Models;
+using BirthdayParty.Models.DTOs;
+using BirthdayParty.Repository;
 using BirthdayParty.Repository.Interfaces;
 using BirthdayParty.Services.Interfaces;
 
@@ -18,9 +20,28 @@ namespace BirthdayParty.Services
             return packageRepository.GetAll().ToList();
         }
 
-        List<Package> IPackageService.GetAllPackages()
+        public void CreatePackage(Package package)
         {
-            throw new NotImplementedException();
+            packageRepository.Add(package);
+        }
+
+        public Package UpdatePackage(int id, Package package)
+        {
+            Package existingPackage = packageRepository.Get(id);
+
+            existingPackage.PackageName = package.PackageName;
+            existingPackage.PackageType = package.PackageType;
+
+            packageRepository.Update(existingPackage);
+
+            return existingPackage;
+        }
+
+        public Package DeletePackage(int id)
+        {
+            Package package = packageRepository.Delete(id);
+
+            return package;
         }
     }
 }
