@@ -1,8 +1,21 @@
 import { Fragment } from "react";
 import Carousell from "./Carousel";
 import "./carousel.css";
+import { Link, useNavigate } from "react-router-dom";
+import "../assets/css/home.css" 
+
+
 
 function Home(){
+    let navigate = useNavigate();
+    const CheckLogin = () =>{
+        if(localStorage.getItem("token") != null){
+        
+        }else{
+            navigate("/login");
+        }
+    }
+
     return (
         <Fragment>
         <Carousell/>
@@ -14,15 +27,14 @@ function Home(){
                         <div className="booking-content">
                             <div className="section-header">
                                 <p>Book A Table</p>
-                                <h2>Book Your Table For Private Dinners & Happy Hours</h2>
+                                <h2>Book Table For Your Kids</h2>
                             </div>
                             <div className="about-text">
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulputate. Aliquam metus tortor, auctor id gravida condimentum, viverra quis sem.
+                                Create an unforgettable birthday party experience for children, full of joy and cherished memories. Our Birthday Party Booking service for kids aims to provide a magical celebration customized to the interests and desires of the child. We aim to make your child's special day even more special.
                                 </p>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulputate. Aliquam metus tortor, auctor id gravida condimentum, viverra quis sem. Curabitur non nisl nec nisi scelerisque maximus. Aenean consectetur convallis porttitor. Aliquam interdum at lacus non blandit.
-                                </p>
+                                Let us take care of the planning and organization, while you enjoy seeing the happy faces of your child shining with joy amidst the fun with friends and family.                                </p>
                             </div>
                         </div>
                     </div>
@@ -71,26 +83,15 @@ function Home(){
                                 </div>
                                 <div className="control-group">
                                     <div className="input-group">
-                                        <select className="custom-select form-control">
-                                            <option selected>Guest</option>
-                                            <option value="1">1 Guest</option>
-                                            <option value="2">2 Guest</option>
-                                            <option value="3">3 Guest</option>
-                                            <option value="4">4 Guest</option>
-                                            <option value="5">5 Guest</option>
-                                            <option value="6">6 Guest</option>
-                                            <option value="7">7 Guest</option>
-                                            <option value="8">8 Guest</option>
-                                            <option value="9">9 Guest</option>
-                                            <option value="10">10 Guest</option>
-                                        </select>
+                                        <input type="text" className="custom-select form-control"placeholder="Amount" required="required">
+                                        </input>
                                         <div className="input-group-append">
-                                            <div className="input-group-text"><i className="fa fa-chevron-down"></i></div>
+                                            <div className="input-group-text"><i className="far fa-user"></i></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div>
-                                    <button className="btn custom-btn" type="submit">Book Now</button>
+                                    <button className="btn custom-btn" type="submit" onClick={CheckLogin}>Book Now</button>
                                 </div>
                             </form>
                         </div>
@@ -99,42 +100,6 @@ function Home(){
             </div>
         </div>
         {/*  Booking End */}
-        
-
-        {/*  About Start */}
-        <div className="about">
-            <div className="container">
-                <div className="row align-items-center">
-                    <div className="col-lg-6">
-                        <div className="about-img">
-                            <img src="img/about.jpg" alt="Image"/>
-                            <button type="button" className="btn-play" data-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-target="#videoModal">
-                                <span></span>
-                            </button>
-                        </div>
-                    </div>
-                    <div className="col-lg-6">
-                        <div className="about-content">
-                            <div className="section-header">
-                                <p>About Us</p>
-                                <h2>Cooking Since 1990</h2>
-                            </div>
-                            <div className="about-text">
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulputate. Aliquam metus tortor, auctor id gravida condimentum, viverra quis sem.
-                                </p>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulputate. Aliquam metus tortor, auctor id gravida condimentum, viverra quis sem. Curabitur non nisl nec nisi scelerisque maximus. Aenean consectetur convallis porttitor. Aliquam interdum at lacus non blandit.
-                                </p>
-                                <a className="btn custom-btn" href="">Book A Table</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {/*  About End */}
-        
         
         {/*  Video Modal Start*/}
         <div className="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -158,11 +123,10 @@ function Home(){
         {/*  Feature Start */}
         <div className="feature">
             <div className="container">
-                <div className="row">
-                    <div className="col-lg-5">
+                <div className="row row-2">
+                    <div className="col-lg-5" style={{position:"relative",top:"-39px"}}>
                         <div className="section-header">
-                            <p>Why Choose Us</p>
-                            <h2>Our Key Features</h2>
+                            <p style={{fontSize:"25px",fontWeight:"bolder"}}>Why Choose Us</p>
                         </div>
                         <div className="feature-text">
                             <div className="feature-img">
@@ -181,20 +145,16 @@ function Home(){
                                     </div>
                                 </div>
                             </div>
-                            <p>
-                                Lorem ipsum dolor sit amet consec adipis elit. Phasel nec preti mi. Curabit facilis ornare velit non vulputa. Aliquam metus tortor, auctor id gravida condime, viverra quis sem. Curabit non nisl nec nisi sceleri maximus 
-                            </p>
-                            <a className="btn custom-btn" href="">Book A Table</a>
+
                         </div>
                     </div>
-                    <div className="col-lg-7">
+                    <div className="col-lg-7" style={{position:"relative", top:"47px"}}>
                         <div className="row">
                             <div className="col-sm-6">
                                 <div className="feature-item">
                                     <i className="flaticon-cooking"></i>
                                     <h3>World’s best Chef</h3>
                                     <p>
-                                        Lorem ipsum dolor sit amet elit. Phasel nec preti mi. Curabit facilis ornare velit non vulput metus tortor
                                     </p>
                                 </div>
                             </div>
@@ -203,7 +163,6 @@ function Home(){
                                     <i className="flaticon-vegetable"></i>
                                     <h3>Natural ingredients</h3>
                                     <p>
-                                        Lorem ipsum dolor sit amet elit. Phasel nec preti mi. Curabit facilis ornare velit non vulput metus tortor
                                     </p>
                                 </div>
                             </div>
@@ -214,7 +173,6 @@ function Home(){
                                     <i className="flaticon-medal"></i>
                                     <h3>Best quality products</h3>
                                     <p>
-                                        Lorem ipsum dolor sit amet elit. Phasel nec preti mi. Curabit facilis ornare velit non vulput metus tortor
                                     </p>
                                 </div>
                             </div>
@@ -223,27 +181,6 @@ function Home(){
                                     <i className="flaticon-meat"></i>
                                     <h3>Fresh vegetables & Meet</h3>
                                     <p>
-                                        Lorem ipsum dolor sit amet elit. Phasel nec preti mi. Curabit facilis ornare velit non vulput metus tortor
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-sm-6">
-                                <div className="feature-item">
-                                    <i className="flaticon-courier"></i>
-                                    <h3>Fastest door delivery</h3>
-                                    <p>
-                                        Lorem ipsum dolor sit amet elit. Phasel nec preti mi. Curabit facilis ornare velit non vulput metus tortor
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="col-sm-6">
-                                <div className="feature-item">
-                                    <i className="flaticon-fruits-and-vegetables"></i>
-                                    <h3>Ground beef & Low fat</h3>
-                                    <p>
-                                        Lorem ipsum dolor sit amet elit. Phasel nec preti mi. Curabit facilis ornare velit non vulput metus tortor
                                     </p>
                                 </div>
                             </div>
@@ -256,36 +193,36 @@ function Home(){
         
         
         {/*  Food Start */}
-        <div className="food">
+        <div className="food" style={{padding:"50px", margin:"0px"}}>
             <div className="container">
                 <div className="row align-items-center">
                     <div className="col-md-4">
                         <div className="food-item">
-                            <i className="flaticon-burger"></i>
-                            <h2>Burgers</h2>
+                            {/* <i className="flaticon-burger"></i> */}
+                            <svg viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M618.666667 149.333333c-74.666667-2.133333-55.466667-64-106.666667-64s-32 61.866667-106.666667 64c-61.866667 2.133333-85.333333 106.666667-85.333333 106.666667l192 490.666667 192-490.666667s-23.466667-104.533333-85.333333-106.666667z" fill="#689F38"></path><path d="M426.666667 960c-8.533333-49.066667 23.466667-91.733333-19.2-117.333333-21.333333-12.8-46.933333-17.066667-66.133334-32-32-21.333333-23.466667-78.933333-32-117.333334-2.133333-6.4-4.266667-14.933333-8.533333-19.2-8.533333-10.666667-46.933333-27.733333-59.733333-32-25.6-4.266667-42.666667-23.466667-49.066667-44.8-6.4-23.466667 2.133333-49.066667 0-72.533333 0-29.866667 8.533333-38.4-12.8-59.733333-14.933333-12.8-32-21.333333-42.666667-38.4-19.2-29.866667-6.4-85.333333 25.6-102.4 17.066667-8.533333 38.4-10.666667 51.2-49.066667 10.666667-34.133333 10.666667-44.8 21.333334-78.933333 8.533333-27.733333 36.266667-46.933333 64-49.066667s55.466667 14.933333 64 42.666667c12.8 38.4 6.4 36.266667 21.333333 64 17.066667 32 83.2 40.533333 85.333333 106.666666 0 23.466667-32 57.6-23.466666 76.8 4.266667 8.533333 12.8 14.933333 21.333333 23.466667 21.333333 21.333333 32 53.333333 27.733333 83.2-2.133333 17.066667-10.666667 34.133333-12.8 53.333333-2.133333 38.4 27.733333 68.266667 51.2 100.266667 55.466667 74.666667 21.333333 132.266667 21.333334 260.266667 0 2.133333-128 2.133333-128 2.133333z" fill="#8BC34A"></path><path d="M554.666667 960c8.533333-49.066667 19.2-91.733333 61.866666-117.333333 21.333333-12.8 46.933333-17.066667 66.133334-32 32-21.333333 23.466667-78.933333 32-117.333334 2.133333-6.4 4.266667-14.933333 8.533333-19.2 8.533333-10.666667 46.933333-27.733333 59.733333-32 21.333333-6.4 40.533333-23.466667 46.933334-44.8 6.4-23.466667-2.133333-49.066667 0-72.533333 0-29.866667-8.533333-38.4 12.8-59.733333 14.933333-12.8 32-21.333333 42.666666-38.4 19.2-29.866667 6.4-85.333333-25.6-102.4-17.066667-8.533333-38.4-21.333333-51.2-49.066667-14.933333-32-10.666667-44.8-21.333333-78.933333-8.533333-27.733333-36.266667-46.933333-64-49.066667-27.733333-2.133333-55.466667 14.933333-64 42.666667-12.8 38.4-6.4 36.266667-21.333333 64-17.066667 32-83.2 40.533333-85.333334 106.666666 0 23.466667 32 57.6 23.466667 76.8-4.266667 8.533333-12.8 14.933333-21.333333 23.466667-21.333333 21.333333-32 53.333333-27.733334 83.2 2.133333 17.066667 10.666667 34.133333 12.8 53.333333 2.133333 38.4-27.733333 68.266667-51.2 100.266667-55.466667 74.666667-64 132.266667-64 260.266667 2.133333 2.133333 130.133333 2.133333 130.133334 2.133333z" fill="#8BC34A"></path><path d="M618.666667 149.333333c-59.733333-2.133333-59.733333-42.666667-83.2-57.6 19.2 98.133333 81.066667 89.6 76.8 121.6-2.133333 8.533333-2.133333 12.8-8.533334 23.466667-2.133333 2.133333-12.8 10.666667-19.2 14.933333-25.6 17.066667-68.266667 46.933333-70.4 110.933334v0c-2.133333-64-44.8-91.733333-70.4-110.933334-6.4-4.266667-17.066667-10.666667-19.2-14.933333-6.4-10.666667-8.533333-12.8-8.533333-23.466667-2.133333-34.133333 53.333333-23.466667 76.8-121.6C465.066667 106.666667 465.066667 147.2 405.333333 149.333333c-21.333333 0-36.266667 12.8-49.066666 27.733334 2.133333 4.266667 4.266667 10.666667 6.4 14.933333 12.8 38.4 6.4 36.266667 21.333333 64 17.066667 32 83.2 40.533333 85.333333 106.666667 0 23.466667-32 57.6-23.466666 76.8 4.266667 8.533333 12.8 14.933333 21.333333 23.466666 21.333333 21.333333 32 53.333333 27.733333 83.2-2.133333 17.066667-10.666667 34.133333-12.8 53.333334 0 12.8 2.133333 23.466667 6.4 34.133333-72.533333 74.666667-61.866667 228.266667-59.733333 238.933333 4.266667-72.533333 21.333333-117.333333 61.866667-172.8 6.4-8.533333 14.933333-17.066667 21.333333-27.733333 17.066667-21.333333 32-44.8 29.866667-72.533333 0-19.2-8.533333-36.266667-12.8-53.333334-4.266667-29.866667 4.266667-61.866667 27.733333-83.2 6.4-6.4 17.066667-12.8 21.333333-23.466666 8.533333-21.333333-23.466667-55.466667-23.466666-76.8 2.133333-66.133333 68.266667-74.666667 85.333333-106.666667 14.933333-27.733333 8.533333-27.733333 21.333333-64 2.133333-4.266667 4.266667-10.666667 6.4-14.933333C654.933333 162.133333 640 149.333333 618.666667 149.333333z m-91.733334 283.733334c-6.4 6.4-10.666667 10.666667-14.933333 17.066666-4.266667-6.4-10.666667-12.8-14.933333-17.066666L490.666667 426.666667c2.133333-4.266667 4.266667-6.4 4.266666-10.666667 8.533333-14.933333 17.066667-32 17.066667-51.2 0 19.2 8.533333 36.266667 17.066667 51.2 2.133333 2.133333 4.266667 6.4 4.266666 10.666667l-6.4 6.4z" fill="#558B2F"></path><path d="M428.8 785.066667c-2.133333-4.266667-4.266667-6.4-6.4-10.666667-8.533333-17.066667-19.2-34.133333-29.866667-51.2-10.666667-17.066667-21.333333-36.266667-32-55.466667-10.666667-19.2-21.333333-38.4-29.866666-57.6-8.533333-19.2-19.2-38.4-25.6-57.6-8.533333-19.2-12.8-38.4-17.066667-55.466666-4.266667-17.066667-6.4-36.266667-8.533333-51.2-2.133333-17.066667-2.133333-32-2.133334-44.8-2.133333-12.8 2.133333-23.466667 2.133334-34.133334 2.133333-19.2 2.133333-29.866667 2.133333-29.866666s0 10.666667 2.133333 29.866666c0 8.533333 0 21.333333 2.133334 32 2.133333 12.8 4.266667 27.733333 8.533333 42.666667s8.533333 32 14.933333 49.066667c6.4 17.066667 12.8 34.133333 23.466667 51.2 8.533333 17.066667 19.2 34.133333 29.866667 51.2 10.666667 17.066667 23.466667 34.133333 36.266666 51.2 12.8 17.066667 25.6 34.133333 38.4 49.066666 4.266667 4.266667 6.4 8.533333 10.666667 12.8-2.133333 8.533333-6.4 19.2-8.533333 27.733334v8.533333c-2.133333 4.266667-2.133333 10.666667-2.133334 14.933333 0 6.4-2.133333 12.8-2.133333 19.2-4.266667 2.133333-4.266667 6.4-6.4 8.533334zM533.333333 960s0-10.666667-2.133333-29.866667c-2.133333-10.666667 0-17.066667 2.133333-27.733333 0-8.533333 2.133333-21.333333 6.4-36.266667 2.133333-6.4 4.266667-14.933333 6.4-21.333333 2.133333-6.4 4.266667-14.933333 8.533334-23.466667 6.4-14.933333 14.933333-32 23.466666-49.066666 8.533333-17.066667 19.2-34.133333 29.866667-51.2 10.666667-17.066667 21.333333-36.266667 32-55.466667 10.666667-19.2 21.333333-38.4 29.866667-57.6 8.533333-19.2 19.2-38.4 25.6-57.6 8.533333-19.2 12.8-38.4 17.066666-55.466667 4.266667-17.066667 6.4-36.266667 8.533334-51.2 2.133333-17.066667 2.133333-29.866667 2.133333-44.8 2.133333-12.8-2.133333-23.466667-2.133333-34.133333-2.133333-19.2-2.133333-29.866667-2.133334-29.866667s0 10.666667-2.133333 29.866667c0 8.533333 0 21.333333-2.133333 32-2.133333 12.8-4.266667 27.733333-8.533334 42.666667s-8.533333 32-14.933333 49.066666c-6.4 17.066667-12.8 34.133333-23.466667 51.2-8.533333 17.066667-19.2 34.133333-29.866666 51.2-10.666667 17.066667-23.466667 34.133333-36.266667 51.2-12.8 17.066667-25.6 34.133333-38.4 49.066667-12.8 17.066667-25.6 32-38.4 49.066667-12.8 17.066667-23.466667 34.133333-32 51.2l-12.8 25.6c-4.266667 8.533333-8.533333 17.066667-10.666667 25.6-6.4 17.066667-12.8 32-14.933333 46.933333-4.266667 14.933333-6.4 29.866667-6.4 38.4V960h85.333333z" fill="#DCEDC8"></path></g></svg>
+                            <h2>Vegetarian Menu</h2>
                             <p>
-                                Lorem ipsum dolor sit amet elit. Phasel nec pretium mi. Curabit facilis ornare velit non vulputa. Aliquam metus tortor auctor quis sem. 
-                            </p>
+                            The menu will include mainly vegetables, mushrooms, kimchi, tofu and beans.                            </p>
                             <a href="">View Menu</a>
                         </div>
                     </div>
                     <div className="col-md-4">
                         <div className="food-item">
-                            <i className="flaticon-snack"></i>
-                            <h2>Snacks</h2>
+                            {/* <i className="flaticon-snack"></i> */}
+                            <svg viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M767.018667 171.648a53.418667 53.418667 0 0 0-68.138667-41.386667 52.48 52.48 0 0 0-35.477333 36.117334 54.613333 54.613333 0 0 0-1.642667 21.589333 80.106667 80.106667 0 0 1-22.976 66.666667l-117.397333 117.397333 45.248 45.248 117.397333-117.397333a80.192 80.192 0 0 1 66.688-22.976c6.848 0.874667 14.101333 0.405333 21.546667-1.642667a52.48 52.48 0 0 0 36.138666-35.477333 53.418667 53.418667 0 0 0-41.386666-68.138667zM937.322667 342.272c2.709333-12.202667 2.048-25.642667-8.832-41.002667-9.578667-13.504-24.725333-23.338667-41.301334-23.914666A53.333333 53.333333 0 0 0 832 330.666667v0.384c0.170667 22.549333-10.474667 43.754667-30.656 53.845333l-154.325333 77.162667 28.629333 57.258666 167.296-83.648c18.496-9.258667 39.786667-6.272 57.408 4.565334a53.589333 53.589333 0 0 0 43.733333 5.44 52.16 52.16 0 0 0 34.922667-34.965334 53.418667 53.418667 0 0 0-41.685333-68.437333z" fill="#D7CCC8"></path><path d="M661.333333 405.333333c0-67.306667 22.698667-105.450667 22.698667-105.450666l-45.248-45.248C581.162667 312.256 384 298.666667 384 298.666667l277.333333 106.666666z" fill="#BF360C"></path><path d="M42.666667 768s147.093333 128 384 128 426.666667-137.344 426.666666-256-170.666667-234.666667-170.666666-234.666667-173.76-106.666667-298.666667-106.666666C42.645333 298.666667 42.666667 768 42.666667 768z" fill="#E64A19"></path><path d="M839.189333 578.389333c-14.954667-34.56-39.850667-66.944-65.621333-94.229333C608.405333 504.32 320 597.333333 320 597.333333s53.333333 128 213.333333 128c142.485333 0 208.448-34.048 305.856-146.944z" fill="#D84315"></path><path d="M384 298.666667c165.930667 0 243.050667 85.333333 341.333333 85.333333h76.010667l27.989333 59.328S687.808 682.666667 512 682.666667c-128 0-192-85.333333-192-85.333334s-24.896-64-106.666667-64c-106.666667 0-170.666667 234.666667-170.666666 234.666667s0-469.333333 341.333333-469.333333z" fill="#FF7043"></path><path d="M277.333333 426.666667a21.333333 21.333333 0 1 1-42.666666 0 21.333333 21.333333 0 0 1 42.666666 0z m64-64a21.333333 21.333333 0 1 0 0 42.666666 21.333333 21.333333 0 0 0 0-42.666666z m0 85.333333a21.333333 21.333333 0 1 0 0 42.666667 21.333333 21.333333 0 0 0 0-42.666667z" fill="#F4511E"></path></g></svg>
+                            <h2>Normal Menu</h2>
                             <p>
-                                Lorem ipsum dolor sit amet elit. Phasel nec pretium mi. Curabit facilis ornare velit non vulputa. Aliquam metus tortor auctor quis sem. 
-                            </p>
+                            The menu will include chicken curry, beef hot pot, king crab, smoked pork belly and some side dishes.                            </p>
                             <a href="">View Menu</a>
                         </div>
                     </div>
                     <div className="col-md-4">
                         <div className="food-item">
-                            <i className="flaticon-cocktail"></i>
-                            <h2>Beverages</h2>
+                            {/* <i className="flaticon-cocktail"></i> */}
+                            <svg viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M426.666667 128L128 896l768-298.666667z" fill="#FFD54F"></path><path d="M320.021333 682.666667A106.666667 106.666667 0 0 0 213.333333 789.312c0 24.469333 8.576 46.762667 22.464 64.768l189.952-73.877333C421.056 725.653333 375.786667 682.666667 320.021333 682.666667z" fill="#FF3D00"></path><path d="M437.354667 394.666667m-96 0a96 96 0 1 0 192 0 96 96 0 1 0-192 0Z" fill="#FF3D00"></path><path d="M597.333333 426.666667c-35.306667 0-64 28.693333-64 64.042666C533.333333 525.994667 562.026667 554.666667 597.333333 554.666667s64-28.672 64-63.957334A64.064 64.064 0 0 0 597.333333 426.666667z m0 96a32 32 0 1 1-0.021333-63.978667A32 32 0 0 1 597.333333 522.666667zM341.333333 533.333333c-35.306667 0-64 28.693333-64 64.042667C277.333333 632.661333 306.026667 661.333333 341.333333 661.333333s64-28.672 64-63.957333A64.064 64.064 0 0 0 341.333333 533.333333z m0 96a32 32 0 1 1-0.021333-63.978666A32 32 0 0 1 341.333333 629.333333z" fill="#3E2723"></path><path d="M637.269333 693.802667a42.666667 42.666667 0 0 0-54.933333-24.96c-22.058667 8.277333-133.12 70.314667-124.864 92.373333 0.725333 1.962667 2.666667 3.413333 5.077333 4.672l175.68-68.330667c-0.32-1.237333-0.490667-2.517333-0.96-3.754666z" fill="#8D6E63"></path><path d="M537.365333 731.264c-10.368-32.426667-6.549333-61.717333-6.549333-61.717333 0.704-0.917333 0.725333-2.005333 0.64-3.114667a20.586667 20.586667 0 0 0-0.341333-12.608 21.333333 21.333333 0 0 0-34.752-7.850667 96.512 96.512 0 0 0-38.869334 115.242667c0.725333 1.962667 1.813333 3.669333 2.666667 5.568l79.04-30.72c-0.576-1.6-1.28-3.114667-1.834667-4.8z" fill="#8D6E63"></path><path d="M554.666667 610.026667s-11.434667-114.602667-128-73.450667c12.565333 119.232 128 73.450667 128 73.450667zM716.693333 533.333333s-114.624 11.413333-73.450666 128c119.232-12.586667 73.450667-128 73.450666-128z" fill="#689F38"></path><path d="M892.970667 580.010667c-19.776-46.485333-65.642667-182.208-166.101334-282.645334-97.728-97.792-227.008-151.552-284.394666-167.125333-17.898667-4.821333-21.866667-5.802667-28.885334 12.010667-5.717333 14.421333-21.973333 63.722667-29.994666 86.805333a58.026667 58.026667 0 0 0-2.581334 10.026667 705.962667 705.962667 0 0 1 404.288 404.8c0.533333-0.128 1.002667-0.021333 1.578667-0.213334 14.826667-4.714667 74.048-25.386667 89.770667-30.634666 15.722667-5.333333 24.277333-14.357333 16.32-33.024z" fill="#FF9800"></path></g></svg>
+                            <h2>Kids Menu</h2>
                             <p>
-                                Lorem ipsum dolor sit amet elit. Phasel nec pretium mi. Curabit facilis ornare velit non vulputa. Aliquam metus tortor auctor quis sem. 
-                            </p>
+                            The menu will include mainly pizza, hamburgers, snacks and soft drinks and fruit drinks.                            </p>
                             <a href="">View Menu</a>
                         </div>
                     </div>
@@ -293,319 +230,6 @@ function Home(){
             </div>
         </div>
         {/*  Food End */}
-        
-        
-        {/*  Menu Start */}
-        <div className="menu">
-            <div className="container">
-                <div className="section-header text-center">
-                    <p>Food Menu</p>
-                    <h2>Delicious Food Menu</h2>
-                </div>
-                <div className="menu-tab">
-                    <ul className="nav nav-pills justify-content-center">
-                        <li className="nav-item">
-                            <a className="nav-link active" data-toggle="pill" href="#burgers">Burgers</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" data-toggle="pill" href="#snacks">Snacks</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" data-toggle="pill" href="#beverages">Beverages</a>
-                        </li>
-                    </ul>
-                    <div className="tab-content">
-                        <div id="burgers" className="container tab-pane active">
-                            <div className="row">
-                                <div className="col-lg-7 col-md-12">
-                                    <div className="menu-item">
-                                        <div className="menu-img">
-                                            <img src="img/menu-burger.jpg" alt="Image"/>
-                                        </div>
-                                        <div className="menu-text">
-                                            <h3><span>Mini cheese Burger</span> <strong>$9.00</strong></h3>
-                                            <p>Lorem ipsum dolor sit amet elit. Phasel nec preti facil</p>
-                                        </div>
-                                    </div>
-                                    <div className="menu-item">
-                                        <div className="menu-img">
-                                            <img src="img/menu-burger.jpg" alt="Image"/>
-                                        </div>
-                                        <div className="menu-text">
-                                            <h3><span>Double size burger</span> <strong>$11.00</strong></h3>
-                                            <p>Lorem ipsum dolor sit amet elit. Phasel nec preti facil</p>
-                                        </div>
-                                    </div>
-                                    <div className="menu-item">
-                                        <div className="menu-img">
-                                            <img src="img/menu-burger.jpg" alt="Image"/>
-                                        </div>
-                                        <div className="menu-text">
-                                            <h3><span>Bacon, EGG and Cheese</span> <strong>$13.00</strong></h3>
-                                            <p>Lorem ipsum dolor sit amet elit. Phasel nec preti facil</p>
-                                        </div>
-                                    </div>
-                                    <div className="menu-item">
-                                        <div className="menu-img">
-                                            <img src="img/menu-burger.jpg" alt="Image"/>
-                                        </div>
-                                        <div className="menu-text">
-                                            <h3><span>Pulled porx Burger</span> <strong>$18.00</strong></h3>
-                                            <p>Lorem ipsum dolor sit amet elit. Phasel nec preti facil</p>
-                                        </div>
-                                    </div>
-                                    <div className="menu-item">
-                                        <div className="menu-img">
-                                            <img src="img/menu-burger.jpg" alt="Image"/>
-                                        </div>
-                                        <div className="menu-text">
-                                            <h3><span>Fried chicken Burger</span> <strong>$22.00</strong></h3>
-                                            <p>Lorem ipsum dolor sit amet elit. Phasel nec preti facil</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-lg-5 d-none d-lg-block">
-                                    <img src="img/menu-burger-img.jpg" alt="Image"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="snacks" className="container tab-pane fade">
-                            <div className="row">
-                                <div className="col-lg-7 col-md-12">
-                                    <div className="menu-item">
-                                        <div className="menu-img">
-                                            <img src="img/menu-snack.jpg" alt="Image"/>
-                                        </div>
-                                        <div className="menu-text">
-                                            <h3><span>Corn Tikki - Spicy fried Aloo</span> <strong>$15.00</strong></h3>
-                                            <p>Lorem ipsum dolor sit amet elit. Phasel nec preti facil</p>
-                                        </div>
-                                    </div>
-                                    <div className="menu-item">
-                                        <div className="menu-img">
-                                            <img src="img/menu-snack.jpg" alt="Image"/>
-                                        </div>
-                                        <div className="menu-text">
-                                            <h3><span>Bread besan Toast</span> <strong>$35.00</strong></h3>
-                                            <p>Lorem ipsum dolor sit amet elit. Phasel nec preti facil</p>
-                                        </div>
-                                    </div>
-                                    <div className="menu-item">
-                                        <div className="menu-img">
-                                            <img src="img/menu-snack.jpg" alt="Image"/>
-                                        </div>
-                                        <div className="menu-text">
-                                            <h3><span>Healthy soya nugget snacks</span> <strong>$20.00</strong></h3>
-                                            <p>Lorem ipsum dolor sit amet elit. Phasel nec preti facil</p>
-                                        </div>
-                                    </div>
-                                    <div className="menu-item">
-                                        <div className="menu-img">
-                                            <img src="img/menu-snack.jpg" alt="Image"/>
-                                        </div>
-                                        <div className="menu-text">
-                                            <h3><span>Tandoori Soya Chunks</span> <strong>$30.00</strong></h3>
-                                            <p>Lorem ipsum dolor sit amet elit. Phasel nec preti facil</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-lg-5 d-none d-lg-block">
-                                    <img src="img/menu-snack-img.jpg" alt="Image"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="beverages" className="container tab-pane fade">
-                            <div className="row">
-                                <div className="col-lg-7 col-md-12">
-                                    <div className="menu-item">
-                                        <div className="menu-img">
-                                            <img src="img/menu-beverage.jpg" alt="Image"/>
-                                        </div>
-                                        <div className="menu-text">
-                                            <h3><span>Single Cup Brew</span> <strong>$7.00</strong></h3>
-                                            <p>Lorem ipsum dolor sit amet elit. Phasel nec preti facil</p>
-                                        </div>
-                                    </div>
-                                    <div className="menu-item">
-                                        <div className="menu-img">
-                                            <img src="img/menu-beverage.jpg" alt="Image"/>
-                                        </div>
-                                        <div className="menu-text">
-                                            <h3><span>Caffe Americano</span> <strong>$9.00</strong></h3>
-                                            <p>Lorem ipsum dolor sit amet elit. Phasel nec preti facil</p>
-                                        </div>
-                                    </div>
-                                    <div className="menu-item">
-                                        <div className="menu-img">
-                                            <img src="img/menu-beverage.jpg" alt="Image"/>
-                                        </div>
-                                        <div className="menu-text">
-                                            <h3><span>Caramel Macchiato</span> <strong>$15.00</strong></h3>
-                                            <p>Lorem ipsum dolor sit amet elit. Phasel nec preti facil</p>
-                                        </div>
-                                    </div>
-                                    <div className="menu-item">
-                                        <div className="menu-img">
-                                            <img src="img/menu-beverage.jpg" alt="Image"/>
-                                        </div>
-                                        <div className="menu-text">
-                                            <h3><span>Standard black coffee</span> <strong>$8.00</strong></h3>
-                                            <p>Lorem ipsum dolor sit amet elit. Phasel nec preti facil</p>
-                                        </div>
-                                    </div>
-                                    <div className="menu-item">
-                                        <div className="menu-img">
-                                            <img src="img/menu-beverage.jpg" alt="Image"/>
-                                        </div>
-                                        <div className="menu-text">
-                                            <h3><span>Standard black coffee</span> <strong>$12.00</strong></h3>
-                                            <p>Lorem ipsum dolor sit amet elit. Phasel nec preti facil</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-lg-5 d-none d-lg-block">
-                                    <img src="img/menu-beverage-img.jpg" alt="Image"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {/*  Menu End */}
-        
-        
-        {/*  Team Start */}
-        <div className="team">
-            <div className="container">
-                <div className="section-header text-center">
-                    <p>Our Team</p>
-                    <h2>Our Master Chef</h2>
-                </div>
-                <div className="row">
-                    <div className="col-lg-3 col-md-6">
-                        <div className="team-item">
-                            <div className="team-img">
-                                <img src="img/team-1.jpg" alt="Image"/>
-                                <div className="team-social">
-                                    <a href=""><i className="fab fa-twitter"></i></a>
-                                    <a href=""><i className="fab fa-facebook-f"></i></a>
-                                    <a href=""><i className="fab fa-linkedin-in"></i></a>
-                                    <a href=""><i className="fab fa-instagram"></i></a>
-                                </div>
-                            </div>
-                            <div className="team-text">
-                                <h2>Adam Phillips</h2>
-                                <p>CEO, Co Founder</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-3 col-md-6">
-                        <div className="team-item">
-                            <div className="team-img">
-                                <img src="img/team-2.jpg" alt="Image"/>
-                                <div className="team-social">
-                                    <a href=""><i className="fab fa-twitter"></i></a>
-                                    <a href=""><i className="fab fa-facebook-f"></i></a>
-                                    <a href=""><i className="fab fa-linkedin-in"></i></a>
-                                    <a href=""><i className="fab fa-instagram"></i></a>
-                                </div>
-                            </div>
-                            <div className="team-text">
-                                <h2>Dylan Adams</h2>
-                                <p>Master Chef</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-3 col-md-6">
-                        <div className="team-item">
-                            <div className="team-img">
-                                <img src="img/team-3.jpg" alt="Image"/>
-                                <div className="team-social">
-                                    <a href=""><i className="fab fa-twitter"></i></a>
-                                    <a href=""><i className="fab fa-facebook-f"></i></a>
-                                    <a href=""><i className="fab fa-linkedin-in"></i></a>
-                                    <a href=""><i className="fab fa-instagram"></i></a>
-                                </div>
-                            </div>
-                            <div className="team-text">
-                                <h2>Jhon Doe</h2>
-                                <p>Master Chef</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-3 col-md-6">
-                        <div className="team-item">
-                            <div className="team-img">
-                                <img src="img/team-4.jpg" alt="Image"/>
-                                <div className="team-social">
-                                    <a href=""><i className="fab fa-twitter"></i></a>
-                                    <a href=""><i className="fab fa-facebook-f"></i></a>
-                                    <a href=""><i className="fab fa-linkedin-in"></i></a>
-                                    <a href=""><i className="fab fa-instagram"></i></a>
-                                </div>
-                            </div>
-                            <div className="team-text">
-                                <h2>Josh Dunn</h2>
-                                <p>Master Chef</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {/*  Team End */}
-        
-        
-        {/*  Testimonial Start */}
-        <div className="testimonial">
-            <div className="container">
-                <div className="owl-carousel testimonials-carousel">
-                    <div className="testimonial-item">
-                        <div className="testimonial-img">
-                            <img src="img/testimonial-1.jpg" alt="Image"/>
-                        </div>
-                        <p>
-                            Lorem ipsum dolor sit amet elit. Phasel nec preti mi. Curabit facilis ornare velit non vulput
-                        </p>
-                        <h2>Client Name</h2>
-                        <h3>Profession</h3>
-                    </div>
-                    <div className="testimonial-item">
-                        <div className="testimonial-img">
-                            <img src="img/testimonial-2.jpg" alt="Image"/>
-                        </div>
-                        <p>
-                            Lorem ipsum dolor sit amet elit. Phasel nec preti mi. Curabit facilis ornare velit non vulput
-                        </p>
-                        <h2>Client Name</h2>
-                        <h3>Profession</h3>
-                    </div>
-                    <div className="testimonial-item">
-                        <div className="testimonial-img">
-                            <img src="img/testimonial-3.jpg" alt="Image"/>
-                        </div>
-                        <p>
-                            Lorem ipsum dolor sit amet elit. Phasel nec preti mi. Curabit facilis ornare velit non vulput
-                        </p>
-                        <h2>Client Name</h2>
-                        <h3>Profession</h3>
-                    </div>
-                    <div className="testimonial-item">
-                        <div className="testimonial-img">
-                            <img src="img/testimonial-4.jpg" alt="Image"/>
-                        </div>
-                        <p>
-                            Lorem ipsum dolor sit amet elit. Phasel nec preti mi. Curabit facilis ornare velit non vulput
-                        </p>
-                        <h2>Client Name</h2>
-                        <h3>Profession</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {/*  Testimonial End */}
-        
         
         {/*  Contact Start */}
         <div className="contact">
@@ -644,7 +268,7 @@ function Home(){
                             </div>
                             <div className="contact-text">
                                 <h3>Email Us</h3>
-                                <p>info@example.com</p>
+                                <p>abc@gmail.com</p>
                             </div>
                         </div>
                     </div>
@@ -666,96 +290,51 @@ function Home(){
                         </div>
                     </div>
                 </div>
-                <div className="row contact-form">
-                    <div className="col-md-6">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3001156.4288297426!2d-78.01371936852176!3d42.72876761954724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4ccc4bf0f123a5a9%3A0xddcfc6c1de189567!2sNew%20York%2C%20USA!5e0!3m2!1sen!2sbd!4v1600663868074!5m2!1sen!2sbd" frameborder="0" style={{border:"0"}} allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-                    </div>
-                    <div className="col-md-6">
-                        <div id="success"></div>
-                        <form name="sentMessage" id="contactForm" novalidate="novalidate">
-                            <div className="control-group">
-                                <input type="text" className="form-control" id="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" />
-                                <p className="help-block text-danger"></p>
-                            </div>
-                            <div className="control-group">
-                                <input type="email" className="form-control" id="email" placeholder="Your Email" required="required" data-validation-required-message="Please enter your email" />
-                                <p className="help-block text-danger"></p>
-                            </div>
-                            <div className="control-group">
-                                <input type="text" className="form-control" id="subject" placeholder="Subject" required="required" data-validation-required-message="Please enter a subject" />
-                                <p className="help-block text-danger"></p>
-                            </div>
-                            <div className="control-group">
-                                <textarea className="form-control" id="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>
-                                <p className="help-block text-danger"></p>
-                            </div>
-                            <div>
-                                <button className="btn custom-btn" type="submit" id="sendMessageButton">Send Message</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
             </div>
         </div>
         {/*  Contact End */}
 
-
-        {/*  Blog Start */}
-        <div className="blog">
-            <div className="container">
-                <div className="section-header text-center">
-                    <p>Food Blog</p>
-                    <h2>Latest From Food Blog</h2>
-                </div>
-                <div className="row">
-                    <div className="col-md-6">
-                        <div className="blog-item">
-                            <div className="blog-img">
-                                <img src="img/blog-1.jpg" alt="Blog"/>
-                            </div>
-                            <div className="blog-content">
-                                <h2 className="blog-title">Lorem ipsum dolor sit amet</h2>
-                                <div className="blog-meta">
-                                    <p><i className="far fa-user"></i>Admin</p>
-                                    <p><i className="far fa-list-alt"></i>Food</p>
-                                    <p><i className="far fa-calendar-alt"></i>01-Jan-2045</p>
-                                    <p><i className="far fa-comments"></i>10</p>
-                                </div>
-                                <div className="blog-text">
-                                    <p>
-                                        Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor. Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte
-                                    </p>
-                                    <a className="btn custom-btn" href="">Read More</a>
+        {/* Footer Start */}
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="footer-contact">
+                                    <h2>Our Address</h2>
+                                    <p><i class="fa fa-map-marker-alt"></i>123 Street, New York, USA</p>
+                                    <p><i class="fa fa-phone-alt"></i>+012 345 67890</p>
+                                    <p><i class="fa fa-envelope"></i>abc@gmail.com</p>
+                                    <div class="footer-social">
+                                        <a href=""><i class="fab fa-twitter"></i></a>
+                                        <a href=""><i class="fab fa-facebook-f"></i></a>
+                                        <a href=""><i class="fab fa-youtube"></i></a>
+                                        <a href=""><i class="fab fa-instagram"></i></a>
+                                        <a href=""><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div className="col-md-6">
-                        <div className="blog-item">
-                            <div className="blog-img">
-                                <img src="img/blog-2.jpg" alt="Blog"/>
-                            </div>
-                            <div className="blog-content">
-                                <h2 className="blog-title">Lorem ipsum dolor sit amet</h2>
-                                <div className="blog-meta">
-                                    <p><i className="far fa-user"></i>Admin</p>
-                                    <p><i className="far fa-list-alt"></i>Food</p>
-                                    <p><i className="far fa-calendar-alt"></i>01-Jan-2045</p>
-                                    <p><i className="far fa-comments"></i>10</p>
-                                </div>
-                                <div className="blog-text">
-                                    <p>
-                                        Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor. Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte
-                                    </p>
-                                    <a className="btn custom-btn" href="">Read More</a>
+                            <div class="col-md-6">
+                                <div class="footer-link">
+                                    <h2>Quick Links</h2>
+                                    <a href="">Terms of use</a>
+                                    <a href="">Privacy policy</a>
+                                    <a href="">Help</a>
+                                    <a href="">FQAs</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="copyright">
+                <div class="container">
+                    <p>Copyright &copy; <a href="/">Birthday Party For Kids</a>, All Right Reserved.</p>
+                </div>
+            </div>
         </div>
-        {/* Blog End */}
+        {/* Footer End */}
         </Fragment>
     )
 }
