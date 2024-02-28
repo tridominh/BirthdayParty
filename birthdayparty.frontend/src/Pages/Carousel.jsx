@@ -2,6 +2,7 @@ import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import './carousel.css';
+import { Link } from 'react-router-dom';
 
 function Carousell(){
     //Owl Carousel Settings
@@ -36,11 +37,11 @@ function Carousell(){
                 <div className="carousel-text">
                     <h1>Best <span>Quality</span> Ingredients</h1>
                     <p>
-                            Lorem ipsum dolor sit amet elit. Phasellus ut mollis mauris. Vivamus egestas eleifend dui ac consequat at lectus in malesuada
+                        Choosing us to give your child the best party
                     </p>
                     <div className="carousel-btn">
-                        <a className="btn custom-btn" href="">View Menu</a>
-                        <a className="btn custom-btn" href="">Book Table</a>
+                        <Link className="btn custom-btn" to="/Menu">View Menu</Link>
+                        <Link className="btn custom-btn" to="/Booking">Book Table</Link>
                     </div>
                 </div>
             </div>
@@ -51,11 +52,11 @@ function Carousell(){
                 <div className="carousel-text">
                     <h1>Best <span>Quality</span> Ingredients</h1>
                     <p>
-                            Lorem ipsum dolor sit amet elit. Phasellus ut mollis mauris. Vivamus egestas eleifend dui ac consequat at lectus in malesuada
+                    Choosing us to give your child the best party
                     </p>
                     <div className="carousel-btn">
-                        <a className="btn custom-btn" href="">View Menu</a>
-                        <a className="btn custom-btn" href="">Book Table</a>
+                        <Link className="btn custom-btn" to="/Menu">View Menu</Link>
+                        <Link className="btn custom-btn" to="/Booking">Book Table</Link>
                     </div>
                 </div>
             </div>
@@ -66,11 +67,11 @@ function Carousell(){
                 <div className="carousel-text">
                     <h1>Best <span>Quality</span> Ingredients</h1>
                     <p>
-                            Lorem ipsum dolor sit amet elit. Phasellus ut mollis mauris. Vivamus egestas eleifend dui ac consequat at lectus in malesuada
+                    Choosing us to give your child the best party
                     </p>
                     <div className="carousel-btn">
-                        <a className="btn custom-btn" href="">View Menu</a>
-                        <a className="btn custom-btn" href="">Book Table</a>
+                        <Link className="btn custom-btn" to="/Menu">View Menu</Link>
+                        <Link className="btn custom-btn" to="/Booking">Book Table</Link>
                     </div>
                 </div>
             </div>

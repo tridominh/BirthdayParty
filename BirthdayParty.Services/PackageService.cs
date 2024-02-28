@@ -1,4 +1,4 @@
-﻿using BirthdayParty.Models;
+using BirthdayParty.Models;
 using BirthdayParty.Models.DTOs;
 using BirthdayParty.Repository;
 using BirthdayParty.Repository.Interfaces;

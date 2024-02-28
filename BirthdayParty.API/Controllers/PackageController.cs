@@ -1,4 +1,4 @@
-﻿using BirthdayParty.Models;
+using BirthdayParty.Models;
 using BirthdayParty.Models.Converters;
 using BirthdayParty.Models.DTOs;
 using BirthdayParty.Repository;
@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
+
 
 namespace BirthdayParty.API.Controllers
 {
