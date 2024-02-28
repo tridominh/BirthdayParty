@@ -1,9 +1,6 @@
 ﻿using BirthdayParty.Models;
-using BirthdayParty.Repository;
-using Microsoft.AspNetCore.Http;
+using BirthdayParty.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Service;
-using Service.Interfaces;
 
 namespace BirthdayParty.API.Controllers
 {
@@ -27,7 +24,7 @@ namespace BirthdayParty.API.Controllers
                 return NotFound();
             }
 
-            return Ok(packages);        
+            return Ok(packages);
         }
     }
 }

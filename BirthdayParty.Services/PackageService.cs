@@ -1,9 +1,8 @@
 ﻿using BirthdayParty.Models;
-using BirthdayParty.Repository;
 using BirthdayParty.Repository.Interfaces;
-using Service.Interfaces;
+using BirthdayParty.Services.Interfaces;
 
-namespace Service
+namespace BirthdayParty.Services
 {
     public class PackageService : IPackageService
     {
@@ -17,6 +16,11 @@ namespace Service
         public List<Package> GetAllPackages()
         {
             return packageRepository.GetAll().ToList();
+        }
+
+        List<Package> IPackageService.GetAllPackages()
+        {
+            throw new NotImplementedException();
         }
     }
 }
