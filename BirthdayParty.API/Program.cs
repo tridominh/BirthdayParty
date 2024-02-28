@@ -6,13 +6,12 @@ using BirthdayParty.Models;
 using BirthdayParty.Repository;
 using BirthdayParty.Repository.Interfaces;
 using BirthdayParty.Services;
+using BirthdayParty.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Service;
-using Service.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
