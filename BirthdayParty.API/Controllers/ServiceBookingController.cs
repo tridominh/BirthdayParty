@@ -28,14 +28,9 @@ namespace BirthdayParty.API.Controllers
             return Ok(services);
         }
         [HttpPost("UpdateService")]
-        public async Task<ActionResult<Service>> UpdateService(int id, Service updatedService)
+        public async Task<ActionResult<Service>> UpdateService(Service updatedService)
         {
-            if (id != updatedService.ServiceId)
-            {
-                return BadRequest();
-            }
-
-            var existingService = bookingService.GetServiceById(id);
+            var existingService = bookingService.GetServiceById(updatedService.ServiceId);
 
             if (existingService == null)
             {
@@ -69,8 +64,8 @@ namespace BirthdayParty.API.Controllers
         [HttpPost("CreateService")]
         public async Task<ActionResult<Service>> CreateService(Service service)
         {
-            var createdService = bookingService.CreateService(service);
-            return Ok(createdService);
+            bookingService.CreateService(service);
+            return Ok();
         }
     }
 }

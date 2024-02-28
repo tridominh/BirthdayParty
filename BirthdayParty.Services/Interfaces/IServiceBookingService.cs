@@ -5,9 +5,9 @@ namespace BirthdayParty.Services.Interfaces
     public interface IServiceBookingService
     {
         List<Service> GetAllServices();
-        public Service GetServiceById(int id);
-        public Service UpdateService(Service updatedService);
-        public Service DeleteService(int id);
-        public Service CreateService(Service service);
+        Service GetServiceById(int id);
+        Service UpdateService(Service updatedService);
+        Service DeleteService(int id);
+        public void CreateService(Service service);
     }
 }

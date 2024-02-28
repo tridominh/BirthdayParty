@@ -59,11 +59,9 @@ namespace BirthdayParty.Services
             return existingService;
         }
 
-        public Service CreateService(Service service)
+        public void CreateService(Service service)
         {
             serviceRepository.Add(service);
-
-            return service;
         }
 
 
