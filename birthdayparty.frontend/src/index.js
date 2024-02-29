@@ -30,11 +30,11 @@ export default function App() {
             removeUsername={removeUsername}
             />}>
           <Route index element={<Home />} />
-          <Route path='login' element={<Login setToken={setToken} 
-              setUsername={setUsername}/>}/>
-          <Route path="booking" element={<Booking />} />
+                    <Route path="booking" element={<Booking />} />
           <Route path="*" element={<NotFound />} />
         </Route>
+        <Route path='login' element={<Login setToken={setToken} 
+              setUsername={setUsername}/>}/>
       </Routes>
     </BrowserRouter>
   );
