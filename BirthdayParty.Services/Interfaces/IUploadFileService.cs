@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Http;
 
-namespace BirthdayParty.Services;
+namespace BirthdayParty.Services.Interfaces;
 public interface IUploadFileService
 {
     //Task<BlobInfo> GetBlobAsync(string name);
-   //Task<IEnumerable<string>> ListBlobAsync();
+    //Task<IEnumerable<string>> ListBlobAsync();
     Task<string> UploadFileAsync(IFormFile file, bool uploadImage = false);
     Task<bool> DeleteFileAsync(string blobName);
     Task<IEnumerable<string>> GetAllFileAsync();
