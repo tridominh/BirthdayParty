@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import getEndpoint from '../Services/getEndpoint';
 import styles from "./login.css";
 import LoadingSpinner from '../Components/LoadingSpinner';
+import LoginService from '../Services/ApiServices/LoginServices';
 
-function Login({ setToken, setUsername }) {
+function Login({ setToken }) {
     let navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -17,14 +18,7 @@ function Login({ setToken, setUsername }) {
         setIsLoading(true);
         let res;
         try {
-            res = await fetch(`${getEndpoint()}/user/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Headers': '*',
-                },
-                body: JSON.stringify(credentials)
-            });
+            res = await LoginService(credentials);
 
             if (!res.ok) {
                 const errorData = await res.text();
@@ -55,7 +49,6 @@ function Login({ setToken, setUsername }) {
         });
         if(!user) return; 
         setToken(user.token);
-        setUsername(user.name);
         navigate("/");
     }
   

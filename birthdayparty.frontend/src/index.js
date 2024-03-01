@@ -17,7 +17,6 @@ import Package from './Pages/Package';
 
 export default function App() {
   const { token, setToken, removeToken } = useToken();
-  const { username, setUsername, removeUsername } = useUserName();
   
   useEffect(() => {
       
@@ -28,8 +27,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout token={token} 
-            username={username} removeToken={removeToken}
-            removeUsername={removeUsername}
+            removeToken={removeToken}
             />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About/>} />
@@ -38,7 +36,7 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
         </Route>
         <Route path='login' element={<Login setToken={setToken} 
-              setUsername={setUsername}/>}/>
+              />}/>
       </Routes>
     </BrowserRouter>
   );
