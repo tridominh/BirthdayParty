@@ -25,7 +25,7 @@ function Layout({ token, username, removeToken, removeUsername }) {
                     <div className="navbar-nav ml-auto">
                         <Link to="/" className="nav-item nav-link active">Home</Link>
                         <Link to="/About" className="nav-item nav-link">About</Link>
-                        <Link to="/Menu" className="nav-item nav-link">Package</Link>
+                        <Link to="/Package" className="nav-item nav-link">Package</Link>
                         <Link to="/Booking" className="nav-item nav-link">Booking</Link>
                         <div className="nav-item dropdown">
                             <Link href="#" className="nav-link dropdown-toggle" data-toggle="dropdown">Menu</Link>

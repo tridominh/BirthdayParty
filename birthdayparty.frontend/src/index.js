@@ -12,6 +12,8 @@ import Login from './Pages/Login';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import useToken from './Services/useToken';
 import useUserName from './Services/useUserName';
+import About from './Pages/About';
+import Package from './Pages/Package';
 
 export default function App() {
   const { token, setToken, removeToken } = useToken();
@@ -30,6 +32,8 @@ export default function App() {
             removeUsername={removeUsername}
             />}>
           <Route index element={<Home />} />
+          <Route path="about" element={<About/>} />
+          <Route path="package" element={<Package/>} />
           <Route path="booking" element={<Booking />} />
           <Route path="*" element={<NotFound />} />
         </Route>
