@@ -4,34 +4,21 @@ import { useNavigate } from 'react-router-dom';
 import getEndpoint from '../Services/getEndpoint';
 import styles from "./login.css";
 import LoadingSpinner from '../Components/LoadingSpinner';
+import LoginService from '../Services/ApiServices/LoginServices';
 
-function Login({ setToken, setUsername }) {
+function Login({ setToken }) {
     let navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
-    /*useEffect(() => { 
-        document.body.style.background = "url('https://media.istockphoto.com/id/1181871089/vector/garland-with-flags-1.jpg?s=612x612&w=0&k=20&c=j8cVYp9F4G-3pAlkkxoPjqg6Hkarr1cuzJL2QLgocHI=')";
-        return function cleanup() {
-          document.body.style.background = "";
-        };
-    }, [])*/
-
     async function loginUser(credentials) {
         //console.log(JSON.stringify(credentials))
         setIsLoading(true);
         let res;
         try {
-            res = await fetch(`${getEndpoint()}/user/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Headers': '*',
-                },
-                body: JSON.stringify(credentials)
-            });
+            res = await LoginService(credentials);
 
             if (!res.ok) {
                 const errorData = await res.text();
@@ -62,33 +49,9 @@ function Login({ setToken, setUsername }) {
         });
         if(!user) return; 
         setToken(user.token);
-        setUsername(user.name);
         navigate("/");
     }
-  /*return (<Fragment>
-    <form className='container mt-5 card p-2' onSubmit={handleSubmit}>
-      <h2 className='card-header'>Login Form</h2>
-      <div className='card-body'>
-      <div className="mb-3 form-floating" >
-        <label htmlFor='email'>Email address</label>
-        <input id='email' className='form-control' type="text" placeholder="Enter email" 
-            onChange={(e) => setEmail(e.target.value)}/>
-      </div>
-
-      <div className="mb-3 form-floating">
-        <label htmlFor='password'>Password</label>
-        <input id='password' className='form-control' type="password" placeholder="Password" 
-            onChange={(e) => setPassword(e.target.value)}/>
-      </div>
-      
-      <button className="btn btn-primary" type="submit">
-        Submit
-      </button>
-      </div>
-    </form>
-
-    </Fragment>
-  );*/
+  
     return (
         <Fragment>
 
@@ -113,8 +76,8 @@ function Login({ setToken, setUsername }) {
                     <form onSubmit={handleSubmit}>
                     <input type="text" name="" className="form-control" placeholder="Email or Phone" onChange={(e) => setEmail(e.target.value)}/>
 
-                    <input type="text" name="" className="form-control" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
-                    {errorMessage && <div>{errorMessage}</div>}
+                    <input type="password" name="" className="form-control" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
+                    {errorMessage && <div className='text-danger'>{errorMessage}</div>}
                     <button type='submit' className="btn login-btn-dark btn-dark btn-block" disabled={isLoading}>Login</button>
                     </form>
                   </div>
@@ -133,7 +96,7 @@ function Login({ setToken, setUsername }) {
 
                     <input type="text" name="" className="form-control" placeholder="Phone"/>
 
-                    <input type="text" name="" className="form-control" placeholder="Password"/>
+                    <input type="password" name="" className="form-control" placeholder="Password"/>
 
                     <button className="btn login-btn-dark btn-dark btn-block">Signup</button>
 
