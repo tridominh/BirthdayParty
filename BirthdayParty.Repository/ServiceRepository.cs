@@ -1,5 +1,6 @@
 ﻿using BirthdayParty.DAL;
 using BirthdayParty.Models;
+using BirthdayParty.Repository.Interfaces;
 using ClassLibrary.Repository.Implementation;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BirthdayParty.Repository
 {
-    public class ServiceRepository : GenericRepository<Service>
+    public class ServiceRepository : GenericRepository<Service> , IServiceRepository
     {
         public ServiceRepository(BookingPartyContext dbContext) : base(dbContext)
         {

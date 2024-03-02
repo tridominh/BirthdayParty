@@ -16,27 +16,25 @@ function Layout({ token, username, removeToken, removeUsername }) {
       
       <div className="navbar navbar-expand-lg bg-light navbar-light">
             <div className="container-fluid">
-                <a href="index.html" className="navbar-brand">Burger <span>King</span></a>
+                <a href="index.html" className="navbar-brand">Booking <span>Party</span></a>
                 <button type="button" className="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                     <span className="navbar-toggler-icon"></span>
                 </button>
 
                 <div className="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div className="navbar-nav ml-auto">
-                        <a href="index.html" className="nav-item nav-link active">Home</a>
-                        <a href="about.html" className="nav-item nav-link">About</a>
-                        <a href="feature.html" className="nav-item nav-link">Feature</a>
-                        <a href="team.html" className="nav-item nav-link">Chef</a>
-                        <a href="menu.html" className="nav-item nav-link">Menu</a>
-                        <a href="booking.html" className="nav-item nav-link">Booking</a>
+                        <Link to="/" className="nav-item nav-link active">Home</Link>
+                        <Link to="/About" className="nav-item nav-link">About</Link>
+                        <Link to="/Menu" className="nav-item nav-link">Package</Link>
+                        <Link to="/Booking" className="nav-item nav-link">Booking</Link>
                         <div className="nav-item dropdown">
-                            <a href="#" className="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                            <Link href="#" className="nav-link dropdown-toggle" data-toggle="dropdown">Menu</Link>
                             <div className="dropdown-menu">
-                                <a href="blog.html" className="dropdown-item">Blog Grid</a>
-                                <a href="single.html" className="dropdown-item">Blog Detail</a>
+                                <Link to="/VegetarianMenu" className="dropdown-item">Vegetarian Menu</Link>
+                                <Link to="/NormalMenu" className="dropdown-item">Normal Menu</Link>
+                                <Link to="/KidsMenu" className="dropdown-item">Kids Menu</Link>
                             </div>
                         </div>
-                        <a href="contact.html" className="nav-item nav-link">Contact</a>
                         
                         {token ? (
                             <div className="nav-item dropdown">

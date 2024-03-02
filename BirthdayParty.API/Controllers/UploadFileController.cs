@@ -1,5 +1,5 @@
 using BirthdayParty.Models.DTOs;
-using BirthdayParty.Services;
+using BirthdayParty.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
