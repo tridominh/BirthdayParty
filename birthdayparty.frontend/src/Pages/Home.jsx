@@ -3,13 +3,14 @@ import Carousell from "./Carousel";
 import "./carousel.css";
 import { Link, useNavigate } from "react-router-dom";
 import "../assets/css/home.css" 
+import useToken from "../Services/useToken";
 
 
 
 function Home(){
     let navigate = useNavigate();
     const CheckLogin = () =>{
-        if(localStorage.getItem("token") != null){
+        if(useToken().token != null){
         
         }else{
             navigate("/login");

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import PageHeader from '../Components/PageHeader';
 
 function Booking(){
-        let navigate = useNavigate();
+    let navigate = useNavigate();
     const CheckLogin = () =>{
         if(localStorage.getItem("token") != null){
         
@@ -10,7 +11,10 @@ function Booking(){
             navigate("/login");
         }
     }
-    return(    <div className="booking">
+    return( 
+    <Fragment>
+    <PageHeader title={"Booking"}/>
+    <div className="booking">
         <div className="container">
             <div className="row align-items-center">
                 <div className="col-lg-7">
@@ -89,6 +93,7 @@ function Booking(){
             </div>
         </div>
     </div>
+    </Fragment>
     );{/*  Booking End */}
     
 }

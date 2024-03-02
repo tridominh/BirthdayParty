@@ -1,5 +1,9 @@
+import PageHeader from "../Components/PageHeader";
+
 function NotFound(){
-    return (<div>Not Found</div>)
+    return (
+        <PageHeader title={"Not Found"}/>
+    )
 }
 
 export default NotFound;

@@ -1,13 +1,13 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Fragment, useEffect, useState } from "react";
 import "../assets/css/layout.css";
+import parseJwt from "../Services/parseJwt";
 
-function Layout({ token, username, removeToken, removeUsername }) {
+function Layout({ token, removeToken }) {
   let navigate = useNavigate();  
   const handleLogout = (e) => {
     e.preventDefault();
     removeToken();
-    removeUsername();
     navigate("/");
   };
   
@@ -25,7 +25,7 @@ function Layout({ token, username, removeToken, removeUsername }) {
                     <div className="navbar-nav ml-auto">
                         <Link to="/" className="nav-item nav-link active">Home</Link>
                         <Link to="/About" className="nav-item nav-link">About</Link>
-                        <Link to="/Menu" className="nav-item nav-link">Package</Link>
+                        <Link to="/Package" className="nav-item nav-link">Package</Link>
                         <Link to="/Booking" className="nav-item nav-link">Booking</Link>
                         <div className="nav-item dropdown">
                             <Link href="#" className="nav-link dropdown-toggle" data-toggle="dropdown">Menu</Link>
@@ -38,7 +38,7 @@ function Layout({ token, username, removeToken, removeUsername }) {
                         
                         {token ? (
                             <div className="nav-item dropdown">
-                                <Link to="/" className="nav-link dropdown-toggle" data-toggle="dropdown">{username}</Link>
+                                <Link to="/" className="nav-link dropdown-toggle" data-toggle="dropdown">{parseJwt(token).given_name}</Link>
                                 <div className="dropdown-menu">
                                     <button onClick={handleLogout} className="dropdown-item">Logout</button>
                                 </div>
