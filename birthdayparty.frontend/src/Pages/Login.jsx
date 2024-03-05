@@ -2,16 +2,23 @@ import { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import getEndpoint from '../Services/getEndpoint';
-import styles from "./login.css";
+import "./login.css";
 import LoadingSpinner from '../Components/LoadingSpinner';
 import LoginService from '../Services/ApiServices/LoginServices';
+import RegisterService from '../Services/ApiServices/RegisterServices';
 
 function Login({ setToken }) {
     let navigate = useNavigate();
+    //login variable
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+    //register variable
+    const [nameRegister, setNameRegister] = useState("");
+    const [emailRegister, setEmailRegister] = useState("");
+    const [passwordRegister, setPasswordRegister] = useState("");
+    const [errorMessageRegister, setErrorMessageRegister] = useState("");
 
     async function loginUser(credentials) {
         //console.log(JSON.stringify(credentials))
@@ -46,6 +53,46 @@ function Login({ setToken }) {
         const user = await loginUser({
           email,
           password
+        });
+        if(!user) return; 
+        setToken(user.token);
+        navigate("/");
+    }
+
+    async function registerUser(credentials) {
+        //console.log(JSON.stringify(credentials))
+        setIsLoading(true);
+        let res;
+        try {
+            res = await RegisterService(credentials);
+
+            if (!res.ok) {
+                const errorData = await res.text();
+                throw new Error(errorData || 'Unknown error occurred');
+            }
+
+            // Handle successful response data
+            setErrorMessageRegister("");
+            setIsLoading(false);
+            // const data = await res.json();
+            // process the data as needed
+
+        } catch (err) {
+            setErrorMessageRegister(err.message);
+            setIsLoading(false);
+            return;
+            // Handle errors
+        }
+        //console.log(await res.json());
+        return await res.json();
+    }
+    
+    const handleRegisterSubmit = async e => {
+        e.preventDefault();
+        const user = await registerUser({
+          "name": nameRegister,
+          "email": emailRegister,
+          "password": passwordRegister
         });
         if(!user) return; 
         setToken(user.token);
@@ -89,16 +136,18 @@ function Login({ setToken }) {
                   
 
                   <div className="login-form form px-4">
+                    <form onSubmit={handleRegisterSubmit}>
+                    <input type="text" name="" className="form-control" placeholder="Name" onChange={(e) => setNameRegister(e.target.value)}/>
 
-                    <input type="text" name="" className="form-control" placeholder="Name"/>
+                    <input type="text" name="" className="form-control" placeholder="Email" onChange={(e) => setEmailRegister(e.target.value)}/>
 
-                    <input type="text" name="" className="form-control" placeholder="Email"/>
+            {/*<input type="text" name="" className="form-control" placeholder="Phone" onChange={(e) => e.setPass}/>*/}
 
-                    <input type="text" name="" className="form-control" placeholder="Phone"/>
+                    <input type="password" name="" className="form-control" placeholder="Password" onChange={(e) => setPasswordRegister(e.target.value)}/>
 
-                    <input type="password" name="" className="form-control" placeholder="Password"/>
-
+                    {errorMessageRegister && <div className='text-danger'>{errorMessageRegister}</div>}
                     <button className="btn login-btn-dark btn-dark btn-block">Signup</button>
+                    </form>
 
                   </div>
 

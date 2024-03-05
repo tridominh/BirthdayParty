@@ -45,7 +45,7 @@ namespace BirthdayParty.API.Controllers
         }
 
         [HttpPost("Register")]
-        public async Task<ActionResult<User>> Register(RegisterDTO registerDTO)
+        public async Task<ActionResult<UserDTO>> Register(RegisterDTO registerDTO)
         {
             if(await _manager.FindByEmailAsync(registerDTO.Email) != null){
                 return BadRequest("Email already exists!!!");
@@ -60,7 +60,12 @@ namespace BirthdayParty.API.Controllers
             bool roleExists = await _roleManager.RoleExistsAsync("Customer");
             if(!roleExists) await _roleManager.CreateAsync(new Role("Customer"));
             await _manager.AddToRoleAsync(user, "Customer");
-            return Ok("Created successfully!!!");
+            var userDTO = new UserDTO{
+                Name = user.UserName,
+                Email = user.Email,
+                Token = _jwtService.CreateJwt(user, "Customer")
+            };
+            return Ok(userDTO);
         }
 
         [HttpPost("RegisterWithRole")]
