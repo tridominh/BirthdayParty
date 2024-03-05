@@ -1,11 +1,11 @@
 import { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-import getEndpoint from '../Services/getEndpoint';
 import "./login.css";
 import LoadingSpinner from '../Components/LoadingSpinner';
 import LoginService from '../Services/ApiServices/LoginServices';
 import RegisterService from '../Services/ApiServices/RegisterServices';
+import parseJwt from '../Services/parseJwt';
 
 function Login({ setToken }) {
     let navigate = useNavigate();
@@ -56,7 +56,19 @@ function Login({ setToken }) {
         });
         if(!user) return; 
         setToken(user.token);
-        navigate("/");
+        const role = parseJwt(user.token).role;
+        if(role=="Customer"){
+            navigate("/");
+        }
+        else if(role=="Admin"){
+            navigate("/admin/booking");
+        }
+        else if(role=="Host"){
+            navigate("/host/confirm-booking");
+        }
+        else{
+    
+        }
     }
 
     async function registerUser(credentials) {

@@ -88,7 +88,7 @@ namespace BirthdayParty.API.Controllers
         }
 
         [HttpGet("GetAll")]
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "Customer, Admin, Host")]
         public async Task<ActionResult<IEnumerable<User>>> GetAll()
         {
             var list = _manager.Users;
