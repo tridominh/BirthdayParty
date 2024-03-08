@@ -1,7 +1,6 @@
-﻿using BirthdayParty.Models;
+﻿/*using BirthdayParty.Models;
 using BirthdayParty.Repository.Interfaces;
 using BirthdayParty.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace BirthdayParty.Services
 {
@@ -66,4 +65,4 @@ namespace BirthdayParty.Services
 
 
     }
-}
+}*/
