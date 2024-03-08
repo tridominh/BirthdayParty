@@ -1,4 +1,5 @@
-﻿/*using BirthdayParty.Models;
+using BirthdayParty.Models;
+using BirthdayParty.Models.DTOs;
 using BirthdayParty.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,19 +7,19 @@ namespace BirthdayParty.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ServiceBookingController : ControllerBase
+    public class ServiceController : ControllerBase
     {
-        private readonly IServiceBookingService bookingService;
+        private readonly IServiceService _serviceService;
 
-        public ServiceBookingController(IServiceBookingService bookingService)
+        public ServiceController(IServiceService serviceService)
         {
-            this.bookingService = bookingService;
+            _serviceService = serviceService;
         }
 
         [HttpGet("GetAllServices")]
         public async Task<ActionResult<List<Service>>> GetAllServices()
         {
-            List<Service> services = bookingService.GetAllServices();
+            List<Service> services = _serviceService.GetAllServices();
 
             if (services == null || services.Count == 0)
             {
@@ -27,10 +28,10 @@ namespace BirthdayParty.API.Controllers
 
             return Ok(services);
         }
-        [HttpPost("UpdateService")]
-        public async Task<ActionResult<Service>> UpdateService(Service updatedService)
+        [HttpPut("UpdateService")]
+        public async Task<ActionResult<Service>> UpdateService(ServiceUpdateDto updatedService)
         {
-            var existingService = bookingService.GetServiceById(updatedService.ServiceId);
+            var existingService = _serviceService.GetServiceById(updatedService.ServiceId);
 
             if (existingService == null)
             {
@@ -39,7 +40,7 @@ namespace BirthdayParty.API.Controllers
 
             try
             {
-                var result = bookingService.UpdateService(updatedService);
+                var result = _serviceService.UpdateService(updatedService);
                 return Ok(result);
             }
             catch (Exception)
@@ -51,7 +52,7 @@ namespace BirthdayParty.API.Controllers
         [HttpDelete("DeleteService")]
         public async Task<ActionResult> DeleteService(int id)
         {
-            var result = bookingService.DeleteService(id);
+            var result = _serviceService.DeleteService(id);
 
             if (result == null)
             {
@@ -62,10 +63,10 @@ namespace BirthdayParty.API.Controllers
         }
 
         [HttpPost("CreateService")]
-        public async Task<ActionResult<Service>> CreateService(Service service)
+        public async Task<ActionResult<Service>> CreateService(ServiceCreateDto service)
         {
-            bookingService.CreateService(service);
+            _serviceService.CreateService(service);
             return Ok();
         }
     }
-}*/
+}

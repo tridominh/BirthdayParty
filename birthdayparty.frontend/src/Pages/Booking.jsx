@@ -1,23 +1,31 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageHeader from '../Components/PageHeader';
+import useToken from '../Services/useToken';
+import "../assets/css/customer-booking.css"
 
 function Booking(){
     let navigate = useNavigate();
+
     const CheckLogin = () =>{
-        if(localStorage.getItem("token") != null){
+        if(useToken().token != null){
         
         }else{
             navigate("/login");
         }
-    }
+    };
+
+    const handleBookingSubmit = () => {
+        
+    };
+
     return( 
     <Fragment>
     <PageHeader title={"Booking"}/>
     <div className="booking">
         <div className="container">
             <div className="row align-items-center">
-                <div className="col-lg-7">
+                <div className="col-lg-6">
                     <div className="booking-content">
                         <div className="section-header">
                             <p>Book A Table</p>
@@ -32,56 +40,58 @@ function Booking(){
                         </div>
                     </div>
                 </div>
-                <div className="col-lg-5">
+                <div className="col-lg-6">
                     <div className="booking-form">
-                        <form>
+                        <form onSubmit={handleBookingSubmit}>
+                            
                             <div className="control-group">
                                 <div className="input-group">
-                                    <input type="text" className="form-control" placeholder="Name" required="required" />
-                                    <div className="input-group-append">
-                                        <div className="input-group-text"><i className="far fa-user"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="control-group">
-                                <div className="input-group">
-                                    <input type="email" className="form-control" placeholder="Email" required="required" />
-                                    <div className="input-group-append">
+                                    <select className="form-control" aria-label="Default select example">
+                                        <option selected>Room 1</option>
+                                        <option value="1">Room 2</option>
+                                        <option value="2">Room 3</option>
+                                        <option value="3">Room 4</option>
+                                    </select>
+        {/*<div className="input-group-append">
                                         <div className="input-group-text"><i className="far fa-envelope"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="control-group">
-                                <div className="input-group">
-                                    <input type="text" className="form-control" placeholder="Mobile" required="required" />
-                                    <div className="input-group-append">
-                                        <div className="input-group-text"><i className="fa fa-mobile-alt"></i></div>
-                                    </div>
+                                    </div>*/}
                                 </div>
                             </div>
                             <div className="control-group">
                                 <div className="input-group date" id="date" data-target-input="nearest">
-                                    <input type="text" className="form-control datetimepicker-input" placeholder="Date" data-target="#date" data-toggle="datetimepicker"/>
-                                    <div className="input-group-append" data-target="#date" data-toggle="datetimepicker">
+                                    <input type="datetime-local" className="form-control" placeholder="Date"/>
+        {/*<div className="input-group-append">
                                         <div className="input-group-text"><i className="far fa-calendar-alt"></i></div>
-                                    </div>
+                                    </div>*/}
                                 </div>
                             </div>
-                            <div className="control-group">
-                                <div className="input-group time" id="time" data-target-input="nearest">
-                                    <input type="text" className="form-control datetimepicker-input" placeholder="Time" data-target="#time" data-toggle="datetimepicker"/>
-                                    <div className="input-group-append" data-target="#time" data-toggle="datetimepicker">
-                                        <div className="input-group-text"><i className="far fa-clock"></i></div>
-                                    </div>
+                            <h5 className='text-white'>Package</h5>
+                            <div className="control-group row">
+                                <label className='col-3 booking-label'>Menu</label>
+                                <div className="col-9 input-group">
+                                    <select className="form-control" aria-label="Default select example">
+                                        <option selected>Room 1</option>
+                                        <option value="1">Room 2</option>
+                                        <option value="2">Room 3</option>
+                                        <option value="3">Room 4</option>
+                                    </select>
+        {/*<div className="input-group-append">
+                                        <div className="input-group-text"><i className="far fa-envelope"></i></div>
+                                    </div>*/}
                                 </div>
                             </div>
-                            <div className="control-group">
-                                <div className="input-group">
-                                    <input type="text" className="custom-select form-control"placeholder="Amount" required="required">
-                                    </input>
-                                    <div className="input-group-append">
-                                        <div className="input-group-text"><i className="far fa-user"></i></div>
-                                    </div>
+                            <div className="control-group row">
+                                <label className='col-3 booking-label'>Entertainment</label>
+                                <div className="col-9 input-group">
+                                    <select className="form-control" aria-label="Default select example">
+                                        <option selected>Room 1</option>
+                                        <option value="1">Room 2</option>
+                                        <option value="2">Room 3</option>
+                                        <option value="3">Room 4</option>
+                                    </select>
+        {/*<div className="input-group-append">
+                                        <div className="input-group-text"><i className="far fa-envelope"></i></div>
+                                    </div>*/}
                                 </div>
                             </div>
                             <div>

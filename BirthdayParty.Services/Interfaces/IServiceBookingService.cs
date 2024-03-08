@@ -8,6 +8,6 @@ namespace BirthdayParty.Services.Interfaces
         Service GetServiceById(int id);
         Service UpdateService(Service updatedService);
         Service DeleteService(int id);
-        public void CreateService(Service service);
+        Service CreateService(Service service);
     }
 }

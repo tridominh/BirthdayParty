@@ -17,7 +17,11 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers()
-    .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+    .AddJsonOptions(options => {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    });
+
 // Add services to the container.
 builder.Services.AddDbContext<BookingPartyContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("BirthdayDb")));
@@ -25,8 +29,11 @@ builder.Services.AddSingleton(x => new BlobServiceClient(builder.Configuration.G
 builder.Services.AddSingleton<IUploadFileService, UploadFileService>();
 builder.Services.AddScoped<IPackageService, PackageService>();
 builder.Services.AddScoped<IPackageRepository, PackageRepository>();
-builder.Services.AddScoped<IServiceBookingService, ServiceBookingService>();
+//builder.Services.AddScoped<IServiceBookingService, ServiceBookingService>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+builder.Services.AddScoped<IServiceService, ServiceService>();
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+builder.Services.AddScoped<IRoomService, RoomService>();
 builder.Services.AddScoped<JWTService>();
 builder.Services.AddIdentityCore<User>(options =>
 {

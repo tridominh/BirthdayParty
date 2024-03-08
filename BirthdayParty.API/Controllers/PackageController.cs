@@ -1,12 +1,8 @@
 using BirthdayParty.Models;
 using BirthdayParty.Models.Converters;
 using BirthdayParty.Models.DTOs;
-using BirthdayParty.Repository;
 using BirthdayParty.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.DotNet.Scaffolding.Shared.Messaging;
-using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 
 
 namespace BirthdayParty.API.Controllers
@@ -44,7 +40,7 @@ namespace BirthdayParty.API.Controllers
             return Ok(new { Message = "Create Package Successfully", Data = packageCreateDto });
         }
 
-        [HttpPost("Update")]
+        [HttpPut("Update")]
         public async Task<ActionResult<Package>> UpdatePackage([FromBody] PackageUpdateDto packageUpdateDto)
         {
             Package updatedPackage = PackageConverter.toEntity(packageUpdateDto);
@@ -59,7 +55,7 @@ namespace BirthdayParty.API.Controllers
             return Ok(new { Message = "Update Package Successfully", Data =  package});
         }
 
-        [HttpPost("Delete")]
+        [HttpDelete("Delete")]
         public async Task<ActionResult<Package>> DeletePackage([FromBody] int id)
         {
             Package package = packageService.DeletePackage(id);
