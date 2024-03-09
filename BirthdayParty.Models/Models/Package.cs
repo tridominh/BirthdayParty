@@ -11,7 +11,5 @@ public partial class Package
 
     public string PackageType { get; set; }
 
-    public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
-
     public virtual ICollection<Service> Services { get; set; } = new List<Service>();
 }

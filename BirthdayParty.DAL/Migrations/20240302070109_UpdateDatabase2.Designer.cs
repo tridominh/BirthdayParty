@@ -4,6 +4,7 @@ using BirthdayParty.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BirthdayParty.DAL.Migrations
 {
     [DbContext(typeof(BookingPartyContext))]
-    partial class BookingPartyContextModelSnapshot : ModelSnapshot
+    [Migration("20240302070109_UpdateDatabase2")]
+    partial class UpdateDatabase2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,9 +43,6 @@ namespace BirthdayParty.DAL.Migrations
                     b.Property<string>("Feedback")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("PartyDateTime")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
@@ -196,9 +196,6 @@ namespace BirthdayParty.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("ServicePrice")
-                        .HasColumnType("decimal(18,2)");
-
                     b.HasKey("ServiceId");
 
                     b.HasIndex("PackageId");
@@ -272,6 +269,21 @@ namespace BirthdayParty.DAL.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("BookingPackage", b =>
+                {
+                    b.Property<int>("BookingsBookingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PackageId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BookingsBookingId", "PackageId");
+
+                    b.HasIndex("PackageId");
+
+                    b.ToTable("BookingPackage");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -435,6 +447,21 @@ namespace BirthdayParty.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Package");
+                });
+
+            modelBuilder.Entity("BookingPackage", b =>
+                {
+                    b.HasOne("BirthdayParty.Models.Booking", null)
+                        .WithMany()
+                        .HasForeignKey("BookingsBookingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BirthdayParty.Models.Package", null)
+                        .WithMany()
+                        .HasForeignKey("PackageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
