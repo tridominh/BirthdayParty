@@ -43,7 +43,7 @@ namespace BirthdayParty.Services
         {
             var roomObj = new Room{
                 Capacity = room.Capacity,
-                RoomStatus = room.RoomStatus,
+                RoomStatus = "Pending",
             };
             return _roomRepository.Add(roomObj);
         }
