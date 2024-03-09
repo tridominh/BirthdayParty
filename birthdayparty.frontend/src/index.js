@@ -14,6 +14,9 @@ import useToken from './Services/useToken';
 import useUserName from './Services/useUserName';
 import About from './Pages/About';
 import Package from './Pages/Package';
+import KidsMenu from './Pages/KidsMenu';
+import NormalMenu from './Pages/NormalMenu';
+import VegetarianMenu from './Pages/VegetarianMenu';
 
 export default function App() {
   const { token, setToken, removeToken } = useToken();
@@ -34,6 +37,9 @@ export default function App() {
           <Route path="package" element={<Package/>} />
           <Route path="booking" element={<Booking />} />
           <Route path="*" element={<NotFound />} />
+          <Route path='kidsMenu' element={<KidsMenu />} />
+          <Route path='normalMenu' element={<NormalMenu />} />
+          <Route path='vegetarianMenu' element={<VegetarianMenu />} />
         </Route>
         <Route path='login' element={<Login setToken={setToken} 
               />}/>

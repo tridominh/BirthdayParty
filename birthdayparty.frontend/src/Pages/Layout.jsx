@@ -25,16 +25,18 @@ function Layout({ token, removeToken }) {
                     <div className="navbar-nav ml-auto">
                         <Link to="/" className="nav-item nav-link active">Home</Link>
                         <Link to="/About" className="nav-item nav-link">About</Link>
-                        <Link to="/Package" className="nav-item nav-link">Package</Link>
                         <Link to="/Booking" className="nav-item nav-link">Booking</Link>
+                        <Link to="/Package">
                         <div className="nav-item dropdown">
-                            <Link href="#" className="nav-link dropdown-toggle" data-toggle="dropdown">Menu</Link>
+                            <Link to="/Package" className="nav-link dropdown-toggle" data-toggle="dropdown">Package</Link>
                             <div className="dropdown-menu">
+                                <Link to="/Package" className="dropdown-item">Package</Link>
                                 <Link to="/VegetarianMenu" className="dropdown-item">Vegetarian Menu</Link>
                                 <Link to="/NormalMenu" className="dropdown-item">Normal Menu</Link>
                                 <Link to="/KidsMenu" className="dropdown-item">Kids Menu</Link>
                             </div>
                         </div>
+                        </Link>
                         
                         {token ? (
                             <div className="nav-item dropdown">
