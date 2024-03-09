@@ -1,7 +1,6 @@
 ﻿using BirthdayParty.Models;
 using BirthdayParty.Repository.Interfaces;
 using BirthdayParty.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace BirthdayParty.Services
 {
@@ -17,11 +16,6 @@ namespace BirthdayParty.Services
         public List<Service> GetAllServices()
         {
             return serviceRepository.GetAll().ToList();
-        }
-
-        List<Service> IServiceBookingService.GetAllServices()
-        {
-            throw new NotImplementedException();
         }
 
         public Service GetServiceById(int id)
@@ -40,7 +34,7 @@ namespace BirthdayParty.Services
 
             existingService.ServiceName = updatedService.ServiceName;
 
-            serviceRepository.Update(updatedService);
+            serviceRepository.Update(existingService);
 
             return existingService;
         }
@@ -63,7 +57,5 @@ namespace BirthdayParty.Services
         {
             serviceRepository.Add(service);
         }
-
-
     }
 }
