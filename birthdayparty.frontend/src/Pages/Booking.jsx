@@ -1,8 +1,9 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageHeader from '../Components/PageHeader';
 import useToken from '../Services/useToken';
 import "../assets/css/customer-booking.css"
+import GetAllPackages from '../Services/ApiServices/PackageServices';
 
 function Booking(){
     let navigate = useNavigate();
@@ -14,6 +15,20 @@ function Booking(){
             navigate("/login");
         }
     };
+
+    const [packages, setPackages] = useState(null);
+
+
+    const fetchData = useCallback(async () => {
+        const data = await GetAllPackages();
+        const json = await data.json();
+        console.log(json);
+        setPackages(json);
+    }, [])
+
+    useEffect(() => {
+        fetchData();
+    }, [fetchData])
 
     const handleBookingSubmit = () => {
         
@@ -28,7 +43,7 @@ function Booking(){
                 <div className="col-lg-6">
                     <div className="booking-content">
                         <div className="section-header">
-                            <p>Book A Table</p>
+                            <p>Book A Table </p>
                             <h2>Book Table For Your Kids</h2>
                         </div>
                         <div className="about-text">
@@ -44,8 +59,9 @@ function Booking(){
                     <div className="booking-form">
                         <form onSubmit={handleBookingSubmit}>
                             
-                            <div className="control-group">
-                                <div className="input-group">
+                            <div className="control-group row">
+                                <label className='col-3 booking-label'>Room</label>
+                                <div className="col-9 input-group">
                                     <select className="form-control" aria-label="Default select example">
                                         <option selected>Room 1</option>
                                         <option value="1">Room 2</option>
@@ -57,8 +73,9 @@ function Booking(){
                                     </div>*/}
                                 </div>
                             </div>
-                            <div className="control-group">
-                                <div className="input-group date" id="date" data-target-input="nearest">
+                            <div className="control-group row">
+                                <label className='col-3 booking-label'>Booking Date</label>
+                                <div className="col-9 input-group date" id="date" data-target-input="nearest">
                                     <input type="datetime-local" className="form-control" placeholder="Date"/>
         {/*<div className="input-group-append">
                                         <div className="input-group-text"><i className="far fa-calendar-alt"></i></div>
@@ -66,6 +83,18 @@ function Booking(){
                                 </div>
                             </div>
                             <h5 className='text-white'>Package</h5>
+                            {packages && packages.map(el => {
+                                return (<div className="control-group row">
+                                    <label className='col-3 booking-label'>{el.packageName}</label>
+                                    <div className="col-9 input-group">
+                                        <select className="form-control" aria-label="Default select example">
+                                            {el.services && el.services.map((service, i) => {
+                                                return (<option value={i}>{service.serviceName}</option>)
+                                            })}
+                                        </select>
+                                    </div>
+                                </div>)
+                            })}
                             <div className="control-group row">
                                 <label className='col-3 booking-label'>Menu</label>
                                 <div className="col-9 input-group">
@@ -75,7 +104,7 @@ function Booking(){
                                         <option value="2">Room 3</option>
                                         <option value="3">Room 4</option>
                                     </select>
-        {/*<div className="input-group-append">
+                                    {/*<div className="input-group-append">
                                         <div className="input-group-text"><i className="far fa-envelope"></i></div>
                                     </div>*/}
                                 </div>
@@ -89,7 +118,7 @@ function Booking(){
                                         <option value="2">Room 3</option>
                                         <option value="3">Room 4</option>
                                     </select>
-        {/*<div className="input-group-append">
+                                    {/*<div className="input-group-append">
                                         <div className="input-group-text"><i className="far fa-envelope"></i></div>
                                     </div>*/}
                                 </div>

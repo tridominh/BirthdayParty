@@ -3,6 +3,7 @@ using BirthdayParty.Models.DTOs;
 using BirthdayParty.Repository;
 using BirthdayParty.Repository.Interfaces;
 using BirthdayParty.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace BirthdayParty.Services
 {
@@ -17,7 +18,7 @@ namespace BirthdayParty.Services
 
         public List<Package> GetAllPackages()
         {
-            return packageRepository.GetAll().ToList();
+            return packageRepository.GetAll(q => q.Include(p => p.Services)).ToList();
         }
 
         public void CreatePackage(Package package)
