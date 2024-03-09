@@ -30,6 +30,7 @@ namespace BirthdayParty.Services
                 ServiceId = updatedService.ServiceId,
                 PackageId = updatedService.PackageId,
                 ServiceName = updatedService.ServiceName,
+                ServicePrice = updatedService.ServicePrice
             };
             return serviceRepository.Update(service);
         }
@@ -44,6 +45,7 @@ namespace BirthdayParty.Services
             var serviceObj = new Service{
                 PackageId = service.PackageId,
                 ServiceName = service.ServiceName,
+                ServicePrice = service.ServicePrice
             };
             return serviceRepository.Add(serviceObj);
         }
