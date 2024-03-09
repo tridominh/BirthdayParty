@@ -67,5 +67,17 @@ namespace BirthdayParty.API.Controllers
 
             return Ok(new { Message = "Delete Package Successfully", Data = package });
         }
+
+        [HttpGet("GetAllServicesByPackageId")]
+        public async Task<ActionResult<List<Service>>> GetAllServicesByPackageId(int id)
+        {
+            List<Service> services = packageService.GetAllServicesByPackageId(id);
+
+            if(services == null || services.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(services);
+        }
     }
 }

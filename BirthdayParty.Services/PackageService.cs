@@ -10,10 +10,12 @@ namespace BirthdayParty.Services
     public class PackageService : IPackageService
     {
         private readonly IPackageRepository packageRepository;
+        private readonly IServiceRepository serviceRepository;
 
-        public PackageService(IPackageRepository packageRepository)
+        public PackageService(IPackageRepository packageRepository, IServiceRepository serviceRepository)
         {
             this.packageRepository = packageRepository;
+            this.serviceRepository = serviceRepository;
         }
 
         public List<Package> GetAllPackages()
@@ -43,6 +45,14 @@ namespace BirthdayParty.Services
             Package package = packageRepository.Delete(id);
 
             return package;
+        }
+
+        public List<Service> GetAllServicesByPackageId(int packageId)
+        {
+            List<Service> services = serviceRepository.GetAll()
+                .Where(s => s.PackageId == packageId).ToList();
+
+            return services;
         }
     }
 }
