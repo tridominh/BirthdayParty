@@ -21,13 +21,14 @@ namespace BirthdayParty.API.Controllers
         {
             List<Room> rooms = _roomService.GetAllRooms();
 
-            if (rooms == null || rooms.Count == 0)
-            {
-                return NotFound();
-            }
+            //if (rooms == null || rooms.Count == 0)
+            //{
+            //    return NotFound();
+            //}
 
             return Ok(rooms);
         }
+
         [HttpPut("UpdateRoom")]
         public async Task<ActionResult<Room>> UpdateRoom(RoomUpdateDto updatedRoom)
         {

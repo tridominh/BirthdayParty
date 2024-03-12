@@ -11,6 +11,8 @@ public partial class BookingService
 
     public int ServiceId { get; set; }
 
+    public int? Amount { get; set; }
+
     public virtual Booking Booking { get; set; }
 
     public virtual Service Service { get; set; }

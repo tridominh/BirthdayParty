@@ -4,6 +4,7 @@ using BirthdayParty.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BirthdayParty.DAL.Migrations
 {
     [DbContext(typeof(BookingPartyContext))]
-    partial class BookingPartyContextModelSnapshot : ModelSnapshot
+    [Migration("20240311074122_AddImages")]
+    partial class AddImages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,9 +69,6 @@ namespace BirthdayParty.DAL.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingServiceId"));
-
-                    b.Property<int?>("Amount")
-                        .HasColumnType("int");
 
                     b.Property<int>("BookingId")
                         .HasColumnType("int");
@@ -125,6 +125,8 @@ namespace BirthdayParty.DAL.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("PackageImageId");
+
+                    b.HasIndex("PackageId");
 
                     b.ToTable("PackageImages", (string)null);
 
@@ -202,16 +204,6 @@ namespace BirthdayParty.DAL.Migrations
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("RoomNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("RoomStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -241,6 +233,8 @@ namespace BirthdayParty.DAL.Migrations
 
                     b.HasKey("RoomImageId");
 
+                    b.HasIndex("RoomId");
+
                     b.ToTable("RoomImages", (string)null);
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("RoomImage<byte[]>");
@@ -255,9 +249,6 @@ namespace BirthdayParty.DAL.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServiceId"));
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PackageId")
                         .HasColumnType("int");
@@ -295,6 +286,8 @@ namespace BirthdayParty.DAL.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ServiceImageId");
+
+                    b.HasIndex("ServiceId");
 
                     b.ToTable("ServiceImages", (string)null);
 
@@ -478,8 +471,6 @@ namespace BirthdayParty.DAL.Migrations
                 {
                     b.HasBaseType("BirthdayParty.Models.PackageImage<byte[]>");
 
-                    b.HasIndex("PackageId");
-
                     b.ToTable("PackageImages", (string)null);
 
                     b.HasDiscriminator().HasValue("PackageImageLocal");
@@ -489,8 +480,6 @@ namespace BirthdayParty.DAL.Migrations
                 {
                     b.HasBaseType("BirthdayParty.Models.RoomImage<byte[]>");
 
-                    b.HasIndex("RoomId");
-
                     b.ToTable("RoomImages", (string)null);
 
                     b.HasDiscriminator().HasValue("RoomImageLocal");
@@ -499,8 +488,6 @@ namespace BirthdayParty.DAL.Migrations
             modelBuilder.Entity("BirthdayParty.Models.LocalImages.ServiceImageLocal", b =>
                 {
                     b.HasBaseType("BirthdayParty.Models.ServiceImage<byte[]>");
-
-                    b.HasIndex("ServiceId");
 
                     b.ToTable("ServiceImages", (string)null);
 
@@ -545,6 +532,17 @@ namespace BirthdayParty.DAL.Migrations
                     b.Navigation("Service");
                 });
 
+            modelBuilder.Entity("BirthdayParty.Models.PackageImage<byte[]>", b =>
+                {
+                    b.HasOne("BirthdayParty.Models.Package", "Package")
+                        .WithMany("PackageImages")
+                        .HasForeignKey("PackageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Package");
+                });
+
             modelBuilder.Entity("BirthdayParty.Models.Payment", b =>
                 {
                     b.HasOne("BirthdayParty.Models.Booking", "Booking")
@@ -556,6 +554,17 @@ namespace BirthdayParty.DAL.Migrations
                     b.Navigation("Booking");
                 });
 
+            modelBuilder.Entity("BirthdayParty.Models.RoomImage<byte[]>", b =>
+                {
+                    b.HasOne("BirthdayParty.Models.Room", "Room")
+                        .WithMany("PackageImages")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Room");
+                });
+
             modelBuilder.Entity("BirthdayParty.Models.Service", b =>
                 {
                     b.HasOne("BirthdayParty.Models.Package", "Package")
@@ -565,6 +574,17 @@ namespace BirthdayParty.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Package");
+                });
+
+            modelBuilder.Entity("BirthdayParty.Models.ServiceImage<byte[]>", b =>
+                {
+                    b.HasOne("BirthdayParty.Models.Service", "Service")
+                        .WithMany("PackageImages")
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Service");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -618,39 +638,6 @@ namespace BirthdayParty.DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BirthdayParty.Models.LocalImages.PackageImageLocal", b =>
-                {
-                    b.HasOne("BirthdayParty.Models.Package", "Package")
-                        .WithMany("PackageImages")
-                        .HasForeignKey("PackageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Package");
-                });
-
-            modelBuilder.Entity("BirthdayParty.Models.LocalImages.RoomImageLocal", b =>
-                {
-                    b.HasOne("BirthdayParty.Models.Room", "Room")
-                        .WithMany("RoomImages")
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Room");
-                });
-
-            modelBuilder.Entity("BirthdayParty.Models.LocalImages.ServiceImageLocal", b =>
-                {
-                    b.HasOne("BirthdayParty.Models.Service", "Service")
-                        .WithMany("ServiceImages")
-                        .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Service");
-                });
-
             modelBuilder.Entity("BirthdayParty.Models.Booking", b =>
                 {
                     b.Navigation("BookingServices");
@@ -669,14 +656,14 @@ namespace BirthdayParty.DAL.Migrations
                 {
                     b.Navigation("Bookings");
 
-                    b.Navigation("RoomImages");
+                    b.Navigation("PackageImages");
                 });
 
             modelBuilder.Entity("BirthdayParty.Models.Service", b =>
                 {
                     b.Navigation("BookingServices");
 
-                    b.Navigation("ServiceImages");
+                    b.Navigation("PackageImages");
                 });
 
             modelBuilder.Entity("BirthdayParty.Models.User", b =>

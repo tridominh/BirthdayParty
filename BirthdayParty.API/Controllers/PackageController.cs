@@ -22,10 +22,10 @@ namespace BirthdayParty.API.Controllers
         {
             List<Package> packages = packageService.GetAllPackages();
 
-            if (packages == null || packages.Count == 0)
-            {
-                return NotFound();
-            }
+            //if (packages == null || packages.Count == 0)
+            //{
+            //    return NotFound();
+            //}
 
             return Ok(packages);
         }

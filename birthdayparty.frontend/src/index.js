@@ -17,6 +17,7 @@ import parseJwt from './Services/parseJwt';
 import AdminBooking from './AdminPages/Booking';
 import AdminPackage from './AdminPages/Package';
 import ConfirmBooking from './HostPages/ConfirmBooking';
+import Room from './Pages/Room';
 
 export default function App() {
   const { token, setToken, removeToken } = useToken();
@@ -30,8 +31,11 @@ export default function App() {
           {/*User pages*/}
           <Route index element={<Home />} />
           <Route path="about" element={<About/>} />
+          <Route path="room" element={<Room/>} />
           <Route path="package" element={<Package/>} />
-          <Route path="booking" element={<Booking />} />
+          <Route path="booking" element={<Booking />} >
+            <Route path=":id" element={<Booking />} />
+          </Route>
           {/*Admin pages*/}
           <Route path="admin/booking" element={
             <PrivateRoute role="Admin">
