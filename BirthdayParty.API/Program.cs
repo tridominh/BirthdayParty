@@ -1,16 +1,16 @@
 using System.Text;
 using System.Text.Json.Serialization;
-using Azure.Storage.Blobs;
 using BirthdayParty.API;
+using BirthdayParty.API.Extensions;
 using BirthdayParty.DAL;
 using BirthdayParty.Models;
 using BirthdayParty.Repository;
 using BirthdayParty.Repository.Interfaces;
 using BirthdayParty.Services;
 using BirthdayParty.Services.Interfaces;
+using ClassLibrary.Repository.Implementation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -23,9 +23,11 @@ builder.Services.AddControllers()
     });
 
 // Add services to the container.
-builder.Services.AddDbContext<BookingPartyContext>(
-    options => options.UseSqlServer(builder.Configuration.GetConnectionString("BirthdayDb")));
-builder.Services.AddSingleton(x => new BlobServiceClient(builder.Configuration.GetConnectionString("AzureBlobStorage")));
+//builder.Services.AddDbContext<BookingPartyContext>(
+//   options => options.UseSqlServer(builder.Configuration.GetConnectionString("BirthdayDb")));
+builder.Services.RegisterLocalServices(builder.Configuration);   
+//builder.Services.AddSingleton(x => new BlobServiceClient(builder.Configuration.GetConnectionString("AzureBlobStorage")));
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddSingleton<IUploadFileService, UploadFileService>();
 builder.Services.AddScoped<IPackageService, PackageService>();
 builder.Services.AddScoped<IPackageRepository, PackageRepository>();

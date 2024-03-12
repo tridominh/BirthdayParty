@@ -1,15 +1,21 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import PageHeader from '../Components/PageHeader';
 import useToken from '../Services/useToken';
 import "../assets/css/customer-booking.css"
 import GetAllPackages from '../Services/ApiServices/PackageServices';
+import GetAllRooms from '../Services/ApiServices/RoomServices';
+import NotFound from './NotFound';
+import RoomCarousel from '../Components/RoomCarousel';
 
 function Booking(){
+    let { id } = useParams();
     let navigate = useNavigate();
 
-    const CheckLogin = () =>{
-        if(useToken().token != null){
+    const token = useToken().token;
+
+    const CheckLogin = (e) =>{
+        if(token != null){
         
         }else{
             navigate("/login");
@@ -17,23 +23,43 @@ function Booking(){
     };
 
     const [packages, setPackages] = useState(null);
+    const [rooms, setRooms] = useState(null);
+    const [room, setRoom] = useState(null);
 
-
-    const fetchData = useCallback(async () => {
+    const fetchPackages = useCallback(async () => {
         const data = await GetAllPackages();
         const json = await data.json();
-        console.log(json);
+        //console.log(json);
         setPackages(json);
     }, [])
 
+    const fetchRooms = useCallback(async () => {
+        const data = await GetAllRooms();
+        const json = await data.json();
+        //console.log(json);
+        setRooms(json);
+        if(json.some(room => room.roomId == id))
+            setRoom(json.find(room => room.roomId == id))
+    }, [])
+
     useEffect(() => {
-        fetchData();
-    }, [fetchData])
+        fetchRooms();
+        fetchPackages();
+    }, [fetchRooms, fetchPackages])
 
     const handleBookingSubmit = () => {
         
     };
 
+    if(!rooms || !packages) 
+        return (<Fragment>
+                <PageHeader title={"Booking"}/>
+                <div>Loading...</div>
+            </Fragment>
+        );
+    else if(!rooms.some(room => room.roomId == id))
+        return (<NotFound/>);
+        
     return( 
     <Fragment>
     <PageHeader title={"Booking"}/>
@@ -43,9 +69,10 @@ function Booking(){
                 <div className="col-lg-6">
                     <div className="booking-content">
                         <div className="section-header">
-                            <p>Book A Table </p>
+                            <p>Book A Table</p>
                             <h2>Book Table For Your Kids</h2>
                         </div>
+                        <RoomCarousel room={room}/>
                         <div className="about-text">
                             <p>
                             Create an unforgettable birthday party experience for children, full of joy and cherished memories. Our Birthday Party Booking service for kids aims to provide a magical celebration customized to the interests and desires of the child. We aim to make your child's special day even more special.
@@ -62,12 +89,7 @@ function Booking(){
                             <div className="control-group row">
                                 <label className='col-3 booking-label'>Room</label>
                                 <div className="col-9 input-group">
-                                    <select className="form-control" aria-label="Default select example">
-                                        <option selected>Room 1</option>
-                                        <option value="1">Room 2</option>
-                                        <option value="2">Room 3</option>
-                                        <option value="3">Room 4</option>
-                                    </select>
+                                    <strong className='text-white'>{room.roomId}</strong>
         {/*<div className="input-group-append">
                                         <div className="input-group-text"><i className="far fa-envelope"></i></div>
                                     </div>*/}
@@ -83,48 +105,21 @@ function Booking(){
                                 </div>
                             </div>
                             <h5 className='text-white'>Package</h5>
-                            {packages && packages.map(el => {
+                            {packages.map(el => {
                                 return (<div className="control-group row">
                                     <label className='col-3 booking-label'>{el.packageName}</label>
                                     <div className="col-9 input-group">
                                         <select className="form-control" aria-label="Default select example">
+                                            <option value={""} selected>None</option>
                                             {el.services && el.services.map((service, i) => {
-                                                return (<option value={i}>{service.serviceName}</option>)
+                                                return (<option value={service.serviceId}>{service.serviceName}</option>)
                                             })}
                                         </select>
                                     </div>
                                 </div>)
                             })}
-                            <div className="control-group row">
-                                <label className='col-3 booking-label'>Menu</label>
-                                <div className="col-9 input-group">
-                                    <select className="form-control" aria-label="Default select example">
-                                        <option selected>Room 1</option>
-                                        <option value="1">Room 2</option>
-                                        <option value="2">Room 3</option>
-                                        <option value="3">Room 4</option>
-                                    </select>
-                                    {/*<div className="input-group-append">
-                                        <div className="input-group-text"><i className="far fa-envelope"></i></div>
-                                    </div>*/}
-                                </div>
-                            </div>
-                            <div className="control-group row">
-                                <label className='col-3 booking-label'>Entertainment</label>
-                                <div className="col-9 input-group">
-                                    <select className="form-control" aria-label="Default select example">
-                                        <option selected>Room 1</option>
-                                        <option value="1">Room 2</option>
-                                        <option value="2">Room 3</option>
-                                        <option value="3">Room 4</option>
-                                    </select>
-                                    {/*<div className="input-group-append">
-                                        <div className="input-group-text"><i className="far fa-envelope"></i></div>
-                                    </div>*/}
-                                </div>
-                            </div>
                             <div>
-                                <button className="btn custom-btn" type="submit" onClick={CheckLogin}>Book Now</button>
+                                <button className="btn custom-btn" type="submit" onClick={e => CheckLogin(e)}>Book Now</button>
                             </div>
                         </form>
                     </div>
@@ -134,7 +129,6 @@ function Booking(){
     </div>
     </Fragment>
     );{/*  Booking End */}
-    
 }
 
 

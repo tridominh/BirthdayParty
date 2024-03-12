@@ -28,6 +28,7 @@ function Layout({ token, removeToken, role }) {
                             <Link to="/" className="nav-item nav-link active">Home</Link>
                             <Link to="/About" className="nav-item nav-link">About</Link>
                             <Link to="/Package" className="nav-item nav-link">Package</Link>
+                            <Link to="/Room" className="nav-item nav-link">Room</Link>
                             <Link to="/Booking" className="nav-item nav-link">Booking</Link>
                             <div className="nav-item dropdown">
                                 <Link href="/Menu" className="nav-link dropdown-toggle" data-toggle="dropdown">Menu</Link>

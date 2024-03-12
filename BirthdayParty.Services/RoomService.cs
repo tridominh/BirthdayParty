@@ -2,6 +2,7 @@ using BirthdayParty.Models;
 using BirthdayParty.Models.DTOs;
 using BirthdayParty.Repository.Interfaces;
 using BirthdayParty.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace BirthdayParty.Services
 {
@@ -16,7 +17,7 @@ namespace BirthdayParty.Services
 
         public List<Room> GetAllRooms()
         {
-            return _roomRepository.GetAll().ToList();
+            return _roomRepository.GetAll(q => q.Include(p => p.RoomImages)).ToList();
         }
 
         public Room GetRoomById(int id)
@@ -26,11 +27,11 @@ namespace BirthdayParty.Services
 
         public Room UpdateRoom(RoomUpdateDto updatedRoom)
         {
-            var room = new Room{
-                RoomId = updatedRoom.RoomId,
-                Capacity = updatedRoom.Capacity,
-                RoomStatus = updatedRoom.RoomStatus,
-            };
+            var room = _roomRepository.Get(updatedRoom.RoomId);
+            room.RoomNumber = updatedRoom.RoomNumber;
+            room.Price = updatedRoom.Price;
+            room.Capacity = updatedRoom.Capacity;
+            room.RoomStatus = updatedRoom.RoomStatus;
             return _roomRepository.Update(room);
         }
 
@@ -42,6 +43,8 @@ namespace BirthdayParty.Services
         public Room CreateRoom(RoomCreateDto room)
         {
             var roomObj = new Room{
+                RoomNumber = room.RoomNumber,
+                Price = room.Price,
                 Capacity = room.Capacity,
                 RoomStatus = "Pending",
             };
