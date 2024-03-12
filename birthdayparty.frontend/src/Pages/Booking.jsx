@@ -5,8 +5,10 @@ import useToken from '../Services/useToken';
 import "../assets/css/customer-booking.css"
 import GetAllPackages from '../Services/ApiServices/PackageServices';
 import GetAllRooms from '../Services/ApiServices/RoomServices';
+import { CreateBooking } from '../Services/ApiServices/BookingServices';
 import NotFound from './NotFound';
 import RoomCarousel from '../Components/RoomCarousel';
+import parseJwt from '../Services/parseJwt';
 
 function Booking(){
     let { id } = useParams();
@@ -25,6 +27,9 @@ function Booking(){
     const [packages, setPackages] = useState(null);
     const [rooms, setRooms] = useState(null);
     const [room, setRoom] = useState(null);
+    const [errorMsg, setErrorMsg] = useState(null);
+    let userId = null;
+    if(token) userId = parseInt(parseJwt(token).nameid);
 
     const fetchPackages = useCallback(async () => {
         const data = await GetAllPackages();
@@ -47,8 +52,52 @@ function Booking(){
         fetchPackages();
     }, [fetchRooms, fetchPackages])
 
-    const handleBookingSubmit = () => {
-        
+    async function createBook(booking) {
+        //console.log(JSON.stringify(credentials))
+        let res;
+        try {
+            res = await CreateBooking(booking);
+
+            if (!res.ok) {
+                const errorData = await res.text();
+                throw new Error(errorData || 'Unknown error occurred');
+            }
+
+            // Handle successful response data
+            setErrorMsg("");
+            // const data = await res.json();
+            // process the data as needed
+
+        } catch (err) {
+            setErrorMsg(err.message);
+            return;
+            // Handle errors
+        }
+        //console.log(await res.json());
+        return await res.json();
+    }
+
+    const handleBookingSubmit = async (e) => {
+        e.preventDefault();
+        const roomId = parseInt(document.getElementById("roomId").innerText);
+        const partyDateTime = document.getElementById("partyDate").value;
+        const services = document.getElementsByClassName("service-select");
+        let serviceIds = [];
+        for(let service of services){
+            if(service.value == "") continue;
+            serviceIds.push(parseInt(service.value));
+        }
+        const booking = {
+            userId: userId,
+            roomId: roomId,
+            bookingDate: new Date().toISOString(),
+            partyDateTime: partyDateTime,
+            bookingStatus: "Pending",
+            feedback: "",
+            serviceIds: serviceIds
+        };
+        const book = await createBook(booking);
+        console.log(book);
     };
 
     if(!rooms || !packages) 
@@ -84,12 +133,12 @@ function Booking(){
                 </div>
                 <div className="col-lg-6">
                     <div className="booking-form">
-                        <form onSubmit={handleBookingSubmit}>
+                        <form onSubmit={e =>handleBookingSubmit(e)}>
                             
                             <div className="control-group row">
                                 <label className='col-3 booking-label'>Room</label>
                                 <div className="col-9 input-group">
-                                    <strong className='text-white'>{room.roomId}</strong>
+                                    <strong id="roomId" className='text-white'>{room.roomId}</strong>
         {/*<div className="input-group-append">
                                         <div className="input-group-text"><i className="far fa-envelope"></i></div>
                                     </div>*/}
@@ -98,7 +147,7 @@ function Booking(){
                             <div className="control-group row">
                                 <label className='col-3 booking-label'>Booking Date</label>
                                 <div className="col-9 input-group date" id="date" data-target-input="nearest">
-                                    <input type="datetime-local" className="form-control" placeholder="Date"/>
+                                    <input id='partyDate' type="datetime-local" className="form-control" placeholder="Date"/>
         {/*<div className="input-group-append">
                                         <div className="input-group-text"><i className="far fa-calendar-alt"></i></div>
                                     </div>*/}
@@ -108,19 +157,22 @@ function Booking(){
                             {packages.map(el => {
                                 return (<div className="control-group row">
                                     <label className='col-3 booking-label'>{el.packageName}</label>
-                                    <div className="col-9 input-group">
-                                        <select className="form-control" aria-label="Default select example">
+                                    <div className="col-6 input-group">
+                                        <select className="service-select form-control" aria-label="Default select example">
                                             <option value={""} selected>None</option>
                                             {el.services && el.services.map((service, i) => {
                                                 return (<option value={service.serviceId}>{service.serviceName}</option>)
                                             })}
                                         </select>
                                     </div>
+                                    <label className='col-1 booking-label'> x </label>
+                                    <input type="number" className="col-2 form-control"/>
                                 </div>)
                             })}
                             <div>
                                 <button className="btn custom-btn" type="submit" onClick={e => CheckLogin(e)}>Book Now</button>
                             </div>
+                            <span className='text-danger'>{errorMsg}</span>
                         </form>
                     </div>
                 </div>
