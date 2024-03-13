@@ -247,7 +247,7 @@ function Home(){
                             </div>
                             <div className="contact-text">
                                 <h3>Address</h3>
-                                <p>123 Street, NY, USA</p>
+                                <p>FPT University</p>
                             </div>
                         </div>
                     </div>
@@ -258,7 +258,7 @@ function Home(){
                             </div>
                             <div className="contact-text">
                                 <h3>Call Us</h3>
-                                <p>+012 345 6789</p>
+                                <p>+098 765 4321</p>
                             </div>
                         </div>
                     </div>
@@ -269,7 +269,7 @@ function Home(){
                             </div>
                             <div className="contact-text">
                                 <h3>Email Us</h3>
-                                <p>abc@gmail.com</p>
+                                <p>birthdayparty@gmail.com</p>
                             </div>
                         </div>
                     </div>
@@ -304,9 +304,9 @@ function Home(){
                             <div class="col-md-6">
                                 <div class="footer-contact">
                                     <h2>Our Address</h2>
-                                    <p><i class="fa fa-map-marker-alt"></i>123 Street, New York, USA</p>
-                                    <p><i class="fa fa-phone-alt"></i>+012 345 67890</p>
-                                    <p><i class="fa fa-envelope"></i>abc@gmail.com</p>
+                                    <p><i class="fa fa-map-marker-alt"></i>FPT University HCMC</p>
+                                    <p><i class="fa fa-phone-alt"></i>+098 765 4321</p>
+                                    <p><i class="fa fa-envelope"></i>birthdayparty@gmail.com</p>
                                     <div class="footer-social">
                                         <a href=""><i class="fab fa-twitter"></i></a>
                                         <a href=""><i class="fab fa-facebook-f"></i></a>

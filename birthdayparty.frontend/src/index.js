@@ -12,6 +12,9 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import useToken from './Services/useToken';
 import About from './Pages/About';
 import Package from './Pages/Package';
+import KidsMenu from './Pages/KidsMenu';
+import NormalMenu from './Pages/NormalMenu';
+import VegetarianMenu from './Pages/VegetarianMenu';
 import PrivateRoute from './Services/PrivateRoute';
 import parseJwt from './Services/parseJwt';
 import AdminBooking from './AdminPages/Booking';
@@ -54,6 +57,9 @@ export default function App() {
             </PrivateRoute>}
           />
           <Route path="*" element={<NotFound />} />
+          <Route path='kidsMenu' element={<KidsMenu />} />
+          <Route path='normalMenu' element={<NormalMenu />} />
+          <Route path='vegetarianMenu' element={<VegetarianMenu />} />
         </Route>
         <Route path='login' element={<Login setToken={setToken} 
               />}/>

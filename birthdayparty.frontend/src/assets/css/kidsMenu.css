@@ -1,0 +1,29 @@
+.menu a {
+    text-decoration: none;
+    color: #666;
+}
+
+.menu a:hover {
+    color: #333;
+}
+
+.menu .sub-menu {
+    display: none;
+    padding-left: 20px;
+}
+
+.menu .sub-menu li {
+    border-bottom: none;
+}
+
+.menu .has-sub:hover .sub-menu {
+    display: block;
+}
+
+.menu .has-sub::after {
+    content: ' ▼';
+}
+
+.menu .has-sub:hover::after {
+    content: ' ▲';
+}

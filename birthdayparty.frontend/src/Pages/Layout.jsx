@@ -23,6 +23,7 @@ function Layout({ token, removeToken, role }) {
 
                 <div className="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div className="navbar-nav ml-auto">
+
                         {(role == "" || role == "Customer") && (
                         <Fragment>
                             <Link to="/" className="nav-item nav-link active">Home</Link>
@@ -53,7 +54,6 @@ function Layout({ token, removeToken, role }) {
                         </Fragment>   
                         )}
                         
-                        
                         {token ? (
                             <div className="nav-item dropdown">
                                 <Link to="#" className="nav-link dropdown-toggle" data-toggle="dropdown">{parseJwt(token).given_name}</Link>
@@ -63,7 +63,7 @@ function Layout({ token, removeToken, role }) {
                             </div>
                         ):(
                             <Link to="/login" className="nav-item nav-link">Login</Link>
-                        )}
+                        )}  
                     </div>
                 </div>
             </div>
