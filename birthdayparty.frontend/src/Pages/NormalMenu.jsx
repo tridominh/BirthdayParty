@@ -6,15 +6,15 @@ export default function NormalMenu() {
 
     return (
         <Fragment>
-            <PageHeader title={"KidsMenu"}/>
+            <PageHeader title={"NormalMenu"}/>
             <div className="menu">
                 <h1>NormalMenu</h1>
                 <ul>
-                    <li>Pizza</li>
-                    <li>Hamburgers</li>
-                    <li>Snacks</li>
-                    <li>Soft Drinks</li>
-                    <li>Fruit Drinks</li>
+                    <li>Chicken Curry</li>
+                    <li>Beef Hot Pot</li>
+                    <li>King Crab</li>
+                    <li>Smoked Pork Belly</li>
+                    <li>Cola</li>
                 </ul>
                 <Link to="/booking" className="booking-btn">Booking Now</Link>
             </div>

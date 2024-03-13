@@ -3,21 +3,24 @@ using BirthdayParty.Models.DTOs;
 using BirthdayParty.Repository;
 using BirthdayParty.Repository.Interfaces;
 using BirthdayParty.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace BirthdayParty.Services
 {
     public class PackageService : IPackageService
     {
         private readonly IPackageRepository packageRepository;
+        private readonly IServiceRepository serviceRepository;
 
-        public PackageService(IPackageRepository packageRepository)
+        public PackageService(IPackageRepository packageRepository, IServiceRepository serviceRepository)
         {
             this.packageRepository = packageRepository;
+            this.serviceRepository = serviceRepository;
         }
 
         public List<Package> GetAllPackages()
         {
-            return packageRepository.GetAll().ToList();
+            return packageRepository.GetAll(q => q.Include(p => p.Services)).ToList();
         }
 
         public void CreatePackage(Package package)
@@ -42,6 +45,14 @@ namespace BirthdayParty.Services
             Package package = packageRepository.Delete(id);
 
             return package;
+        }
+
+        public List<Service> GetAllServicesByPackageId(int packageId)
+        {
+            List<Service> services = serviceRepository.GetAll()
+                .Where(s => s.PackageId == packageId).ToList();
+
+            return services;
         }
     }
 }

@@ -2,11 +2,11 @@ import React, {Fragment} from 'react'
 import PageHeader from "../Components/PageHeader";
 import "../assets/css/kidsMenu.css";
 import {Link} from "react-router-dom";
-export default function VegetarianMenu() {
+export default function KidsMenu() {
 
     return (
         <Fragment>
-            <PageHeader title={"Vegetarian"}/>
+            <PageHeader title={"KidsMenu"}/>
             <div className="menu">
                 <h1>KidsMenu</h1>
                 <ul>

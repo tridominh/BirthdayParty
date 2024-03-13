@@ -11,6 +11,8 @@ namespace BirthdayParty.Services.Interfaces
     {
         List<Package> GetAllPackages();
 
+        List<Service> GetAllServicesByPackageId(int packageId);
+
         void CreatePackage(Package package);
 
         Package UpdatePackage(int id, Package package);

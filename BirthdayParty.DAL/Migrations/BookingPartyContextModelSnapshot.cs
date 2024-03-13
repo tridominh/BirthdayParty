@@ -22,7 +22,7 @@ namespace BirthdayParty.DAL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("BirthdayParty.DAL.Booking", b =>
+            modelBuilder.Entity("BirthdayParty.Models.Booking", b =>
                 {
                     b.Property<int>("BookingId")
                         .ValueGeneratedOnAdd()
@@ -41,8 +41,8 @@ namespace BirthdayParty.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PackageId")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("PartyDateTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
@@ -52,8 +52,6 @@ namespace BirthdayParty.DAL.Migrations
 
                     b.HasKey("BookingId");
 
-                    b.HasIndex("PackageId");
-
                     b.HasIndex("RoomId");
 
                     b.HasIndex("UserId");
@@ -61,13 +59,16 @@ namespace BirthdayParty.DAL.Migrations
                     b.ToTable("Bookings");
                 });
 
-            modelBuilder.Entity("BirthdayParty.DAL.BookingService", b =>
+            modelBuilder.Entity("BirthdayParty.Models.BookingService", b =>
                 {
                     b.Property<int>("BookingServiceId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingServiceId"));
+
+                    b.Property<int?>("Amount")
+                        .HasColumnType("int");
 
                     b.Property<int>("BookingId")
                         .HasColumnType("int");
@@ -84,7 +85,7 @@ namespace BirthdayParty.DAL.Migrations
                     b.ToTable("BookingServices");
                 });
 
-            modelBuilder.Entity("BirthdayParty.DAL.Package", b =>
+            modelBuilder.Entity("BirthdayParty.Models.Package", b =>
                 {
                     b.Property<int>("PackageId")
                         .ValueGeneratedOnAdd()
@@ -105,7 +106,34 @@ namespace BirthdayParty.DAL.Migrations
                     b.ToTable("Packages");
                 });
 
-            modelBuilder.Entity("BirthdayParty.DAL.Payment", b =>
+            modelBuilder.Entity("BirthdayParty.Models.PackageImage<byte[]>", b =>
+                {
+                    b.Property<int>("PackageImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PackageImageId"));
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<int>("PackageId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PackageImageId");
+
+                    b.ToTable("PackageImages", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("PackageImage<byte[]>");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("BirthdayParty.Models.Payment", b =>
                 {
                     b.Property<int>("PaymentId")
                         .ValueGeneratedOnAdd()
@@ -133,7 +161,7 @@ namespace BirthdayParty.DAL.Migrations
                     b.ToTable("Payments");
                 });
 
-            modelBuilder.Entity("BirthdayParty.DAL.Role", b =>
+            modelBuilder.Entity("BirthdayParty.Models.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -163,7 +191,7 @@ namespace BirthdayParty.DAL.Migrations
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
-            modelBuilder.Entity("BirthdayParty.DAL.Room", b =>
+            modelBuilder.Entity("BirthdayParty.Models.Room", b =>
                 {
                     b.Property<int>("RoomId")
                         .ValueGeneratedOnAdd()
@@ -174,6 +202,16 @@ namespace BirthdayParty.DAL.Migrations
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("RoomNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("RoomStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -183,13 +221,43 @@ namespace BirthdayParty.DAL.Migrations
                     b.ToTable("Rooms");
                 });
 
-            modelBuilder.Entity("BirthdayParty.DAL.Service", b =>
+            modelBuilder.Entity("BirthdayParty.Models.RoomImage<byte[]>", b =>
+                {
+                    b.Property<int>("RoomImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoomImageId"));
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RoomImageId");
+
+                    b.ToTable("RoomImages", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("RoomImage<byte[]>");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("BirthdayParty.Models.Service", b =>
                 {
                     b.Property<int>("ServiceId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServiceId"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PackageId")
                         .HasColumnType("int");
@@ -198,6 +266,9 @@ namespace BirthdayParty.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("ServicePrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("ServiceId");
 
                     b.HasIndex("PackageId");
@@ -205,7 +276,34 @@ namespace BirthdayParty.DAL.Migrations
                     b.ToTable("Services");
                 });
 
-            modelBuilder.Entity("BirthdayParty.DAL.User", b =>
+            modelBuilder.Entity("BirthdayParty.Models.ServiceImage<byte[]>", b =>
+                {
+                    b.Property<int>("ServiceImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServiceImageId"));
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ServiceImageId");
+
+                    b.ToTable("ServiceImages", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("ServiceImage<byte[]>");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("BirthdayParty.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -376,42 +474,67 @@ namespace BirthdayParty.DAL.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("BirthdayParty.DAL.Booking", b =>
+            modelBuilder.Entity("BirthdayParty.Models.LocalImages.PackageImageLocal", b =>
                 {
-                    b.HasOne("BirthdayParty.DAL.Package", "Package")
-                        .WithMany("Bookings")
-                        .HasForeignKey("PackageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasBaseType("BirthdayParty.Models.PackageImage<byte[]>");
 
-                    b.HasOne("BirthdayParty.DAL.Room", "Room")
+                    b.HasIndex("PackageId");
+
+                    b.ToTable("PackageImages", (string)null);
+
+                    b.HasDiscriminator().HasValue("PackageImageLocal");
+                });
+
+            modelBuilder.Entity("BirthdayParty.Models.LocalImages.RoomImageLocal", b =>
+                {
+                    b.HasBaseType("BirthdayParty.Models.RoomImage<byte[]>");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("RoomImages", (string)null);
+
+                    b.HasDiscriminator().HasValue("RoomImageLocal");
+                });
+
+            modelBuilder.Entity("BirthdayParty.Models.LocalImages.ServiceImageLocal", b =>
+                {
+                    b.HasBaseType("BirthdayParty.Models.ServiceImage<byte[]>");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("ServiceImages", (string)null);
+
+                    b.HasDiscriminator().HasValue("ServiceImageLocal");
+                });
+
+            modelBuilder.Entity("BirthdayParty.Models.Booking", b =>
+                {
+                    b.HasOne("BirthdayParty.Models.Room", "Room")
                         .WithMany("Bookings")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("BirthdayParty.DAL.User", "User")
+                    b.HasOne("BirthdayParty.Models.User", "User")
                         .WithMany("Bookings")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Package");
 
                     b.Navigation("Room");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("BirthdayParty.DAL.BookingService", b =>
+            modelBuilder.Entity("BirthdayParty.Models.BookingService", b =>
                 {
-                    b.HasOne("BirthdayParty.DAL.Booking", "Booking")
+                    b.HasOne("BirthdayParty.Models.Booking", "Booking")
                         .WithMany("BookingServices")
                         .HasForeignKey("BookingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BirthdayParty.DAL.Service", "Service")
+                    b.HasOne("BirthdayParty.Models.Service", "Service")
                         .WithMany("BookingServices")
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -422,9 +545,9 @@ namespace BirthdayParty.DAL.Migrations
                     b.Navigation("Service");
                 });
 
-            modelBuilder.Entity("BirthdayParty.DAL.Payment", b =>
+            modelBuilder.Entity("BirthdayParty.Models.Payment", b =>
                 {
-                    b.HasOne("BirthdayParty.DAL.Booking", "Booking")
+                    b.HasOne("BirthdayParty.Models.Booking", "Booking")
                         .WithMany("Payments")
                         .HasForeignKey("BookingId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -433,9 +556,9 @@ namespace BirthdayParty.DAL.Migrations
                     b.Navigation("Booking");
                 });
 
-            modelBuilder.Entity("BirthdayParty.DAL.Service", b =>
+            modelBuilder.Entity("BirthdayParty.Models.Service", b =>
                 {
-                    b.HasOne("BirthdayParty.DAL.Package", "Package")
+                    b.HasOne("BirthdayParty.Models.Package", "Package")
                         .WithMany("Services")
                         .HasForeignKey("PackageId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -446,7 +569,7 @@ namespace BirthdayParty.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
-                    b.HasOne("BirthdayParty.DAL.Role", null)
+                    b.HasOne("BirthdayParty.Models.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -455,7 +578,7 @@ namespace BirthdayParty.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
-                    b.HasOne("BirthdayParty.DAL.User", null)
+                    b.HasOne("BirthdayParty.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -464,7 +587,7 @@ namespace BirthdayParty.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
-                    b.HasOne("BirthdayParty.DAL.User", null)
+                    b.HasOne("BirthdayParty.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -473,13 +596,13 @@ namespace BirthdayParty.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
                 {
-                    b.HasOne("BirthdayParty.DAL.Role", null)
+                    b.HasOne("BirthdayParty.Models.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BirthdayParty.DAL.User", null)
+                    b.HasOne("BirthdayParty.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -488,38 +611,75 @@ namespace BirthdayParty.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
-                    b.HasOne("BirthdayParty.DAL.User", null)
+                    b.HasOne("BirthdayParty.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BirthdayParty.DAL.Booking", b =>
+            modelBuilder.Entity("BirthdayParty.Models.LocalImages.PackageImageLocal", b =>
+                {
+                    b.HasOne("BirthdayParty.Models.Package", "Package")
+                        .WithMany("PackageImages")
+                        .HasForeignKey("PackageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Package");
+                });
+
+            modelBuilder.Entity("BirthdayParty.Models.LocalImages.RoomImageLocal", b =>
+                {
+                    b.HasOne("BirthdayParty.Models.Room", "Room")
+                        .WithMany("RoomImages")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Room");
+                });
+
+            modelBuilder.Entity("BirthdayParty.Models.LocalImages.ServiceImageLocal", b =>
+                {
+                    b.HasOne("BirthdayParty.Models.Service", "Service")
+                        .WithMany("ServiceImages")
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Service");
+                });
+
+            modelBuilder.Entity("BirthdayParty.Models.Booking", b =>
                 {
                     b.Navigation("BookingServices");
 
                     b.Navigation("Payments");
                 });
 
-            modelBuilder.Entity("BirthdayParty.DAL.Package", b =>
+            modelBuilder.Entity("BirthdayParty.Models.Package", b =>
                 {
-                    b.Navigation("Bookings");
+                    b.Navigation("PackageImages");
 
                     b.Navigation("Services");
                 });
 
-            modelBuilder.Entity("BirthdayParty.DAL.Room", b =>
+            modelBuilder.Entity("BirthdayParty.Models.Room", b =>
                 {
                     b.Navigation("Bookings");
+
+                    b.Navigation("RoomImages");
                 });
 
-            modelBuilder.Entity("BirthdayParty.DAL.Service", b =>
+            modelBuilder.Entity("BirthdayParty.Models.Service", b =>
                 {
                     b.Navigation("BookingServices");
+
+                    b.Navigation("ServiceImages");
                 });
 
-            modelBuilder.Entity("BirthdayParty.DAL.User", b =>
+            modelBuilder.Entity("BirthdayParty.Models.User", b =>
                 {
                     b.Navigation("Bookings");
                 });
