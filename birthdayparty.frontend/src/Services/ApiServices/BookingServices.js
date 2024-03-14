@@ -13,6 +13,33 @@ async function CreateBooking(booking) {
     return res;
 }
 
+async function GetAllBookings() {
+    //console.log(JSON.stringify(credentials))
+    const res = await fetch(`${getEndpoint()}/api/Booking/GetAll`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Headers': '*',
+        },
+    });
+    return res;
+}
+
+async function UpdateStatusBooking(booking) {
+    //console.log(JSON.stringify(credentials))
+    const res = await fetch(`${getEndpoint()}/api/Booking/UpdateStatus`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Headers': '*',
+        },
+        body: JSON.stringify(booking)
+    });
+    return res;
+}
+
 export {
-    CreateBooking
+    CreateBooking,
+    GetAllBookings,
+    UpdateStatusBooking
 };

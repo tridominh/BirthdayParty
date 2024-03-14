@@ -19,6 +19,11 @@ namespace BirthdayParty.Services
             return _bookingRepository.GetAll().ToList();
         }
 
+        public Booking GetBooking(int id)
+        {
+            return _bookingRepository.Get(id);
+        }
+
         public Booking CreateBooking(BookingDTO booking)
         {
             var book = new Booking{

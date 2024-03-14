@@ -71,6 +71,26 @@ namespace BirthdayParty.API.Controllers
          
         }
 
+        [HttpPut("UpdateStatus")]
+        public async Task<ActionResult<Booking>> UpdateStatus([FromBody] UpdateBookingStatusDTO statusDTO)
+        {
+            var booking = _bookingService.GetBooking(statusDTO.BookingId);
+
+            var bookingDTO = new BookingDTO{
+                BookingId = booking.BookingId,
+                UserId = booking.UserId,
+                RoomId = booking.RoomId,
+                PartyDateTime = booking.PartyDateTime,
+                BookingStatus= statusDTO.Status,
+                Feedback = booking.Feedback,
+            };
+
+            var book = _bookingService.UpdateBooking(bookingDTO);
+
+            return Ok(book);
+         
+        }
+
         [HttpDelete("Delete")]
         public async Task<ActionResult<Booking>> DeleteBooking([FromBody] int id)
         {
@@ -86,5 +106,11 @@ namespace BirthdayParty.API.Controllers
             return Ok(booking);
         }
 
+    }
+
+    public class UpdateBookingStatusDTO
+    {
+        public int BookingId { get; set; }
+        public string Status { get; set; } = null!;
     }
 }
