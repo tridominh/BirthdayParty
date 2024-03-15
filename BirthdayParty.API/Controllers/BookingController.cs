@@ -36,6 +36,19 @@ namespace BirthdayParty.API.Controllers
             return Ok(bookings);
         }
 
+        [HttpGet("GetAllPending")]
+        public async Task<ActionResult<List<Booking>>> GetAllPendingBookings()
+        {
+            List<Booking> bookings = _bookingService.GetAllBookings().Where(b => b.BookingStatus == "Pending").ToList();
+
+            //if (packages == null || packages.Count == 0)
+            //{
+            //    return NotFound();
+            //}
+
+            return Ok(bookings);
+        }
+
         [HttpPost("Create")]
         public async Task<ActionResult<Booking>> Create([FromBody] BookingDTO bookingDTO)
         {

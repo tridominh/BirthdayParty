@@ -25,6 +25,18 @@ async function GetAllBookings() {
     return res;
 }
 
+async function GetAllPendingBookings() {
+    //console.log(JSON.stringify(credentials))
+    const res = await fetch(`${getEndpoint()}/api/Booking/GetAllPending`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Headers': '*',
+        },
+    });
+    return res;
+}
+
 async function UpdateStatusBooking(booking) {
     //console.log(JSON.stringify(credentials))
     const res = await fetch(`${getEndpoint()}/api/Booking/UpdateStatus`, {
@@ -41,5 +53,6 @@ async function UpdateStatusBooking(booking) {
 export {
     CreateBooking,
     GetAllBookings,
+    GetAllPendingBookings,
     UpdateStatusBooking
 };

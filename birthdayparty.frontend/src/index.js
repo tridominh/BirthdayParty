@@ -21,6 +21,7 @@ import AdminBooking from './AdminPages/Booking';
 import AdminPackage from './AdminPages/Package';
 import ConfirmBooking from './HostPages/ConfirmBooking';
 import Room from './Pages/Room';
+import HostPayment from './HostPages/HostPayment';
 
 export default function App() {
   const { token, setToken, removeToken } = useToken();
@@ -54,6 +55,11 @@ export default function App() {
           <Route path="host/confirm-booking" element={
             <PrivateRoute role="Host">
               <ConfirmBooking/>
+            </PrivateRoute>}
+          />
+          <Route path="host/payment" element={
+            <PrivateRoute role="Host">
+              <HostPayment/>
             </PrivateRoute>}
           />
           <Route path="*" element={<NotFound />} />

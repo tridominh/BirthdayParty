@@ -44,6 +44,7 @@ function Layout({ token, removeToken, role }) {
                         {(role == "Host") && (
                         <Fragment>
                             <Link to="/host/confirm-booking" className="nav-item nav-link active">Confirm Booking</Link>
+                            <Link to="/host/payment" className="nav-item nav-link">Payment</Link>
                         </Fragment>   
                         )}
 

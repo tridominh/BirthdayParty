@@ -1,8 +1,11 @@
 import React, { Fragment, useCallback, useEffect, useState } from "react";
 import PageHeader from "../Components/PageHeader";
-import { GetAllBookings, UpdateStatusBooking } from "../Services/ApiServices/BookingServices";
+import { GetAllBookings, GetAllPendingBookings, UpdateStatusBooking } from "../Services/ApiServices/BookingServices";
 import "../assets/css/confirm-booking.css";
 import { useNavigate } from "react-router-dom";
+import createHeaderNotification from "../Services/headerNotification.js";
+import { NotificationManager } from "react-notifications";
+import NotificationContainer from "react-notifications/lib/NotificationContainer";
 
 export default function ConfirmBooking() {
     const navigate = useNavigate();
@@ -10,7 +13,7 @@ export default function ConfirmBooking() {
     const [errorMessage, setErrorMessage] = useState(null);
 
     const fetchBookings = useCallback(async () => {
-        const data = await GetAllBookings();
+        const data = await GetAllPendingBookings();
         const json = await data.json();
         //console.log(json);
         setBookings(json);
@@ -24,7 +27,7 @@ export default function ConfirmBooking() {
                 const errorData = await res.text();
                 throw new Error(errorData || "Unknown error occurred");
             }
-
+            
         }
         catch (err){
             setErrorMessage(err.message);
@@ -38,11 +41,12 @@ export default function ConfirmBooking() {
         fetchBookings();
     }
     , [fetchBookings])
+    
 
     if(!bookings) return (
         <Fragment>
-        <PageHeader title1="Host" title={"Confirm Booking"}/>
-        <div>Loading...</div>
+            <PageHeader title1="Host" title={"Confirm Booking"}/>
+            <div>Loading...</div>
         </Fragment>
     );
 
@@ -53,8 +57,10 @@ export default function ConfirmBooking() {
             bookingId : id,
             status : "Accepted"
         };
+        if(booking) 
+            createHeaderNotification("success", "Confirm successfully", "Success");
         await fetchUpdateBookings(booking);
-        window.location.reload();
+        fetchBookings();
     }
 
     async function rejectBooking(e){
@@ -64,8 +70,10 @@ export default function ConfirmBooking() {
             bookingId : id,
             status : "Rejected"
         };
+        if(booking) 
+            createHeaderNotification("error", "Reject successfully", "Success");
         await fetchUpdateBookings(booking);
-        window.location.reload();
+        fetchBookings();
     }
 
     return (
@@ -93,8 +101,8 @@ export default function ConfirmBooking() {
                   <th scope="row">{booking.bookingId}</th>
                   <td>{booking.userId}</td>
                   <td>{booking.roomId}</td>
-                  <td>{booking.bookingDate}</td>
-                  <td>{booking.partyDateTime}</td>
+                  <td>{new Date(booking.bookingDate).toLocaleString()}</td>
+                  <td>{new Date(booking.partyDateTime).toLocaleString()}</td>
                   <td>{booking.bookingStatus}</td>
                   <td>{booking.feedback}</td>
                   <td><button onClick={(e) => confirmBooking(e)} data-id={booking.bookingId} className="btn btn-success">Confirm</button></td>
@@ -103,6 +111,7 @@ export default function ConfirmBooking() {
             })}
           </tbody>
         </table>
+        <NotificationContainer/>
         <div className="text-danger">{errorMessage}</div>
     </Fragment>  );
 }

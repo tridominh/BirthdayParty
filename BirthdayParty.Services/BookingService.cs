@@ -29,7 +29,7 @@ namespace BirthdayParty.Services
             var book = new Booking{
                 UserId = booking.UserId,
                 RoomId = booking.RoomId,
-                BookingDate = DateTime.UtcNow,
+                BookingDate = DateTime.Now,
                 PartyDateTime = booking.PartyDateTime,
                 BookingStatus = booking.BookingStatus,
                 Feedback = booking.Feedback,
