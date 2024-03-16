@@ -6,15 +6,15 @@ import "../assets/css/kidsMenu.css";
 import { Link } from "react-router-dom";
 import { FoodDisplay } from "../Components/FoodDisplay";
 
-// Tự thêm dữ liệu theo mẫu có sẵn
 const foodArr = [
     {
         name: "Hamburger",
         img: "./img/menu-burger-img.jpg",
         description: [
-            '2 nước ngọt',
-            '1 Hamburger bò',
-            '1 khoai tây chiên',
+            'Wagyu Beef',
+            'Salad',
+            'Tomato',
+            'Cheese'
         ]
     },
     {
@@ -22,23 +22,29 @@ const foodArr = [
         img: "./img/menu-burger-img.jpg",
         description: [
             '1 Coca',
-            '1 Pizza hải sản',
+            '1 Sea Pizza',
         ]
     },
     {
         name: "Snacks",
         img: "./img/menu-burger-img.jpg",
-        description: []
+        description: [
+            "Random snack"
+        ]
     },
     {
         name: "Soft Drinks",
         img: "./img/menu-burger-img.jpg",
-        description: []
+        description: [
+            "7 up"
+        ]
     },
     {
         name: "Fruit Drinks",
         img: "./img/menu-burger-img.jpg",
-        description: []
+        description: [
+            "Orange juice"
+        ]
     },
 ];
 
