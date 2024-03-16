@@ -22,6 +22,8 @@ import AdminPackage from './AdminPages/Package';
 import ConfirmBooking from './HostPages/ConfirmBooking';
 import Room from './Pages/Room';
 import HostPayment from './HostPages/HostPayment';
+import Payment from './Pages/Payment';
+import MyBooking from './Pages/MyBooking';
 
 export default function App() {
   const { token, setToken, removeToken } = useToken();
@@ -39,6 +41,10 @@ export default function App() {
           <Route path="package" element={<Package/>} />
           <Route path="booking" element={<Booking />} >
             <Route path=":id" element={<Booking />} />
+          </Route>
+          <Route path="my-booking" element={<MyBooking/>} />
+          <Route path="payment" element={<Payment/>}>
+            <Route path=":id" element={<Payment />} />
           </Route>
           {/*Admin pages*/}
           <Route path="admin/booking" element={

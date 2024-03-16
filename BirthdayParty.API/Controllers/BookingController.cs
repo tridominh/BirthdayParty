@@ -28,10 +28,24 @@ namespace BirthdayParty.API.Controllers
         {
             List<Booking> bookings = _bookingService.GetAllBookings();
 
-            //if (packages == null || packages.Count == 0)
-            //{
-            //    return NotFound();
-            //}
+            return Ok(bookings);
+        }
+
+        [HttpGet("GetAllByUserId")]
+        public async Task<ActionResult<List<Booking>>> GetAllByUserId(int id)
+        {
+            List<Booking> bookings = _bookingService.GetAllBookings().Where(b => b.UserId == id).ToList();
+
+            return Ok(bookings);
+        }
+
+        [HttpGet("GetAllOngoingByUserId")]
+        public async Task<ActionResult<List<Booking>>> GetAllOngoingByUserId(int id)
+        {
+            List<Booking> bookings = _bookingService.GetAllBookings()
+                .Where(b => b.UserId == id &&
+                        b.BookingStatus == "Accepted" &&
+                        b.PartyDateTime > DateTime.Now).ToList();
 
             return Ok(bookings);
         }
@@ -40,11 +54,6 @@ namespace BirthdayParty.API.Controllers
         public async Task<ActionResult<List<Booking>>> GetAllPendingBookings()
         {
             List<Booking> bookings = _bookingService.GetAllBookings().Where(b => b.BookingStatus == "Pending").ToList();
-
-            //if (packages == null || packages.Count == 0)
-            //{
-            //    return NotFound();
-            //}
 
             return Ok(bookings);
         }

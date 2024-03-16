@@ -23,9 +23,9 @@ namespace BirthdayParty.API.Controllers
         }
 
         [HttpPost("CreateMomoLink")]
-        public async Task<ActionResult<string>> CreateMomoLink()
+        public async Task<ActionResult<string>> CreateMomoLink([FromBody] MomoCreateLinkDto dto)
         {
-            MomoOneTimePaymentRequest request = _momoService.CreateRequestModel(500000);
+            MomoOneTimePaymentRequest request = _momoService.CreateRequestModel(dto.Amount, dto.Message);
             var result = request.GetLink(_config.PaymentUrl);
             return result.Item2;
         }
@@ -36,5 +36,11 @@ namespace BirthdayParty.API.Controllers
             Console.WriteLine("Hello");
             return Ok();
         }
+    }
+
+    public class MomoCreateLinkDto
+    {
+        public string Message { get; set;}
+        public long Amount { get; set; }
     }
 }

@@ -15,20 +15,14 @@ public class MomoService
         _config = config.Value;
     }
 
-    public MomoOneTimePaymentRequest CreateRequestModel(long amount)
+    public MomoOneTimePaymentRequest CreateRequestModel(long amount, string description)
     {
-        System.Console.WriteLine(_config.PartnerCode);
-        System.Console.WriteLine(_config.ReturnUrl);
-        System.Console.WriteLine(_config.IpnUrl);
-        System.Console.WriteLine(_config.AccessKey);
-        System.Console.WriteLine(_config.SecretKey);
-        System.Console.WriteLine(_config.PaymentUrl);
         momoRequest = new MomoOneTimePaymentRequest{
             requestId = CreateRequestId(),
             orderId = CreateOrderId(),
             partnerCode = _config.PartnerCode,
             amount = amount,
-            orderInfo = "Thanh toan qua vi Momo",
+            orderInfo = description,
             extraData = "",
             redirectUrl = _config.ReturnUrl,
             ipnUrl = _config.IpnUrl,

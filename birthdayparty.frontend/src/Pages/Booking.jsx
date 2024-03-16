@@ -99,8 +99,13 @@ function Booking(){
             serviceIds: serviceIds
         };
         const book = await createBook(booking);
-        if(book)
+        if(book){
             createHeaderNotification("success", "Create booking successfully", "Success");
+            navigate("/payment");
+        }
+        else{
+            createHeaderNotification("error", errorMsg ,"Error");
+        }
         console.log(book);
     };
 
