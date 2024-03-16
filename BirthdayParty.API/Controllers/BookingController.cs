@@ -1,90 +1,111 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using BirthdayParty.Models;
-using BirthdayParty.Models.Converters;
 using BirthdayParty.Models.DTOs;
 using BirthdayParty.Repository.Interfaces;
 using BirthdayParty.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
-
-namespace BirthdayParty.API.Controllers
+namespace BirthdayParty.Services
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class BookingController : ControllerBase
-    {
-        private readonly IBookingService _bookingService;
-        private readonly IServiceService _serviceService;
-        private readonly IGenericRepository<BookingService> _bookingServiceService;
+	public class BookingService : IBookingService
+	{
+		private readonly IGenericRepository<Booking> _bookingRepository;
+		private readonly ILogger<BookingService> _logger;
 
-        public BookingController(IBookingService bookingService, IServiceService serviceService
-                , IGenericRepository<BookingService> bookingServiceService) {
-            _bookingService = bookingService;
-            _serviceService = serviceService;
-            _bookingServiceService = bookingServiceService;
-        }
+		public BookingService(IGenericRepository<Booking> bookingRepository, ILogger<BookingService> logger)
+		{
+			_bookingRepository = bookingRepository;
+			_logger = logger;
+		}
 
-        [HttpGet("GetAll")]
-        public async Task<ActionResult<List<Booking>>> GetAll()
-        {
-            List<Booking> bookings = _bookingService.GetAllBookings();
+		public List<Booking> GetAllBookings()
+		{
+			try
+			{
+				return _bookingRepository.GetAll().ToList();
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError($"Error occurred while fetching all bookings: {ex.Message}");
+				throw;
+			}
+		}
 
-            //if (packages == null || packages.Count == 0)
-            //{
-            //    return NotFound();
-            //}
+		public Booking CreateBooking(BookingDTO booking)
+		{
+			try
+			{
+				if (booking == null)
+					throw new ArgumentNullException(nameof(booking), "Booking data cannot be null.");
 
-            return Ok(bookings);
-        }
+				var book = new Booking
+				{
+					UserId = booking.UserId,
+					RoomId = booking.RoomId,
+					BookingDate = DateTime.UtcNow,
+					PartyDateTime = booking.PartyDateTime,
+					BookingStatus = booking.BookingStatus,
+					Feedback = booking.Feedback,
+				};
 
-        [HttpPost("Create")]
-        public async Task<ActionResult<Booking>> Create([FromBody] BookingDTO bookingDTO)
-        {
-            var book = _bookingService.CreateBooking(bookingDTO);
+				_bookingRepository.Add(book);
+				return book;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError($"Error occurred while creating a booking: {ex.Message}");
+				throw;
+			}
+		}
 
-            foreach(var serviceId in bookingDTO.ServiceIds)
-            {
-                var bookingService = new BookingService{
-                    BookingId = book.BookingId,
-                    ServiceId = serviceId,
-                };
-                _bookingServiceService.Add(bookingService);
-            }
+		public Booking UpdateBooking(BookingDTO booking)
+		{
+			try
+			{
+				if (booking == null)
+					throw new ArgumentNullException(nameof(booking), "Booking data cannot be null.");
 
-            return Ok(book);
-        }
+				Booking existingBooking = _bookingRepository.Get(booking.BookingId.Value);
 
-        [HttpPut("Update")]
-        public async Task<ActionResult<Booking>> UpdateBooking([FromBody] BookingDTO bookingDTO)
-        {
-            foreach(var serviceId in bookingDTO.ServiceIds)
-            {
-                var bookingService = new BookingService{
-                    BookingId = bookingDTO.BookingId.Value,
-                    ServiceId = serviceId,
-                };
-                _bookingServiceService.Update(bookingService);
-            }
+				if (existingBooking == null)
+					throw new ArgumentException($"Booking with ID {booking.BookingId} not found.");
 
-            var book = _bookingService.UpdateBooking(bookingDTO);
+				existingBooking.UserId = booking.UserId;
+				existingBooking.RoomId = booking.RoomId;
+				existingBooking.BookingDate = DateTime.UtcNow;
+				existingBooking.PartyDateTime = booking.PartyDateTime;
+				existingBooking.BookingStatus = booking.BookingStatus;
+				existingBooking.Feedback = booking.Feedback;
 
-            return Ok(book);
-         
-        }
+				_bookingRepository.Update(existingBooking);
 
-        [HttpDelete("Delete")]
-        public async Task<ActionResult<Booking>> DeleteBooking([FromBody] int id)
-        {
-            var bookingServices = _bookingServiceService.GetAll().Where(b => b.BookingId == id);
+				return existingBooking;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError($"Error occurred while updating a booking: {ex.Message}");
+				throw;
+			}
+		}
 
-            foreach(var bookingService in bookingServices)
-            {
-                _bookingServiceService.Delete(bookingService.BookingServiceId);
-            }
+		public Booking DeleteBooking(int id)
+		{
+			try
+			{
+				Booking booking = _bookingRepository.Delete(id);
 
-            Booking booking = _bookingService.DeleteBooking(id);
+				if (booking == null)
+					throw new ArgumentException($"Booking with ID {id} not found.");
 
-            return Ok(booking);
-        }
-
-    }
+				return booking;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError($"Error occurred while deleting a booking: {ex.Message}");
+				throw;
+			}
+		}
+	}
 }
