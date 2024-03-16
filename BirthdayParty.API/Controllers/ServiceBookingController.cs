@@ -1,4 +1,4 @@
-﻿using BirthdayParty.Models;
+﻿/*using BirthdayParty.Models;
 using BirthdayParty.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -68,4 +68,4 @@ namespace BirthdayParty.API.Controllers
             return Ok();
         }
     }
-}
+}*/

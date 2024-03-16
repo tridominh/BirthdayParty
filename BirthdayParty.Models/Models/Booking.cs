@@ -13,6 +13,8 @@ public partial class Booking
 
     public DateTime BookingDate { get; set; }
 
+    public DateTime PartyDateTime { get; set; }
+
     public string BookingStatus { get; set; }
 
     public string Feedback { get; set; }
@@ -20,8 +22,6 @@ public partial class Booking
     public virtual ICollection<BookingService> BookingServices { get; set; } = new List<BookingService>();
 
     public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
-
-    public virtual Package Package { get; set; }
 
     public virtual User User { get; set; }
 

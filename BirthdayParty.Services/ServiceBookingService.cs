@@ -1,4 +1,4 @@
-﻿using BirthdayParty.Models;
+﻿/*using BirthdayParty.Models;
 using BirthdayParty.Repository.Interfaces;
 using BirthdayParty.Services.Interfaces;
 
@@ -58,4 +58,4 @@ namespace BirthdayParty.Services
             serviceRepository.Add(service);
         }
     }
-}
+}*/

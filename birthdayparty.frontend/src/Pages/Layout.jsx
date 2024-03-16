@@ -3,7 +3,7 @@ import { Fragment, useEffect, useState } from "react";
 import "../assets/css/layout.css";
 import parseJwt from "../Services/parseJwt";
 
-function Layout({ token, removeToken }) {
+function Layout({ token, removeToken, role }) {
   let navigate = useNavigate();  
   const handleLogout = (e) => {
     e.preventDefault();
@@ -23,29 +23,47 @@ function Layout({ token, removeToken }) {
 
                 <div className="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div className="navbar-nav ml-auto">
-                        <Link to="/" className="nav-item nav-link active">Home</Link>
-                        <Link to="/About" className="nav-item nav-link">About</Link>
-                        <Link to="/Package" className="nav-item nav-link">Package</Link>
-                        <Link to="/Booking" className="nav-item nav-link">Booking</Link>
-                        <div className="nav-item dropdown">
-                            <Link href="#" className="nav-link dropdown-toggle" data-toggle="dropdown">Menu</Link>
-                            <div className="dropdown-menu">
-                                <Link to="/VegetarianMenu" className="dropdown-item">Vegetarian Menu</Link>
-                                <Link to="/NormalMenu" className="dropdown-item">Normal Menu</Link>
-                                <Link to="/KidsMenu" className="dropdown-item">Kids Menu</Link>
+
+                        {(role == "" || role == "Customer") && (
+                        <Fragment>
+                            <Link to="/" className="nav-item nav-link active">Home</Link>
+                            <Link to="/About" className="nav-item nav-link">About</Link>
+                            <Link to="/Package" className="nav-item nav-link">Package</Link>
+                            <Link to="/Room" className="nav-item nav-link">Booking</Link>
+                            <div className="nav-item dropdown">
+                                <Link href="/Menu" className="nav-link dropdown-toggle" data-toggle="dropdown">Menu</Link>
+                                <div className="dropdown-menu">
+                                    <Link to="/VegetarianMenu" className="dropdown-item">Vegetarian Menu</Link>
+                                    <Link to="/NormalMenu" className="dropdown-item">Normal Menu</Link>
+                                    <Link to="/KidsMenu" className="dropdown-item">Kids Menu</Link>
+                                </div>
                             </div>
-                        </div>
+                        </Fragment>
+                        )}
+
+                        {(role == "Host") && (
+                        <Fragment>
+                            <Link to="/host/confirm-booking" className="nav-item nav-link active">Confirm Booking</Link>
+                        </Fragment>   
+                        )}
+
+                        {(role == "Admin") && (
+                        <Fragment>
+                            <Link to="/admin/booking" className="nav-item nav-link active">Booking</Link>
+                            <Link to="/admin/package" className="nav-item nav-link">Packages</Link>
+                        </Fragment>   
+                        )}
                         
                         {token ? (
                             <div className="nav-item dropdown">
-                                <Link to="/" className="nav-link dropdown-toggle" data-toggle="dropdown">{parseJwt(token).given_name}</Link>
+                                <Link to="#" className="nav-link dropdown-toggle" data-toggle="dropdown">{parseJwt(token).given_name}</Link>
                                 <div className="dropdown-menu">
                                     <button onClick={handleLogout} className="dropdown-item">Logout</button>
                                 </div>
                             </div>
                         ):(
                             <Link to="/login" className="nav-item nav-link">Login</Link>
-                        )}
+                        )}  
                     </div>
                 </div>
             </div>

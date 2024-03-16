@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function PageHeader({ title }) {
+export default function PageHeader({ title1 = "Home", title }) {
   return (
         <div class="page-header mb-0">
             <div class="container">
@@ -9,7 +9,7 @@ export default function PageHeader({ title }) {
                         <h2>{ title }</h2>
                     </div>
                     <div class="col-12">
-                        <a href="">Home</a>
+                        <a href="">{title1}</a>
                         <a href="">{ title }</a>
                     </div>
                 </div>
