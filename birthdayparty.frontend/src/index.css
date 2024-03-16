@@ -89,3 +89,87 @@ a:focus {
     font-size: inherit;
     margin-left: 0;
 }
+
+.notification-container{
+    width: 300px;
+    position: fixed;
+    top: 14%;
+    left: 80%;
+    color: white;
+}
+
+.notification{
+    opacity: 0.8;
+    border-radius: 5px;
+    border: 1px solid;
+    cursor: pointer;
+    position: relative;
+    left: 0%;
+    transition: left 1s cubic-bezier(0.6, -0.28, 0.74, 0.05);
+}
+
+.notification:active{
+    left: 100%;
+}
+
+.notification-info{
+    background: #0074D9;
+}
+
+.notification-success{
+    background: #61AB61;
+}
+
+.notification-warning{
+    background: #F99E1E;
+}
+
+.notification-error{
+    background: #C34A43;
+}
+
+.notification-message{
+    padding: 10px;
+}
+
+.notification-message .message{
+    display: flex;
+    font-size: 15px;
+}
+
+.notification-message .title{
+    margin: 0;
+    color: white;
+    font-size: 18px;
+    margin-left: 25px;
+}
+
+.notification-info .notification-message .message::before{
+    content: "\e88e";
+    font-family: "Material Icons";
+    margin-right: 10px;
+ }
+
+.notification-success .notification-message .message::before{
+    content: "\e86c";
+    font-family: "Material Icons";
+    margin-right: 10px;
+ }
+
+.notification-warning .notification-message .message::before{
+    content: "\e002";
+    font-family: "Material Icons";
+    margin-right: 10px;
+ }
+
+ .notification-error .notification-message .message::before{
+    content: "\e5c9";
+    font-family: "Material Icons";
+    margin-right: 10px;
+ }
+
+.notification-message > * {
+    display: inline-block;
+}
+
+

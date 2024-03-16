@@ -9,6 +9,8 @@ import { CreateBooking } from '../Services/ApiServices/BookingServices';
 import NotFound from './NotFound';
 import RoomCarousel from '../Components/RoomCarousel';
 import parseJwt from '../Services/parseJwt';
+import { NotificationContainer } from 'react-notifications';
+import createHeaderNotification from '../Services/headerNotification';
 
 function Booking(){
     let { id } = useParams();
@@ -97,6 +99,13 @@ function Booking(){
             serviceIds: serviceIds
         };
         const book = await createBook(booking);
+        if(book){
+            createHeaderNotification("success", "Create booking successfully", "Success");
+            navigate("/payment");
+        }
+        else{
+            createHeaderNotification("error", errorMsg ,"Error");
+        }
         console.log(book);
     };
 
@@ -179,6 +188,7 @@ function Booking(){
             </div>
         </div>
     </div>
+    <NotificationContainer/>
     </Fragment>
     );{/*  Booking End */}
 }

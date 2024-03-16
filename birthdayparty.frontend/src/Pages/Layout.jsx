@@ -30,6 +30,7 @@ function Layout({ token, removeToken, role }) {
                             <Link to="/About" className="nav-item nav-link">About</Link>
                             <Link to="/Package" className="nav-item nav-link">Package</Link>
                             <Link to="/Room" className="nav-item nav-link">Booking</Link>
+                            <Link to="/my-booking" className="nav-item nav-link">My Booking</Link>
                             <div className="nav-item dropdown">
                                 <Link href="/Menu" className="nav-link dropdown-toggle" data-toggle="dropdown">Menu</Link>
                                 <div className="dropdown-menu">
@@ -44,6 +45,7 @@ function Layout({ token, removeToken, role }) {
                         {(role == "Host") && (
                         <Fragment>
                             <Link to="/host/confirm-booking" className="nav-item nav-link active">Confirm Booking</Link>
+                            <Link to="/host/payment" className="nav-item nav-link">Payment</Link>
                         </Fragment>   
                         )}
 

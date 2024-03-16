@@ -8,6 +8,7 @@ using BirthdayParty.Repository;
 using BirthdayParty.Repository.Interfaces;
 using BirthdayParty.Services;
 using BirthdayParty.Services.Interfaces;
+using BirthdayParty.Services.PaymentService.Momo;
 using ClassLibrary.Repository.Implementation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -32,6 +33,10 @@ builder.Services.AddSingleton<IUploadFileService, UploadFileService>();
 builder.Services.AddScoped<IPackageService, PackageService>();
 builder.Services.AddScoped<IPackageRepository, PackageRepository>();
 //builder.Services.AddScoped<IServiceBookingService, ServiceBookingService>();
+builder.Services.Configure<MomoConfig>(
+    builder.Configuration.GetSection("Momo")
+);
+builder.Services.AddScoped<MomoService>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 builder.Services.AddScoped<IServiceService, ServiceService>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();

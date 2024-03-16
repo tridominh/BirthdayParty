@@ -19,12 +19,17 @@ namespace BirthdayParty.Services
             return _bookingRepository.GetAll().ToList();
         }
 
+        public Booking GetBooking(int id)
+        {
+            return _bookingRepository.Get(id);
+        }
+
         public Booking CreateBooking(BookingDTO booking)
         {
             var book = new Booking{
                 UserId = booking.UserId,
                 RoomId = booking.RoomId,
-                BookingDate = DateTime.UtcNow,
+                BookingDate = DateTime.Now,
                 PartyDateTime = booking.PartyDateTime,
                 BookingStatus = booking.BookingStatus,
                 Feedback = booking.Feedback,
