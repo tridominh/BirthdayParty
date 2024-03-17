@@ -22,7 +22,7 @@ public partial class BookingPartyOnlineContext :IdentityDbContext<User, Role, in
     public virtual DbSet<Booking> Bookings { get; set; }
 
     public virtual DbSet<BookingService> BookingServices { get; set; }
-    public virtual DbSet<Package> Packages { get; set; }
+    public virtual DbSet<Packages> Packages { get; set; }
 
     public virtual DbSet<Payment> Payments { get; set; }
 

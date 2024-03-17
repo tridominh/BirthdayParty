@@ -11,5 +11,5 @@ public abstract partial class PackageImage<T>
 
     public T Image { get; set; }
 
-    public virtual Package Package { get; set; }
+    public virtual Packages Packages { get; set; }
 }

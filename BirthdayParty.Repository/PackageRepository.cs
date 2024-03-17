@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BirthdayParty.Repository
 {
-    public class PackageRepository : GenericRepository<Package>, IPackageRepository
+    public class PackageRepository : GenericRepository<Packages>, IPackageRepository
     {
         public PackageRepository(BookingPartyContext dbContext) : base(dbContext)
         {

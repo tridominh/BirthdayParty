@@ -22,7 +22,7 @@ public partial class BookingPartyContext :IdentityDbContext<User, Role, int>
     public virtual DbSet<Booking> Bookings { get; set; }
 
     public virtual DbSet<BookingService> BookingServices { get; set; }
-    public virtual DbSet<Package> Packages { get; set; }
+    public virtual DbSet<Packages> Packages { get; set; }
 
     public virtual DbSet<Payment> Payments { get; set; }
 
@@ -70,7 +70,7 @@ public partial class BookingPartyContext :IdentityDbContext<User, Role, int>
         modelBuilder.Entity<PackageImageLocal>()
             .ToTable("PackageImages")
             .UseTphMappingStrategy()
-            .HasOne(f => f.Package)
+            .HasOne(f => f.Packages)
             .WithMany(f => f.PackageImages)
             .HasForeignKey(f => f.PackageId);
         modelBuilder.Entity<RoomImage<byte[]>>()

@@ -105,7 +105,7 @@ namespace BirthdayParty.DAL.Migrations
                     b.ToTable("Feedbacks");
                 });
 
-            modelBuilder.Entity("BirthdayParty.DAL.Package", b =>
+            modelBuilder.Entity("BirthdayParty.DAL.Packages", b =>
                 {
                     b.Property<int>("PackageId")
                         .ValueGeneratedOnAdd()
@@ -399,7 +399,7 @@ namespace BirthdayParty.DAL.Migrations
 
             modelBuilder.Entity("BirthdayParty.DAL.Booking", b =>
                 {
-                    b.HasOne("BirthdayParty.DAL.Package", "Package")
+                    b.HasOne("BirthdayParty.DAL.Packages", "Packages")
                         .WithMany("Bookings")
                         .HasForeignKey("PackageId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -417,7 +417,7 @@ namespace BirthdayParty.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Package");
+                    b.Navigation("Packages");
 
                     b.Navigation("Room");
 
@@ -467,13 +467,13 @@ namespace BirthdayParty.DAL.Migrations
 
             modelBuilder.Entity("BirthdayParty.DAL.Service", b =>
                 {
-                    b.HasOne("BirthdayParty.DAL.Package", "Package")
+                    b.HasOne("BirthdayParty.DAL.Packages", "Packages")
                         .WithMany("Services")
                         .HasForeignKey("PackageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Package");
+                    b.Navigation("Packages");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -534,7 +534,7 @@ namespace BirthdayParty.DAL.Migrations
                     b.Navigation("Payments");
                 });
 
-            modelBuilder.Entity("BirthdayParty.DAL.Package", b =>
+            modelBuilder.Entity("BirthdayParty.DAL.Packages", b =>
                 {
                     b.Navigation("Bookings");
 

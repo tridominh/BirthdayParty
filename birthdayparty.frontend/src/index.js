@@ -11,10 +11,7 @@ import Login from './Pages/Login';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import useToken from './Services/useToken';
 import About from './Pages/About';
-import Package from './Pages/Package';
-import KidsMenu from './Pages/KidsMenu';
-import NormalMenu from './Pages/NormalMenu';
-import VegetarianMenu from './Pages/VegetarianMenu';
+import Packages from './Pages/Packages';
 import PrivateRoute from './Services/PrivateRoute';
 import parseJwt from './Services/parseJwt';
 import AdminBooking from './AdminPages/Booking';
@@ -24,6 +21,7 @@ import Room from './Pages/Room';
 import HostPayment from './HostPages/HostPayment';
 import Payment from './Pages/Payment';
 import MyBooking from './Pages/MyBooking';
+import Menu from './Pages/Menu';
 
 export default function App() {
   const { token, setToken, removeToken } = useToken();
@@ -38,7 +36,7 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="about" element={<About/>} />
           <Route path="room" element={<Room/>} />
-          <Route path="package" element={<Package/>} />
+          <Route path="package" element={<Packages/>} />
           <Route path="booking" element={<Booking />} >
             <Route path=":id" element={<Booking />} />
           </Route>
@@ -69,9 +67,7 @@ export default function App() {
             </PrivateRoute>}
           />
           <Route path="*" element={<NotFound />} />
-          <Route path='kidsMenu' element={<KidsMenu />} />
-          <Route path='normalMenu' element={<NormalMenu />} />
-          <Route path='vegetarianMenu' element={<VegetarianMenu />} />
+          <Route path='/menu/:id' element={<Menu />} />
         </Route>
         <Route path='login' element={<Login setToken={setToken} 
               />}/>

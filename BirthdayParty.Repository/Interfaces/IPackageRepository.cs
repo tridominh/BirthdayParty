@@ -2,7 +2,7 @@
 
 namespace BirthdayParty.Repository.Interfaces
 {
-    public interface IPackageRepository : IGenericRepository<Package>
+    public interface IPackageRepository : IGenericRepository<Packages>
     {
         
     }

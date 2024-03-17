@@ -9,14 +9,14 @@ namespace BirthdayParty.Services.Interfaces
 {
     public interface IPackageService
     {
-        List<Package> GetAllPackages();
+        List<Packages> GetAllPackages();
 
         List<Service> GetAllServicesByPackageId(int packageId);
 
-        void CreatePackage(Package package);
+        void CreatePackage(Packages package);
 
-        Package UpdatePackage(int id, Package package);
+        Packages UpdatePackage(int id, Packages package);
 
-        Package DeletePackage(int id);
+        Packages DeletePackage(int id);
     }
 }
