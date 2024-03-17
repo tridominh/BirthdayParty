@@ -18,9 +18,9 @@ namespace BirthdayParty.API.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<List<Package>>> GetAllPackages()
+        public async Task<ActionResult<List<Packages>>> GetAllPackages()
         {
-            List<Package> packages = packageService.GetAllPackages();
+            List<Packages> packages = packageService.GetAllPackages();
 
             //if (packages == null || packages.Count == 0)
             //{
@@ -31,41 +31,41 @@ namespace BirthdayParty.API.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<ActionResult<Package>> CreatePackage([FromBody] PackageCreateDto packageCreateDto)
+        public async Task<ActionResult<Packages>> CreatePackage([FromBody] PackageCreateDto packageCreateDto)
         {
-            Package package = PackageConverter.toEntity(packageCreateDto);
+            Packages package = PackageConverter.toEntity(packageCreateDto);
 
             packageService.CreatePackage(package);
 
-            return Ok(new { Message = "Create Package Successfully", Data = packageCreateDto });
+            return Ok(new { Message = "Create Packages Successfully", Data = packageCreateDto });
         }
 
         [HttpPut("Update")]
-        public async Task<ActionResult<Package>> UpdatePackage([FromBody] PackageUpdateDto packageUpdateDto)
+        public async Task<ActionResult<Packages>> UpdatePackage([FromBody] PackageUpdateDto packageUpdateDto)
         {
-            Package updatedPackage = PackageConverter.toEntity(packageUpdateDto);
+            Packages updatedPackage = PackageConverter.toEntity(packageUpdateDto);
 
-            Package package = packageService.UpdatePackage(packageUpdateDto.PackageId, updatedPackage);
+            Packages package = packageService.UpdatePackage(packageUpdateDto.PackageId, updatedPackage);
 
             if(package == null)
             {
                 return NotFound();   
             }
 
-            return Ok(new { Message = "Update Package Successfully", Data =  package});
+            return Ok(new { Message = "Update Packages Successfully", Data =  package});
         }
 
         [HttpDelete("Delete")]
-        public async Task<ActionResult<Package>> DeletePackage([FromBody] int id)
+        public async Task<ActionResult<Packages>> DeletePackage([FromBody] int id)
         {
-            Package package = packageService.DeletePackage(id);
+            Packages package = packageService.DeletePackage(id);
 
             if(package == null)
             {
                 return NotFound();
             }
 
-            return Ok(new { Message = "Delete Package Successfully", Data = package });
+            return Ok(new { Message = "Delete Packages Successfully", Data = package });
         }
 
         [HttpGet("GetAllServicesByPackageId")]

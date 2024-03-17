@@ -85,7 +85,7 @@ namespace BirthdayParty.DAL.Migrations
                     b.ToTable("BookingServices");
                 });
 
-            modelBuilder.Entity("BirthdayParty.Models.Package", b =>
+            modelBuilder.Entity("BirthdayParty.Models.Packages", b =>
                 {
                     b.Property<int>("PackageId")
                         .ValueGeneratedOnAdd()
@@ -552,13 +552,13 @@ namespace BirthdayParty.DAL.Migrations
 
             modelBuilder.Entity("BirthdayParty.Models.Service", b =>
                 {
-                    b.HasOne("BirthdayParty.Models.Package", "Package")
+                    b.HasOne("BirthdayParty.Models.Packages", "Packages")
                         .WithMany("Services")
                         .HasForeignKey("PackageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Package");
+                    b.Navigation("Packages");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -614,13 +614,13 @@ namespace BirthdayParty.DAL.Migrations
 
             modelBuilder.Entity("BirthdayParty.Models.LocalImages.PackageImageLocal", b =>
                 {
-                    b.HasOne("BirthdayParty.Models.Package", "Package")
+                    b.HasOne("BirthdayParty.Models.Packages", "Packages")
                         .WithMany("PackageImages")
                         .HasForeignKey("PackageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Package");
+                    b.Navigation("Packages");
                 });
 
             modelBuilder.Entity("BirthdayParty.Models.LocalImages.RoomImageLocal", b =>
@@ -652,7 +652,7 @@ namespace BirthdayParty.DAL.Migrations
                     b.Navigation("Payments");
                 });
 
-            modelBuilder.Entity("BirthdayParty.Models.Package", b =>
+            modelBuilder.Entity("BirthdayParty.Models.Packages", b =>
                 {
                     b.Navigation("PackageImages");
 

@@ -11,22 +11,22 @@ namespace BirthdayParty.Models.Converters
     {
         public PackageConverter() { }
 
-        public static Package toEntity(PackageCreateDto packageCreateDto)
+        public static Packages toEntity(PackageCreateDto packageCreateDto)
         {
             if (packageCreateDto == null) return null;
 
-            return new Package
+            return new Packages
             {
                 PackageName = packageCreateDto.PackageName,
                 PackageType = packageCreateDto.PackageType
             };
         }
 
-        public static Package toEntity(PackageUpdateDto packageUpdateDto)
+        public static Packages toEntity(PackageUpdateDto packageUpdateDto)
         {
             if (packageUpdateDto == null) return null;
 
-            return new Package
+            return new Packages
             {
                 PackageName = packageUpdateDto.PackageName,
                 PackageType = packageUpdateDto.PackageType

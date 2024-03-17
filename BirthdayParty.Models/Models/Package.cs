@@ -4,7 +4,7 @@ using BirthdayParty.Models.LocalImages;
 
 namespace BirthdayParty.Models;
 
-public partial class Package
+public partial class Packages
 {
     public int PackageId { get; set; }
 

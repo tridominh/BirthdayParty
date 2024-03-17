@@ -18,7 +18,7 @@ public partial class Service
 
     public virtual ICollection<BookingService> BookingServices { get; set; } = new List<BookingService>();
 
-    public virtual Package Package { get; set; }
+    public virtual Packages Packages { get; set; }
 
     public virtual ICollection<ServiceImageLocal> ServiceImages { get; set; } = new List<ServiceImageLocal>();
 }

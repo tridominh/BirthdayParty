@@ -18,19 +18,19 @@ namespace BirthdayParty.Services
             this.serviceRepository = serviceRepository;
         }
 
-        public List<Package> GetAllPackages()
+        public List<Packages> GetAllPackages()
         {
             return packageRepository.GetAll(q => q.Include(p => p.Services)).ToList();
         }
 
-        public void CreatePackage(Package package)
+        public void CreatePackage(Packages package)
         {
             packageRepository.Add(package);
         }
 
-        public Package UpdatePackage(int id, Package package)
+        public Packages UpdatePackage(int id, Packages package)
         {
-            Package existingPackage = packageRepository.Get(id);
+            Packages existingPackage = packageRepository.Get(id);
 
             existingPackage.PackageName = package.PackageName;
             existingPackage.PackageType = package.PackageType;
@@ -40,9 +40,9 @@ namespace BirthdayParty.Services
             return existingPackage;
         }
 
-        public Package DeletePackage(int id)
+        public Packages DeletePackage(int id)
         {
-            Package package = packageRepository.Delete(id);
+            Packages package = packageRepository.Delete(id);
 
             return package;
         }
