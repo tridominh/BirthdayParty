@@ -1,0 +1,144 @@
+/** @format */
+
+.menu a {
+    text-decoration: none;
+    color: #666;
+}
+
+.menu a:hover {
+    color: #333;
+}
+
+.menu .sub-menu {
+    display: none;
+    padding-left: 20px;
+}
+
+.menu .sub-menu li {
+    border-bottom: none;
+}
+
+.menu .has-sub:hover .sub-menu {
+    display: block;
+}
+
+.menu .has-sub::after {
+    content: " ▼";
+}
+
+.menu .has-sub:hover::after {
+    content: " ▲";
+}
+
+.foodMenu {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100vw;
+    padding: 0;
+}
+
+.kidMenu {
+    width: 100%;
+    text-align: center;
+    margin: 20px 0 0 0;
+}
+.foodMenu {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+.foodMenu .foodMenuItem {
+    margin: 2vw;
+    padding: 0;
+    position: relative;
+    border-radius: 15px;
+    width: calc(100vw / 3.5);
+    min-width: 300px;
+}
+
+.foodMenu .foodMenuItem .foodMenuName {
+    /* position: absolute; */
+    text-align: center;
+    transform: translate(0, -40px);
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.foodMenu .foodMenuItem .foodMenuImg {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px grey;
+}
+
+.foodMenu .foodMenuItem .foodMenuDescription {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    color: white;
+    padding: 10% 0 0 0;
+    transition: all 0.1s linear;
+    color: transparent;
+    font-size: 15px;
+    cursor: pointer;
+}
+.foodMenu .foodMenuItem .foodMenuDescription:hover {
+    backdrop-filter: blur(3px) grayscale(70%);
+    color: white;
+    text-shadow: 1px 1px 1px black;
+}
+.foodMenu .foodMenuItem .btnContainer {
+    visibility:hidden;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.foodMenu .foodMenuItem .btnContainer button {
+    outline: none;
+    border: none;
+    margin: 10px;
+    padding: 7px;
+    border-radius: 8px;
+    background-color: transparent;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+    border: 1px solid white;
+    min-width: 120px;
+    transition: all 0.1s linear;
+}
+
+.foodMenu .foodMenuItem .btnContainer button:nth-child(2) {
+    background-color: green;
+}
+
+.foodMenu .foodMenuItem .btnContainer button:nth-child(1):hover {
+    border: 1px solid rgb(64, 232, 64);
+    color: rgb(64, 232, 64);
+    font-weight: 600;
+}
+
+.foodMenu .foodMenuItem .btnContainer button:nth-child(2):hover {
+    background-color: rgb(45, 174, 45);
+}
+
+.foodMenu .foodMenuItem .foodMenuDescription:hover > .btnContainer {
+    visibility: visible;
+}
+.foodMenu .foodMenuItem .price {
+    opacity: 0;
+    position: absolute;
+    bottom: calc(10% + 60px);
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+}
+.foodMenu .foodMenuItem .foodMenuDescription:hover > .price {
+    opacity: 1;
+}
