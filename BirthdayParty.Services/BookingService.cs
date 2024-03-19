@@ -2,6 +2,7 @@ using BirthdayParty.Models;
 using BirthdayParty.Models.DTOs;
 using BirthdayParty.Repository.Interfaces;
 using BirthdayParty.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace BirthdayParty.Services
 {
@@ -16,7 +17,8 @@ namespace BirthdayParty.Services
 
         public List<Booking> GetAllBookings()
         {
-            return _bookingRepository.GetAll().ToList();
+            return _bookingRepository.GetAll(p => p.Include(p => p.User), 
+                    p => p.Include(p => p.BookingServices)).ToList();
         }
 
         public Booking GetBooking(int id)
@@ -31,6 +33,7 @@ namespace BirthdayParty.Services
                 RoomId = booking.RoomId,
                 BookingDate = DateTime.Now,
                 PartyDateTime = booking.PartyDateTime,
+                PartyEndTime = booking.PartyEndTime,
                 BookingStatus = booking.BookingStatus,
                 Feedback = booking.Feedback,
             };
@@ -53,6 +56,20 @@ namespace BirthdayParty.Services
 
             return existingBooking;
         }
+
+        public Booking UpdateBooking(Booking booking){
+            _bookingRepository.Update(booking);
+            return booking;
+        }
+
+        public Booking UpdateBookingStatus(int id, string status)
+        {
+            Booking booking = _bookingRepository.Get(id);
+            booking.BookingStatus = status;
+            _bookingRepository.Update(booking);
+            return booking;
+        }
+         
 
         public Booking DeleteBooking(int id)
         {

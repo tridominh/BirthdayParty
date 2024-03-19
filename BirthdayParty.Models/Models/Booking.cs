@@ -15,9 +15,13 @@ public partial class Booking
 
     public DateTime PartyDateTime { get; set; }
 
+    public DateTime PartyEndTime { get; set; }
+
     public string BookingStatus { get; set; }
 
     public string Feedback { get; set; }
+
+    public decimal TotalPrice { get; set; }
 
     public virtual ICollection<BookingService> BookingServices { get; set; } = new List<BookingService>();
 

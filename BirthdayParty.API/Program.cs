@@ -122,11 +122,11 @@ var app = builder.Build();
 //app.MapIdentityApi<IdentityUser>();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 
 app.UseCors("myCorsPolicy");
 app.UseHttpsRedirection();

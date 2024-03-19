@@ -12,13 +12,23 @@ namespace BirthdayParty.Models.DTOs
 
         public DateTime PartyDateTime { get; set; }
 
-        public string BookingStatus { get; set; }
+        public DateTime PartyEndTime { get; set; }
 
-        public string Feedback { get; set; }
+        public decimal? TotalPrice { get; set; }
 
-        public ICollection<int> ServiceIds { get; set; } = new List<int>();
+        public string? BookingStatus { get; set; }
+
+        public string? Feedback { get; set; }
+
+        public List<ServiceInBookingDTO>? ServiceIds { get; set; } = new List<ServiceInBookingDTO>();
 
         //public ICollection<string> PaymentIds { get; set; } = new List<string>();
+    }
+
+    public class ServiceInBookingDTO
+    {
+        public int ServiceId { get; set; }
+        public int Amount { get; set; }
     }
 }
 
