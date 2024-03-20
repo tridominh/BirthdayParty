@@ -39,10 +39,19 @@ function Payment() {
             redirectUrl: "http://localhost:3000/payment-completed"
         }
         console.log(booking);
-        const data = await CreateMomoLink(options);
-        const json = await data.json();
-        console.log(json);
-        setPayUrl(json.url);
+        try{
+            const data = await CreateMomoLink(options);
+            if (!data.ok) {
+                const errorData = await res.text();
+                throw new Error(errorData || 'Unknown error occurred');
+            }
+            const json = await data.json();
+            console.log(json);
+            setPayUrl(json.url);
+        }
+        catch(err){
+            setError(err.message);
+        }
     };
 
     const fetchCashPayment = async () => {
@@ -50,10 +59,12 @@ function Payment() {
             bookingId: parseInt(id),
             method: payType
         }
-        const data = await ChangeBookingStatusAfterPayment(options);
-        const json = await data.json();
-        if(!json) {
-            setError("Something went wrong");
+        try{
+            const data = await ChangeBookingStatusAfterPayment(options);
+            const json = await data.json();
+        }
+        catch(err){
+            setError(err.message);
         }
     };
 
@@ -155,6 +166,7 @@ function Payment() {
                         Pay with Momo
                     </button>
                 </div>
+                <div className="text-danger">{error}</div>
             </div>
         </Fragment>
     );

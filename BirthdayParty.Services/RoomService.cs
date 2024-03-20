@@ -35,6 +35,10 @@ namespace BirthdayParty.Services
             return _roomRepository.Update(room);
         }
 
+        public Room UpdateRoom(Room room){
+            return _roomRepository.Update(room);
+        }
+
         public Room DeleteRoom(int id)
         {
             return _roomRepository.Delete(id);

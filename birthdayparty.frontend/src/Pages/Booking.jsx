@@ -106,17 +106,20 @@ function Booking(){
             serviceIds: serviceIds
         };
 
-        console.log(booking);
+        //console.log(booking);
         const book = await createBook(booking);
-        if(book && !errorMsg){
+        console.log(book);
+        console.log(errorMsg);
+        if(book != undefined){
             createHeaderNotification("success", "Create booking successfully", "Success");
             //navigate("/payment");
         }
-        else{
-            createHeaderNotification("error", errorMsg ,"Error");
-        }
-        console.log(book);
     };
+
+    useEffect(() => {
+        if(errorMsg != "")
+            createHeaderNotification("error", errorMsg ,"Error");
+    }, [errorMsg])
 
     if(!rooms || !packages) 
         return (<Fragment>

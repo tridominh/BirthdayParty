@@ -8,6 +8,7 @@ namespace BirthdayParty.Services.Interfaces
         List<Room> GetAllRooms();
         Room GetRoomById(int id);
         Room UpdateRoom(RoomUpdateDto updatedRoom);
+        Room UpdateRoom(Room room);
         Room DeleteRoom(int id);
         Room CreateRoom(RoomCreateDto room);
     }

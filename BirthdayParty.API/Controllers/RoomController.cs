@@ -10,21 +10,19 @@ namespace BirthdayParty.API.Controllers
     public class RoomController : ControllerBase
     {
         private readonly IRoomService _roomService;
+        private readonly IBookingService _bookingService;
 
-        public RoomController(IRoomService roomService)
+        public RoomController(IRoomService roomService,
+            IBookingService bookingService)
         {
             _roomService = roomService;
+            _bookingService = bookingService;
         }
 
         [HttpGet("GetAllRooms")]
         public async Task<ActionResult<List<Room>>> GetAllRooms()
         {
             List<Room> rooms = _roomService.GetAllRooms();
-
-            //if (rooms == null || rooms.Count == 0)
-            //{
-            //    return NotFound();
-            //}
 
             return Ok(rooms);
         }
